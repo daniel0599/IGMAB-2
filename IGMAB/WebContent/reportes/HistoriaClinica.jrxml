@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HistoriaClinica" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e71f7fb6-fac1-4fca-9e97-e6dcddd06b57">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="historiaClinicaId" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select
+igmab.historiaclinica.PacienteID AS PacienteID,
+        igmab.historiaclinica.Algomasagregar AS Algomasagregar,
+        igmab.historiaclinica.Antecedentespatologicosf AS Antecedentespatologicosf,
+        igmab.historiaclinica.Antecedentespatologicosp AS Antecedentespatologicosp,
+        igmab.historiaclinica.Antecedentespersonalesnp AS Antecedentespersonalesnp,
+        igmab.historiaclinica.Areaescolar AS Areaescolar,
+        igmab.historiaclinica.Aspectoconductageneral AS Aspectoconductageneral,
+        igmab.historiaclinica.Desarrolloconyugal AS Desarrolloconyugal,
+        igmab.historiaclinica.Desarrolloespiritual AS Desarrolloespiritual,
+        igmab.historiaclinica.Desarrollolaboral AS Desarrollolaboral,
+        igmab.historiaclinica.Desarrollosexual AS Desarrollosexual,
+        igmab.historiaclinica.Desarrollosocial AS Desarrollosocial,
+        igmab.historiaclinica.Expectativa AS Expectativa,
+        igmab.historiaclinica.Impresiondiagnostica AS Impresiondiagnostica,
+        igmab.historiaclinica.Motivoconsulta AS Motivoconsulta,
+        igmab.historiaclinica.Padecimientoactual AS Padecimientoactual,
+        igmab.historiaclinica.Padecimientoh_f AS Padecimientoh_f,
+        igmab.historiaclinica.Relacionnucleof AS Relacionnucleof,
+        igmab.historiaclinica.HistoriaclinicaID AS HistoriaclinicaID,
+       CONCAT(igmab.Paciente.Nombre1, " ", igmab.Paciente.Nombre2, " ", igmab.Paciente.Apellido1, " ", igmab.Paciente.Apellido2) as nombreCompleto
+         FROM
+        (igmab.historiaclinica
+        JOIN igmab.paciente ON ((igmab.historiaclinica.PacienteID = igmab.paciente.PacienteID)))
+         Where HistoriaclinicaID =   $P{historiaClinicaId}]]>
+	</queryString>
+	<field name="PacienteID" class="java.lang.Integer"/>
+	<field name="Algomasagregar" class="java.lang.String"/>
+	<field name="Antecedentespatologicosf" class="java.lang.String"/>
+	<field name="Antecedentespatologicosp" class="java.lang.String"/>
+	<field name="Antecedentespersonalesnp" class="java.lang.String"/>
+	<field name="Areaescolar" class="java.lang.String"/>
+	<field name="Aspectoconductageneral" class="java.lang.String"/>
+	<field name="Desarrolloconyugal" class="java.lang.String"/>
+	<field name="Desarrolloespiritual" class="java.lang.String"/>
+	<field name="Desarrollolaboral" class="java.lang.String"/>
+	<field name="Desarrollosexual" class="java.lang.String"/>
+	<field name="Desarrollosocial" class="java.lang.String"/>
+	<field name="Expectativa" class="java.lang.String"/>
+	<field name="Impresiondiagnostica" class="java.lang.String"/>
+	<field name="Motivoconsulta" class="java.lang.String"/>
+	<field name="Padecimientoactual" class="java.lang.String"/>
+	<field name="Padecimientoh_f" class="java.lang.String"/>
+	<field name="Relacionnucleof" class="java.lang.String"/>
+	<field name="HistoriaclinicaID" class="java.lang.Integer"/>
+	<field name="nombreCompleto" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<image>
+				<reportElement x="10" y="5" width="100" height="70" uuid="4b2628b1-7d95-4fe5-b5e6-f104f8733904"/>
+				<imageExpression><![CDATA["logo igmab.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="164" y="15" width="230" height="30" uuid="96c0b583-e975-431e-bd23-2f624f59fb5a"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Historia clinica]]></text>
+			</staticText>
+			<image>
+				<reportElement x="490" y="0" width="55" height="45" uuid="cfd9b4fe-8691-49b0-92af-d3df8ac18eec"/>
+				<imageExpression><![CDATA["jesuita.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="759" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="60" height="20" uuid="17ad975c-95cb-4e7c-bf05-c01868d0c880"/>
+				<text><![CDATA[Nombre: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="60" y="0" width="140" height="20" uuid="bdb2b4fc-d4c5-494a-953a-6c4c1e191361"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{nombreCompleto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="50" width="100" height="20" uuid="5f73a023-465b-4959-b1d7-f5892be1c308"/>
+				<text><![CDATA[Famileograma]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="290" width="544" height="99" uuid="9cd55f3e-d209-4a3a-a4ba-053bb8198186"/>
+				<textFieldExpression><![CDATA[$F{Motivoconsulta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="260" width="146" height="30" uuid="85582c23-668d-4f18-a658-8a9d973e514b"/>
+				<text><![CDATA[Motivo de consulta]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="440" width="544" height="119" uuid="edc9a69b-206f-4730-8c72-6725a8fc29ef"/>
+				<textFieldExpression><![CDATA[$F{Padecimientoactual}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="410" width="146" height="30" uuid="3146e9bb-10a6-4d43-95b4-9705b6a18cf6"/>
+				<text><![CDATA[Historia de padecimiento actual]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="610" width="544" height="130" uuid="30b28ed2-8fc1-4e57-b36f-1e8909f56e9c"/>
+				<textFieldExpression><![CDATA[$F{Expectativa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="580" width="100" height="30" uuid="e1e166b8-25b7-4137-8221-147701b7f6e4"/>
+				<text><![CDATA[Expectativas]]></text>
+			</staticText>
+		</band>
+		<band height="771">
+			<textField>
+				<reportElement x="0" y="60" width="540" height="119" uuid="adaedef4-d884-475d-b5d1-0f28c92191e1"/>
+				<textFieldExpression><![CDATA[$F{Padecimientoh_f}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="30" width="146" height="30" uuid="6d4d6c98-cac3-4fc7-9f88-2f34eb259678"/>
+				<text><![CDATA[Antecedentes heredo-familiares]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="230" width="540" height="130" uuid="349203b3-732e-4380-a03a-d4feb6dcf82a"/>
+				<textFieldExpression><![CDATA[$F{Antecedentespersonalesnp}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="200" width="190" height="30" uuid="68aa8e07-af8a-4144-9f3a-53a490557e15"/>
+				<text><![CDATA[Antecedentes personales no patologicos]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="410" width="540" height="130" uuid="d36f835c-9e5a-416c-876c-4008e7b6ef64"/>
+				<textFieldExpression><![CDATA[$F{Antecedentespatologicosp}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="380" width="180" height="30" uuid="74a807d9-7fc8-420b-a674-c348ed357e33"/>
+				<text><![CDATA[Antecedentes patologicos personales]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="590" width="540" height="139" uuid="3905f4e8-4183-4734-a708-3e618a8d298a"/>
+				<textFieldExpression><![CDATA[$F{Antecedentespatologicosf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="560" width="180" height="30" uuid="e18ae3a7-2aad-43bc-891e-d98bd0985955"/>
+				<text><![CDATA[Antecedentes patologicos familiares]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="760" width="545" height="1" uuid="de269ad5-9dc8-4638-a7f7-c4ab2c8c1125"/>
+			</break>
+			<break>
+				<reportElement x="0" y="4" width="559" height="1" uuid="6b9efe1a-34c6-4e13-ab14-ef7f97810e55"/>
+			</break>
+		</band>
+		<band height="771">
+			<textField>
+				<reportElement x="0" y="50" width="540" height="130" uuid="06cc5b0f-1937-4458-9a53-a0fbfbd43559"/>
+				<textFieldExpression><![CDATA[$F{Relacionnucleof}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="146" height="30" uuid="ac6cc6bf-c3fb-46e5-9c56-66d791a4af43"/>
+				<text><![CDATA[Relacion con el nucleo familiar]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="234" width="540" height="135" uuid="b0f11230-5a58-41d0-9a00-28c603f34e6a"/>
+				<textFieldExpression><![CDATA[$F{Areaescolar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="204" width="100" height="30" uuid="60321b97-7eb3-4eb2-a0ee-0275f7a3a768"/>
+				<text><![CDATA[Área escolar]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="420" width="540" height="130" uuid="d3e9bbdd-0c00-4683-82bd-95acdfb1e440"/>
+				<textFieldExpression><![CDATA[$F{Desarrollosocial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="390" width="100" height="30" uuid="ed1c284b-4a27-4a42-8d6e-4993a1bc3106"/>
+				<text><![CDATA[Desarrollo social]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="600" width="540" height="130" uuid="9ae704c4-bac7-46f4-a287-bdd791c149e9"/>
+				<textFieldExpression><![CDATA[$F{Desarrollolaboral}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="570" width="100" height="30" uuid="3b124cc1-d145-458e-a2b9-119bb928bb01"/>
+				<text><![CDATA[Desarrollo laboral]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="760" width="558" height="1" uuid="f0b45f4e-a87a-4403-920e-56ba8198f868"/>
+			</break>
+		</band>
+		<band height="758">
+			<textField>
+				<reportElement x="0" y="50" width="540" height="130" uuid="f78ba170-f874-420c-ace0-29e17f1676ab"/>
+				<textFieldExpression><![CDATA[$F{Desarrollosexual}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="100" height="30" uuid="a8a20ce8-4b41-4cb6-9da3-bb8113e6ef3b"/>
+				<text><![CDATA[Desarrollo sexual]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="230" width="540" height="130" uuid="1ce7d70a-c430-43d1-a189-de837970eb5d"/>
+				<textFieldExpression><![CDATA[$F{Desarrolloconyugal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="200" width="146" height="30" uuid="91fb5a3d-abd3-4d01-9c5a-c732eadef481"/>
+				<text><![CDATA[Desarrollo conyugal, pareja]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="410" width="540" height="130" uuid="a31d83e6-3a21-4d3b-be21-915eff99a961"/>
+				<textFieldExpression><![CDATA[$F{Desarrolloespiritual}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="380" width="100" height="30" uuid="76e6c2d3-1d43-48b4-a0d6-d26b6bd2d93f"/>
+				<text><![CDATA[Desarrollo espiritual]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="590" width="540" height="130" uuid="d4c7906a-6ef9-4457-b65e-16782319cdf1"/>
+				<textFieldExpression><![CDATA[$F{Aspectoconductageneral}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="560" width="146" height="30" uuid="cd6a06dd-0346-4260-81ff-a57410d0e4cc"/>
+				<text><![CDATA[Aspecto y conducta general]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="750" width="557" height="1" uuid="2986fbb6-bf75-4801-ad2b-10a16dbcf829"/>
+			</break>
+		</band>
+		<band height="338">
+			<textField>
+				<reportElement x="0" y="40" width="540" height="130" uuid="3bd80584-f7ed-4f73-9fc8-b4231b6bab62"/>
+				<textFieldExpression><![CDATA[$F{Algomasagregar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="10" width="100" height="30" uuid="6f2b4406-0ed7-4376-8617-42636739f1b2"/>
+				<text><![CDATA[Alguna otra cosa que quiera decir y este relacionada con el problema del niño/a]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="220" width="544" height="99" uuid="f083f1f9-4eee-4cb1-ae4e-b7154d7c34c7"/>
+				<textFieldExpression><![CDATA[$F{Impresiondiagnostica}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="190" width="100" height="30" uuid="62ef708c-fed6-4307-9e92-e419bfda6d3a"/>
+				<text><![CDATA[Impresión diagnostica]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="30" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

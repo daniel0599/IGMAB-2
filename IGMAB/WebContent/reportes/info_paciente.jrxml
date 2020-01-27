@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="info_paciente" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f7be3d42-7784-40ae-b366-6577ae438dba">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="IGMAB"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="pacienteId" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT 
+Expediente, CONCAT(Nombre1, " ", Nombre2, " ", Apellido1, " ", Apellido2) AS Nombre,
+CASE 
+	WHEN EscolaridadID = 1 THEN 'Preescolar'
+    WHEN EscolaridadID = 2 THEN 'Primaria'
+    WHEN EscolaridadID = 3 THEN 'Secundaria'
+    WHEN EscolaridadID = 4 THEN 'Universidad (Pregrado)'
+    WHEN EscolaridadID = 5 THEN 'Primaria (Posgrado)'
+END AS Escolaridad, Celular,
+Edad, Direccion, Conquienvive,
+igmab.Paciente.Escolaridad AS Escolaridaddetalle,
+IF(igmab.Paciente.Internadoafirmativo = '', "-", igmab.Paciente.Internadoafirmativo) AS Internadoafirmativo,
+IF(igmab.Paciente.Empleo = '', "-", igmab.Paciente.Empleo) AS Empleo,
+IF(igmab.Paciente.Salario = '', "-", igmab.Paciente.Salario) AS Salario,
+IF(igmab.Paciente.Lugartrabajo = '', "-", igmab.Paciente.Lugartrabajo) AS Lugartrabajo,
+IF(igmab.Paciente.Sexo = 1, "Hombre", "Mujer") AS Sexo,
+IF(igmab.Paciente.Estadocivil = 1, "Casado/a", "Soltero/a") AS Estadocivil,
+IF(igmab.Paciente.Terapia = 1, "Sí", "No") AS Terapia,
+IF(igmab.Paciente.Internado = 1, "Sí", "No") AS Internado,
+DATE_FORMAT(igmab.Paciente.Fechanac, '%d/%m/%Y') AS Fechanac
+FROM igmab.Paciente WHERE PacienteID =  $P{pacienteId}]]>
+	</queryString>
+	<field name="Expediente" class="java.lang.String"/>
+	<field name="Nombre" class="java.lang.String"/>
+	<field name="Escolaridad" class="java.lang.String"/>
+	<field name="Celular" class="java.lang.String"/>
+	<field name="Edad" class="java.lang.String"/>
+	<field name="Direccion" class="java.lang.String"/>
+	<field name="Conquienvive" class="java.lang.String"/>
+	<field name="Escolaridaddetalle" class="java.lang.String"/>
+	<field name="Internadoafirmativo" class="java.lang.String"/>
+	<field name="Empleo" class="java.lang.String"/>
+	<field name="Salario" class="java.lang.String"/>
+	<field name="Lugartrabajo" class="java.lang.String"/>
+	<field name="Sexo" class="java.lang.String"/>
+	<field name="Estadocivil" class="java.lang.String"/>
+	<field name="Terapia" class="java.lang.String"/>
+	<field name="Internado" class="java.lang.String"/>
+	<field name="Fechanac" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="94" splitType="Stretch">
+			<staticText>
+				<reportElement x="173" y="15" width="226" height="30" uuid="c58a4d66-f16a-4ccb-98f1-edd005594611"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Reporte de paciente]]></text>
+			</staticText>
+			<image>
+				<reportElement x="10" y="5" width="100" height="70" uuid="58481649-7e4b-4ead-a970-a31df60c3708"/>
+				<imageExpression><![CDATA["logo igmab.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="490" y="0" width="55" height="45" uuid="f351bbe9-43ad-46d2-829e-e8faa35f7e0f"/>
+				<imageExpression><![CDATA["jesuita.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="7" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="6" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="393" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="340" width="100" height="50" uuid="c17dfac9-448d-4772-97e4-d9345fce1d41"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[En caso afirmativo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="200" width="140" height="30" uuid="43e3e56c-847e-4452-bd99-ac2360228026"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Empleo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="120" width="100" height="30" uuid="4b880e25-5d2a-4e4f-ada8-b9186da0fc20"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Estado civil:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="40" width="100" height="30" uuid="17d52de9-6876-4c03-936d-5a66a91b5549"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Fecha de nacimiento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="40" width="140" height="30" uuid="442b0ae0-a639-4624-926c-14ee4e9ba9bd"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Edad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="160" width="140" height="30" uuid="2db63891-296d-411d-ba98-5be62bc1ca61"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Escolaridad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="280" width="140" height="50" uuid="d00960bd-b2a6-45cf-9158-54a030862abf"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Ha estado internado por problemas psicológicos/psiquiátricos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="240" width="140" height="30" uuid="02683312-3693-4955-98a2-4be08536c68c"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Lugar de trabajo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="2" width="140" height="30" uuid="e19d48c3-ed29-42c2-8833-7b71be3f78fd"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="80" width="100" height="30" uuid="0856e9ad-5cec-472d-8f1e-2299febca356"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Con quien vive:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="160" width="100" height="30" uuid="fdf72433-2f8a-40a2-9bb8-f81facd25cb8"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Detalle de escolaridad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="2" width="100" height="30" uuid="d2bedb12-fdc3-4359-9ee7-d964a3f5f729"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Expediente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="80" width="140" height="40" uuid="b0bac166-26fb-4fa2-b95a-a094de4c1243"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Dirección:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="130" width="140" height="20" uuid="b0b31a54-d399-4435-9e68-9ebdac0418e7"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Sexo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="190" width="100" height="30" uuid="55ea3f83-6ac4-4c2f-a50b-c9c53135fcf7"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Salario:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="230" width="120" height="70" uuid="97a2b4b2-281f-4d10-8feb-2379c055c194"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Ha estado en terapia o recibido asistencia profesional para sus problemas:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="0" width="190" height="30" uuid="1b79c3f5-d16f-4e59-965b-f0413a2531ac"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="40" width="100" height="30" uuid="d5d7f9ff-91d7-41ae-afae-74caeac0f253"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Edad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="2" width="100" height="30" uuid="cf8ce11b-e885-4990-80b2-2580b4b1d7d6"/>
+				<textFieldExpression><![CDATA[$F{Expediente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="160" width="100" height="30" uuid="3abeee49-b3d7-4d26-8080-e8a786403d39"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Escolaridad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="160" width="100" height="30" uuid="71cbd2f2-0a3f-42eb-9b6b-dcea6016d034"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Escolaridaddetalle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="80" width="100" height="30" uuid="d4f00b79-9da5-4fb5-9296-7b95941c4998"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Conquienvive}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="40" width="100" height="30" uuid="3ce7d43e-245b-4560-86b7-5cd0dc6a332c"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Fechanac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="120" width="100" height="30" uuid="be14fcee-6cb3-49b9-9427-d78bd49823b7"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Estadocivil}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="80" width="190" height="40" uuid="58cdc4a5-eaaf-41a9-b8b3-b4224497958c"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="290" width="100" height="30" uuid="b0c75262-7d9f-4471-9186-374be35e8723"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Internado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="200" width="100" height="30" uuid="b40bc3ea-0693-4952-8ee3-fb4c8a18f863"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Empleo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="190" width="100" height="30" uuid="ffadf03d-8fbb-4536-851d-4494d4014c1d"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Salario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="240" width="100" height="30" uuid="d72c8d41-4dab-4284-8300-6f44c0280dab"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Lugartrabajo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="340" width="190" height="50" uuid="e44583ee-0f39-479d-89ce-e5ea1ceac292"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Internadoafirmativo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="250" width="100" height="30" uuid="7d696ed3-798e-439f-907c-1d64345596f3"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Terapia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="130" width="100" height="20" uuid="b79e284d-b8cb-44e4-9dea-692bd9d89030"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Sexo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="8" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="9" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="8" splitType="Stretch"/>
+	</summary>
+</jasperReport>
