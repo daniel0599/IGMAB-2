@@ -81,7 +81,7 @@
 			</div>
 			<div class="box-content no-padding">
 				<div class="row">
-						<form class="form-horizontal" method="post" action="javascript:void(0);" onsubmit="guardar();">
+						<form id="agregar" class="form-horizontal" method="post" action="javascript:void(0);" onsubmit="guardar();">
 					<div class="col-sm-6">
 						<h5 class="page-header">Datos</h5>
 
@@ -150,7 +150,7 @@
 							</div>
 						</div>
 					</div>
-					<!--  					</form>-->
+    				</form>
 				</div>
 			</div>
 		</div>
@@ -415,7 +415,8 @@
 
 				websocket.send("Guardar");
 				successAlert('Listo', 'Guardado exitosamente');
-
+				$("#agregar")[0].reset();
+				$('#frm-agrega').fadeOut();
 			}
 
 		});

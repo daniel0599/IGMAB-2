@@ -166,6 +166,11 @@ response.setDateHeader("Expires", -1);
                                         <option>Seleccione</option>
                                         <option value=0>Soltero/a</option>
                                         <option value=1>Casado/a</option>
+                                        <option value=2>Divorciado/a</option>
+                                        <option value=3>Viudo/a</option>
+                                        <option value=4>En una relación</option>
+                                        <option value=5>Acompañado/a</option>
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -392,6 +397,10 @@ response.setDateHeader("Expires", -1);
                             <option>Seleccione</option>
                             <option value=0>Soltero/a</option>
                             <option value=1>Casado/a</option>
+                            <option value=2>Divorciado/a</option>
+                            <option value=3>Viudo/a</option>
+                            <option value=4>En una relación</option>
+                            <option value=5>Acompañado/a</option>
                         </select>
                     </div>
                 </div>
@@ -619,6 +628,10 @@ response.setDateHeader("Expires", -1);
                                         <option>Seleccione</option>
                                         <option value=0>Soltero/a</option>
                                         <option value=1>Casado/a</option>
+                                        <option value=2>Divorciado/a</option>
+                                        <option value=3>Viudo/a</option>
+                                        <option value=4>En una relación</option>
+                                        <option value=5>Acompañado/a</option>
                                     </select>
                                 </div>
                             </div>
