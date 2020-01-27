@@ -177,7 +177,7 @@
 	</div>
 	<div class="box-content no-padding">
 		<div class="row">
-			 <form class="form-horizontal" method="post" action="javascript:void(0);" onsubmit="actualizar($('#btnEditar').val());">
+			 <form id="edit" class="form-horizontal" method="post" action="javascript:void(0);" onsubmit="actualizar($('#btnEditar').val());">
 			<div class="col-sm-6">
 				<h5 class="page-header">Datos</h5>
 
@@ -241,15 +241,11 @@
 						</button>
 					</div>
 				</div>
-			</div>
-			<!-- 					</form>   -->
+			 </div>
+          </form>   
 		</div>
 	</div>
 </div>
-
-
-
-<!--FIN DE FORMULARIO PARA EDITAR  UN PSICOLOGO -->
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">
@@ -470,6 +466,7 @@
 				$('#PacienteEditar').val(null);
 				websocket.send("Modificar");
 				successAlert('Listo', 'Actualizado exitosamente');
+				$("#edit")[0].reset();
 				$('#frm-edita').fadeOut();
 
 			}
