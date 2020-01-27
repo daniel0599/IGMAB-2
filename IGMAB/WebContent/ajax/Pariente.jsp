@@ -79,7 +79,7 @@ response.setDateHeader("Expires", -1);
 		<div id="frm-agrega" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-search"></i> <span>Registro Pariente</span>
+					<i class="fa fa-address-card-o"></i> <span>Registro Pariente</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -268,7 +268,7 @@ response.setDateHeader("Expires", -1);
 		<div id="frm-edita" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-search"></i> <span>Formulario de
+					<i class="fa fa-file-text-o"></i> <span>Formulario de
 						Actualización Pariente</span>
 				</div>
 				<div class="box-icons">
@@ -411,7 +411,7 @@ response.setDateHeader("Expires", -1);
 							<div class="col-sm-4">
 								<select id="tutorEditar" >
 									
-									<option value=1>Sí</option>
+									<option value=1>Si</option>
 									<option value=0>No</option>
 								</select>
 							</div>
@@ -446,7 +446,7 @@ response.setDateHeader("Expires", -1);
         <div id="frm-visualizar" class="box">
             <div class="box-header">
                 <div class="box-name">
-                    <i class="fa fa-search"></i> <span>Registro Pariente</span>
+                    <i class="fa fa-eye"></i> <span>Registro Pariente</span>
                 </div>
                 <div class="box-icons">
                     <a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -591,7 +591,7 @@ response.setDateHeader("Expires", -1);
                         <div class="col-sm-4">
                             <select disabled id="tutorVi">
                                 <option>Seleccione</option>
-                                <option value=1>Sí</option>
+                                <option value=1>Si</option>
                                 <option value=0>No</option>
                             </select>
                         </div>
@@ -618,7 +618,7 @@ response.setDateHeader("Expires", -1);
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-location-arrow"></i> <span>Lista de
+					<i class="fa fa-list"></i> <span>Lista de
 						parientes</span>
 				</div>
 				<div class="box-icons">
@@ -684,7 +684,7 @@ response.setDateHeader("Expires", -1);
 							<%
 								if (rp.getInt("Tutor") == 1) {
 							%>
-							<td>Sí</td>
+							<td>Si</td>
 							<%
 								}
 							%>

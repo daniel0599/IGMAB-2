@@ -320,7 +320,7 @@ response.setDateHeader("Expires", -1);
                         </div>
                         <div class="no-move"></div>
                     </div>
-        <div class="box-content">
+                <div class="box-content">
             <h4 class="page-header">Formulario de registro</h4>
             <form id="edit" class="form-horizontal" role ="form" action="javascript:void(0);" onsubmit="actualizar($('#btnEditar').val());">
                 <div class="form-group">
@@ -675,7 +675,8 @@ response.setDateHeader("Expires", -1);
                                         <option value="AbueloPaterno">Abuelo Paterno</option>
                                         <option value="Padres">Padres</option>
                                         <option value="Cónyuge">Cónyuge</option>
-                                        <option value="Niños">Niños</option>
+                                        <option value="Familia Nuclear">Familia Nuclear</option>
+                                        <option value="Familia Externa">Familia Externa</option> 
                                         <option value="Otros">Otros</option>
                                     </select>
                                 </div>
