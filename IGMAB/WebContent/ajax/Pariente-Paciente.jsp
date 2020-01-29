@@ -68,7 +68,7 @@
 		<div id="frm-agrega" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-location-arrow"></i> <span>Agregar Pariente
+					<i class="fa fa-address-card-o"></i> <span>Agregar Pariente
 						a paciente</span>
 				</div>
 				<div class="box-icons">
@@ -79,9 +79,10 @@
 				</div>
 				<div class="no-move"></div>
 			</div>
-			<div class="box-content no-padding">
+			<div class="box-content">
 				<div class="row">
-						<form id="agregar" class="form-horizontal" method="post" action="javascript:void(0);" onsubmit="guardar();">
+					<h4 class="page-header">Formulario de registrar un pariente aun paciente</h4>
+                      <form id="agregar" class="form-horizontal" role="form" action="javascript:void(0);" onsubmit="guardar();">
 					<div class="col-sm-6">
 						<h5 class="page-header">Datos</h5>
 
@@ -144,7 +145,7 @@
 								<!-- 										Guardar -->
 								<!-- 									</button> -->
 								<button class="ajax-link action btn btn-primary btn-label-left"
-									 title="Guardar">
+									 onClick="" title="Guardar">
 									<span><i class="fa fa-check-circle txt-success"></i></span>Guardar
 								</button>
 							</div>
@@ -164,7 +165,7 @@
 <div id="frm-edita" class="box">
 	<div class="box-header">
 		<div class="box-name">
-			<i class="fa fa-location-arrow"></i> <span>Editar Pariente a
+			<i class="frm-transferir"></i> <span>Editar Pariente a
 				Paciente</span>
 		</div>
 		<div class="box-icons">
@@ -235,7 +236,7 @@
 						<!-- 									</button> -->
 						<button id="btnEditar"
 							class="ajax-link btn btn-primary btn-label-left"
-							 title="Editar">
+							onCLick="" title="Editar">
 							<span><i class="fa fa-check-circle txt-success"></i></span>
 							Editar
 						</button>
@@ -251,7 +252,7 @@
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-location-arrow"></i> <span>Lista de
+					<i class="fa fa-list"></i> <span>Lista de
 						Parientes de un paciente</span>
 				</div>
 				<div class="box-icons">
@@ -298,9 +299,13 @@
 							<td><button id='btnIdActualizar'
 									onClick="cargarDatos(this.value, '<%=rsvv.getInt("PacienteID")%>', '<%=rsvv.getInt("ParienteID")%>');"
 									value=<%=rsvv.getInt("ParPacID")%>
+<%--									<%System.out.println(rsvv.getInt("ParPAcID")+" "+rsvv.getString("Nombre")+" de "+rsvv.getString("Nombre1par")); %>--%>
 									class="btn btn-primary btn-label-left">
 									<span><i class="fa fa-clock-o"></i></span> Actualizar
-								</button></td>
+								</button>
+								<%System.out.println(rsvv.getInt("ParPAcID")+" "+rsvv.getString("Nombre")+" de "+rsvv.getString("Nombre1par")); %> 
+						
+								</td>
 						</tr>
 						<%
 							}
@@ -324,7 +329,7 @@
 	var websocket = new WebSocket(wsUri); //creamos el socket
 
 	websocket.onopen = function(evt) { //manejamos los eventos...
-		console.logn("Conectado...");
+		console.log("Conectado...");
 	};
 
 	websocket.onmessage = function(evt) { // cuando se recibe un mensaje
@@ -447,16 +452,19 @@
 		var opcion = "";
 		var fparienteEditar = "";
 		var fpacienteEditar = "";
+		var fParientePacienteID=idCLicked;
 
 		opcion = "actualizar";
 		fparienteEditar = $("#ParienteEditar").val();
 		fpacienteEditar = $("#PacienteEditar").val();
+		
 
 		$.ajax({
 			url : "SLParientePaciente",
 			type : "post",
 			datatype : 'html',
 			data : {
+				'fParientePacienteID' : fPairentePacienteID,
 				'fparienteEditar' : fparienteEditar,
 				'fpacienteEditar' : fpacienteEditar,
 				'opcion' : opcion
@@ -486,7 +494,7 @@
 	}
 
 	// METODO PARA CARGAR DATOS EN EL FORMULARIO
-	function cargarDatos(pacienteID, parienteID, parpacID) {
+	function cargarDatos(parpacID, pacienteID, parienteID) {
 		var fparpacID = parpacID;
 		var fpacienteID = pacienteID;
 		var fparienteID = parienteID;
