@@ -75,14 +75,13 @@
 			</div>
 			<div class="box-content">
 				<div class="row">
-					<h4 class="page-header">Formulario de registrar un pariente aun paciente</h4>
+					<h4 class="page-header">Registrar pariente a paciente</h4>
                       <form id="agregar" class="form-horizontal" role="form" action="javascript:void(0);" onsubmit="guardar();">
 					<div class="col-sm-6">
 						<h5 class="page-header">Datos</h5>
-
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Pariente</label>
-							<div class="col-sm-4">
+							<div class="col-sm-5">
 								<select name="pariente" id="pariente" required>
 									<option value="">Seleccione</option>
 									<%
@@ -101,7 +100,7 @@
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Paciente</label>
-							<div class="col-sm-4">
+							<div class="col-sm-5">
 								<select name="paciente" id="paciente" required>
 									<option value="">Seleccione</option>
 									<%
@@ -118,16 +117,11 @@
 								</select>
 							</div>
 						</div>
-
-
-
-
-
 					</div>
 					<div class="col-sm-6">
 						<h5 class="page-header">Acciones</h5>
 						<div class="form-group">
-							<div id="cancelar_nuevo" class="col-sm-2 text-center">
+							<div id="cancelar_nuevo" class="col-sm-6 text-center">
 								<button class="ajax-link action btn btn-default btn-label-left"
 									type="reset" title="Cancelar">
 									<span><i class="fa fa-minus-circle txt-danger"></i></span>
@@ -135,9 +129,6 @@
 								</button>
 							</div>
 							<div class="col-sm-6 text-center">
-								<!-- 									<button class="ajax-link action" onClick="guardarParentesco();" title="Guardar"> -->
-								<!-- 										Guardar -->
-								<!-- 									</button> -->
 								<button class="ajax-link action btn btn-primary btn-label-left"
 									 onClick="" title="Guardar">
 									<span><i class="fa fa-check-circle txt-success"></i></span>Guardar
@@ -159,7 +150,7 @@
 <div id="frm-edita" class="box">
 	<div class="box-header">
 		<div class="box-name">
-			<i class="frm-transferir"></i> <span>Editar Pariente a
+			<i class="fa fa-exchange"></i> <span>Editar Pariente a
 				Paciente</span>
 		</div>
 		<div class="box-icons">
@@ -493,13 +484,13 @@
 				});
 	}
 	/////////////////////////////CONTROLAR EL EVENTO FADEIN DE LA VENTANA EDITAR/////////////////////////////
-// 	function editOrDeleteCustomer(event) {
-// 		var link = jQuery(event.currentTarget);
-// 		var url = link.attr('href');
-// 		jQuery.get(url, function(data) {
-// 			$('#frm-edita').fadeIn();
-// 		});
-// 	}
+	function editOrDeleteCustomer(event) {
+		var link = jQuery(event.currentTarget);
+		var url = link.attr('href');
+		jQuery.get(url, function(data) {
+			$('#frm-edita').fadeIn();
+		});
+	}
 	// Add Drag-n-Drop feature
 	$(document).ready(function() {
 		// cambiarID();

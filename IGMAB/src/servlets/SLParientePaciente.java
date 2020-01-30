@@ -96,6 +96,7 @@ public class SLParientePaciente extends HttpServlet {
 				
 				if (dtvpp.actualizarParientePaciente(vpp)) {
 					System.out.println("Actualizado exitosamente");
+					refrescar(request, response);
 				}
 
 			} catch (Exception e) {
