@@ -14,7 +14,7 @@ response.setHeader("Cache-Control","must-revalidate");
 response.setDateHeader("Expires", -1);
 
 %>
-<html charset="utf-8">
+<html >
    <head>
    
     
@@ -48,7 +48,7 @@ response.setDateHeader("Expires", -1);
 	%>
      
    </head>
-   <body class="size-1140" charset="utf-8">
+   <body class="size-1140">
       <!-- TOP NAV WITH LOGO -->
       <header>
          <div id="topbar">
@@ -377,7 +377,7 @@ response.setDateHeader("Expires", -1);
                          console.log("Iniciado");
                          window.location.replace("./index.jsp");
                      } else if(data=="2") {
-                         console.log("todo bien supuestamente");
+                         console.log("todo mal supuestamente");
                          errorAlert("Credenciales incorrectas");
                      }
 

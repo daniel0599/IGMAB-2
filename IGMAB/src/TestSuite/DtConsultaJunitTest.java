@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import java.sql.Connection;
+//import java.sql.Connection;
 import java.sql.ResultSet;
 
 

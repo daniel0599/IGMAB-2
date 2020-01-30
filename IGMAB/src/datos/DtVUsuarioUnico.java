@@ -3,7 +3,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 public class DtVUsuarioUnico {
-	private static DtVUsuarioUnico dtv = new DtVUsuarioUnico();
+//	private static DtVUsuarioUnico dtv = new DtVUsuarioUnico();
 	private static ResultSet rs; // Resultset Global
 	PoolConexion pc = PoolConexion.getInstance();
 	Connection con = PoolConexion.getConnection();

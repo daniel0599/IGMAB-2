@@ -298,7 +298,7 @@ public class SlPaciente extends HttpServlet {
 
 			out += "<thead>";
 			out += "<tr>";
-			out += "<th>Código</th>";
+			out += "<th>Codigo</th>";
 			out += "<th>Nombre</th>";
 			out += "<th>Edad</th>";
 			out += "<th>Acciones</th>";
@@ -374,7 +374,7 @@ public class SlPaciente extends HttpServlet {
 
 			out += "<tfoot>";
 			out += "<tr>";
-			out += "<th>Código</th>";
+			out += "<th>Codigo</th>";
 			out += "<th>Nombre</th>";
 			out += "<th>Edad</th>";
 			out += "<th>Acciones</th>";

@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import datos.DtRol;
+//import datos.DtRol;
 import datos.DtRolUsuario;
-import entidades.Rol;
+//import entidades.Rol;
 import entidades.RolUsuario;
 
 /**

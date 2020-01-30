@@ -1,6 +1,6 @@
 package entidades;
 
-import java.util.Date;
+//import java.util.Date;
 
 /**
  * Vista que carga los datos relacionados entre Pariente y Parentesco

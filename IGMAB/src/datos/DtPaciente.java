@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Date;
 
 import entidades.Paciente;
-import entidades.Parentesco;
+//import entidades.Parentesco;
 
 public class DtPaciente {
 

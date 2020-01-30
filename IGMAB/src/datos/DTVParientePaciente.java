@@ -36,7 +36,7 @@ public class DTVParientePaciente {
 			}
 		catch (Exception e){
 			e.printStackTrace();
-			System.out.println("Error en DTVParientePaciente : " + e.getMessage());
+			System.out.println("Error en DTPacientePariente : " + e.getMessage());
 		}
 		return rs;
 
@@ -96,6 +96,7 @@ public class DTVParientePaciente {
 					rs.updateInt("ParienteID", vpapa.getParienteID());
 			
 					rs.updateRow();
+					actualizado=true;
 				}
 			}
 

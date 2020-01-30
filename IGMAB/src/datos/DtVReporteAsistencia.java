@@ -4,7 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 public class DtVReporteAsistencia {
-	private static DtVReporteAsistencia dtrasist = new DtVReporteAsistencia();
+	//private static DtVReporteAsistencia dtrasist = new DtVReporteAsistencia();
 	private static ResultSet rs; // ResultSet Global
 	PoolConexion pc =PoolConexion.getInstance();
 	Connection con = PoolConexion.getConnection();

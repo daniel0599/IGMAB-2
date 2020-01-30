@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DtVconsulta {
-	private static DtVconsulta dtvc = new DtVconsulta();
+	//private static DtVconsulta dtvc = new DtVconsulta();
 	private static ResultSet rs;
 	PoolConexion pc = PoolConexion.getInstance();
 	Connection con = PoolConexion.getConnection();

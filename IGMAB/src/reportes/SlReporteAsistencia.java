@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import datos.PoolConexion;
 import datos.DtVReporteAsistencia;
-import datos.DtVReportePacientes;
+//import datos.DtVReportePacientes;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;

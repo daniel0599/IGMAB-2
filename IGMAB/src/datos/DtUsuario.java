@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -92,8 +92,8 @@ public boolean eliminarUsuario(int usuarioID) {
 public boolean actualizarUsuario(Usuario u) {
 	boolean actualizado = false;
 	try {
-		DateFormat fechaCompleta = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date date = new Date();
+	//	DateFormat fechaCompleta = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	//	Date date = new Date();
 		
 		cargarDatos();
 		rs.beforeFirst();

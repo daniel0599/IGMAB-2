@@ -1,18 +1,18 @@
 package datos;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+//import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 import java.text.DateFormat;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Date;
 
 import entidades.Cita;
-import entidades.Parentesco;
+//import entidades.Parentesco;
 
 public class DtCita {
 
@@ -129,8 +129,8 @@ public boolean actualizarAsistencia (int citaId) {
 		dtC.cargarDatos();
 		
 		DateFormat fechaCompleta = new SimpleDateFormat("yyyy/MM/dd");
-		DateFormat fecha = new SimpleDateFormat("yyyy/MM/dd");
-		DateFormat shf = new SimpleDateFormat("HH:mm");
+//		DateFormat fecha = new SimpleDateFormat("yyyy/MM/dd");
+//		DateFormat shf = new SimpleDateFormat("HH:mm");
 		Date date=new Date();
 		
 		

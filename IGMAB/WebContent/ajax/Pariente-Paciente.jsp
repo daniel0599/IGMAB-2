@@ -10,13 +10,10 @@
 %>
 <%
 	Dt_Vw_rol_opciones dtvrop = new Dt_Vw_rol_opciones();
-
 	Usuario us = new Usuario();
 	us = (Usuario) session.getAttribute("usuarioVerificado");
-
 	Rol r = new Rol();
 	r = (Rol) session.getAttribute("Rol");
-
 	String url = "";
 	url = request.getRequestURI();
 	System.out.println("url: " + url);
@@ -26,9 +23,7 @@
 	System.out.println("miPagina: " + miPagina);
 	boolean permiso = false;
 	String opcionActual = "";
-
 	ResultSet rs;
-
 	if (us != null && r != null) {
 		rs = dtvrop.obtenerOpc(r);
 		while (rs.next()) {
@@ -45,7 +40,6 @@
 		response.sendRedirect("../Home.jsp");
 		return;
 	}
-
 	if (!permiso) {
 		response.sendRedirect("error.jsp");
 	}
@@ -292,19 +286,17 @@
 							while (rsvv.next()) {
 						%>
 						<tr>
-							<td><%=rsvv.getString("Nombre1par") + " " + rsvv.getString("Nombre2par") + " "
+							<td><%=rsvv.getString("Nombre1par") + " "
 						+ rsvv.getString("Apellido1par") + " " + rsvv.getString("Apellido2par")%></td>
-							<td><%=rsvv.getString("Nombre1") + " " + rsvv.getString("Nombre2") + " "
+							<td><%=rsvv.getString("Nombre1") + " "
 						+ rsvv.getString("Apellido1") + " " + rsvv.getString("Apellido2")%></td>
 							<td><button id='btnIdActualizar'
-									onClick="cargarDatos(this.value, '<%=rsvv.getInt("PacienteID")%>', '<%=rsvv.getInt("ParienteID")%>');"
+									onClick="cargarDatos('<%=rsvv.getInt("ParPacID")%>', '<%=rsvv.getInt("PacienteID")%>', '<%=rsvv.getInt("ParienteID")%>');"
 									value=<%=rsvv.getInt("ParPacID")%>
-<%--									<%System.out.println(rsvv.getInt("ParPAcID")+" "+rsvv.getString("Nombre")+" de "+rsvv.getString("Nombre1par")); %>--%>
-									class="btn btn-primary btn-label-left">
-									<span><i class="fa fa-clock-o"></i></span> Actualizar
+									class="btn btn-info">
+									<span><i class="fa fa-edit"></i></span> Actualizar
 								</button>
-								<%System.out.println(rsvv.getInt("ParPAcID")+" "+rsvv.getString("Nombre")+" de "+rsvv.getString("Nombre1par")); %> 
-						
+								
 								</td>
 						</tr>
 						<%
@@ -327,51 +319,43 @@
 	/////////////////////////////FUNCIONES DEL WEBSOCKET/////////////////////////////
 	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
 	var websocket = new WebSocket(wsUri); //creamos el socket
-
 	websocket.onopen = function(evt) { //manejamos los eventos...
 		console.log("Conectado...");
 	};
-
 	websocket.onmessage = function(evt) { // cuando se recibe un mensaje
 		//alert("Hubo cambio en la base de datos. Actualiza la página para verlos");
 		//log("Mensaje recibido:" + evt.data);
+		console.log("Se Refrescara");
 		refrescar();
-
+		console.log("Se Refresco");
 	};
-
 	websocket.onerror = function(evt) {
 		console.log("oho!.. error:" + evt.data);
 	};
-
 	//	MEtodo para ejecutar el websocket. onmessage y guardar
 	function guardar() {
-
 		guardarParientePaciente();
-
+		console.log("Se guardo");
 	}
-
 	//Metodo para ejecutar el WEBSOCKET ; ON MESSGE Y ACTUALIZAR
 	function actualizar(idClicked) {
-		actualizarParientePaciente(idClicked);
-
+		var id;
+		id = idClicked;
+		console.log(id)
+		actualizarParientePaciente(id);
 		//refrescar();
-
 	}
-
 	//		METODO PARA EJECUTAR EL WREBSOCKET. ON MESSAGE Y ELEIMINAR
-
 	// function eliminar(idClicked){
 	// 	eliminarPsicologo(idClicked);
 	// 	//refrescar();
 	// 	websocket.send("Eliminar");
 	// }
-
 	//METODO PARA REFRESCAR EL DATATABLE A TRAVËS DEL SERVLET
 	function refrescar() {
 		var opcion = "";
 		opcion = "refrescar";
 		//var table = $('#datatable-1').DataTable();
-
 		$.ajax({
 			url : "SLParientePaciente",
 			type : "post",
@@ -386,20 +370,17 @@
 				$('#datatable-1').addClass(
 						"table table-hover table-heading table-datatable");
 			}
-
 		});
-
 	}
-
 	//Método para guardar el psicologo a través del servlet
 	function guardarParientePaciente() {
-		var fParienteID = ""
-		var fPacienteID = ""
-
+		var opcion ="";
+		var fParienteID;
+		var fPacienteID;
+		
 		opcion = "guardar";
 		fParienteID = $("#pariente").val();
 		fPacienteID = $("#paciente").val();
-
 		$.ajax({
 			url : "SLParientePaciente",
 			type : "post",
@@ -407,29 +388,23 @@
 			data : {
 				'fParienteID' : fParienteID,
 				'fPacienteID' : fPacienteID,
-
 				'opcion' : opcion
 			},
 			success : function(data) {
-				$('#pariente').val(null);
-				$('#paciente').val(null);
-
 				websocket.send("Guardar");
 				successAlert('Listo', 'Guardado exitosamente');
+				$('#pariente').val(null);
+				$('#paciente').val(null);
 				$("#agregar")[0].reset();
 				$('#frm-agrega').fadeOut();
 			}
-
 		});
-
 	}
-
 	//METODO para eliminar el Registro a través del sevlet
 	// function eliminarPsicologo(idClicked){
 	// 	var opcion = "";
 	// 	var fPsicologoID = idClicked;
 	// 	opcion = "eliminar";
-
 	// 	$.ajax({
 	// 	  url : "SLParientePaciente",
 	// 	  type: "post",
@@ -441,30 +416,27 @@
 	// 	  succes : function(data) {
 	// 		  alert('Eliminado exitosamente');
 	// 	  }
-
 	// 	});	
 	// }
-
 	//METODO PARA ACTUALIZAR EL REGISTRO
 	function actualizarParientePaciente(idClicked) {
-
-		//alert('Actualizado exitoso')
-		var opcion = "";
-		var fparienteEditar = "";
-		var fpacienteEditar = "";
-		var fParientePacienteID=idCLicked;
-
+	 	
+	    var opcion = "";
+		var fparienteEditar;
+		var fpacienteEditar;
+		var fParientePacienteID = idClicked;
+		
+		//fParientePacienteID = idCLicked;
 		opcion = "actualizar";
 		fparienteEditar = $("#ParienteEditar").val();
 		fpacienteEditar = $("#PacienteEditar").val();
 		
-
 		$.ajax({
 			url : "SLParientePaciente",
 			type : "post",
 			datatype : 'html',
 			data : {
-				'fParientePacienteID' : fPairentePacienteID,
+				'fParientePacienteID' : fParientePacienteID,
 				'fparienteEditar' : fparienteEditar,
 				'fpacienteEditar' : fpacienteEditar,
 				'opcion' : opcion
@@ -472,42 +444,38 @@
 			succes : function(data) {
 				$('#ParienteEditar').val(null);
 				$('#PacienteEditar').val(null);
-				websocket.send("Modificar");
-				successAlert('Listo', 'Actualizado exitosamente');
 				$("#edit")[0].reset();
 				$('#frm-edita').fadeOut();
-
+				websocket.send("Modificar");
+				successAlert('Listo', 'Actualizado exitosamente');
+				refrescar();
 			}
-
 		});
-
 	}
-
 	//	LIMPIAR EL EDITAR Y ADEMAS OCuLTA
 	function limpiaOculta() {
 		$('#PacienteEditar').val(null);
 		$('#ParienteEditar').val(null);
-
 		$('#frm-edita').fadeOut();
 		console.log("YA PASO");
 		//alert('Limpiado exitoso')
 	}
-
 	// METODO PARA CARGAR DATOS EN EL FORMULARIO
-	function cargarDatos(parpacID, pacienteID, parienteID) {
-		var fparpacID = parpacID;
-		var fpacienteID = pacienteID;
-		var fparienteID = parienteID;
-
-		$('#btnEditar').val(parpacID);
-		$('#PacienteEditar').val(fpacienteID);
-		$('#ParienteEditar').val(fparienteID);
-
+	function cargarDatos(ParPacID, PacienteID, ParienteID) {
+		var fParPacID = ParPacID;
+		var fPacienteID = PacienteID;
+		var fParienteID = ParienteID;
+	
 		$('#frm-edita').fadeIn();
 		$('#frm-agrega').fadeOut();
-
+		$('#btnEditar').val(fParPacID);
+		
+		$('#PacienteEditar').val(fPacienteID).change();
+		$('#ParienteEditar').val(fParienteID).change();
+		
+		console.log("Se cargaron los datos apara editar");
+		
 	}
-
 	/////////////////////////////DATATABLES PLUGIN CON 3 VARIANTES DE CONFIGURACIONES/////////////////////////////
 	function AllTables() {
 		TestTable1();
@@ -525,25 +493,24 @@
 				});
 	}
 	/////////////////////////////CONTROLAR EL EVENTO FADEIN DE LA VENTANA EDITAR/////////////////////////////
-	function editOrDeleteCustomer(event) {
-		var link = jQuery(event.currentTarget);
-		var url = link.attr('href');
-		jQuery.get(url, function(data) {
-			$('#frm-edita').fadeIn();
-		});
-	}
+// 	function editOrDeleteCustomer(event) {
+// 		var link = jQuery(event.currentTarget);
+// 		var url = link.attr('href');
+// 		jQuery.get(url, function(data) {
+// 			$('#frm-edita').fadeIn();
+// 		});
+// 	}
 	// Add Drag-n-Drop feature
 	$(document).ready(function() {
 		// cambiarID();
 		//  $('#Carnet').mask("9999999999");
 		// $('#CarnetEditar').mask("9999999999");
-
 		$('#frm-edita').hide();
 		$('#frm-agrega').hide();
 		// Initialize datepicker
-		$('#input_date').datepicker({
-			setDate : new Date()
-		});
+// 		$('#input_date').datepicker({
+// 			setDate : new Date()
+// 		});
 		/////////////////////////////LLAMAR A LA FUNCION QUE CARGA LOS REGISTROS DE LA TABLA/////////////////////////////
 		LoadDataTablesScripts(AllTables);
 		/////////////////////////////ESTILO PARA LOS TOOLTIP/////////////////////////////

@@ -301,8 +301,8 @@ response.setDateHeader("Expires", -1);
                     </ul>
                 </li>
             </ul>
-            </li>
-            </ul>
+         <!--     </li>-->
+          <!--    </ul> -->
 		</div>
 		<!--Start Content-->
 		<div id="content" class="col-xs-12 col-sm-10">
@@ -329,7 +329,7 @@ response.setDateHeader("Expires", -1);
 <script src="plugins/justified-gallery/jquery.justifiedgallery.min.js"></script>
 <script src="plugins/tinymce/tinymce.min.js"></script>
 <script src="plugins/tinymce/jquery.tinymce.min.js"></script>
-<script src="jquery-1.7.1.min.js"></script>
+<!--  <script src="jquery-1.7.1.min.js"></script>-->
 <script src="jAlert-master/dist/jAlert.min.js"></script>
 <script src="jAlert-master/dist/jAlert-functions.min.js"> //optional!!</script>
 <!-- All functions for this theme + document.ready processing -->

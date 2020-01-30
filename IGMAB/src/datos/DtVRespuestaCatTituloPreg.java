@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 public class DtVRespuestaCatTituloPreg {
 	
-	private static DtVRespuestaCatTituloPreg dtv = new DtVRespuestaCatTituloPreg();
+	//private static DtVRespuestaCatTituloPreg dtv = new DtVRespuestaCatTituloPreg();
 	private static ResultSet rs; // Resultset Global
 	PoolConexion pc = PoolConexion.getInstance();
 	Connection con = PoolConexion.getConnection();

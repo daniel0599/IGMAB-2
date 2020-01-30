@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 
 public class DtVReportePacientes {
-	private static DtVReportePacientes dtrpac = new DtVReportePacientes(); // Instanciando la
+	//private static DtVReportePacientes dtrpac = new DtVReportePacientes(); // Instanciando la
 	// Clase
 	private static ResultSet rs; // ResultSet Global
 	PoolConexion pc = PoolConexion.getInstance(); //

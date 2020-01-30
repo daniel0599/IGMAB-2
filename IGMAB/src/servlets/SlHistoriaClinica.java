@@ -1,13 +1,13 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.OutputStream;
+//import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.sql.Connection;
+//import java.sql.Connection;
 import java.sql.ResultSet;
-import java.util.HashMap;
+//import java.util.HashMap;
 
-import javax.servlet.ServletContext;
+//import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,14 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import datos.DtHistoriaClinica;
 import datos.DtVHistoriaClinicaPaciente;
-import datos.PoolConexion;
+//import datos.PoolConexion;
 import entidades.HistoriaClinica;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.export.Exporter;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+//import net.sf.jasperreports.engine.JasperFillManager;
+//import net.sf.jasperreports.engine.JasperPrint;
+//import net.sf.jasperreports.engine.export.JRPdfExporter;
+//import net.sf.jasperreports.export.Exporter;
+//import net.sf.jasperreports.export.SimpleExporterInput;
+//import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 
 /**
  * Servlet implementation class SlHistoriaClinica

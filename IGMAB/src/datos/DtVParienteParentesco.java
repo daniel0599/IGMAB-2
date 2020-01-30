@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DtVParienteParentesco {
-	private static DtVParienteParentesco dtpp = new DtVParienteParentesco();
+	//private static DtVParienteParentesco dtpp = new DtVParienteParentesco();
 	private static ResultSet rs; // Resultset Global
 	PoolConexion pc = PoolConexion.getInstance();
 	Connection con = PoolConexion.getConnection();

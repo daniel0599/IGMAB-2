@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DtVCitaPaciente {
-	private static DtVCitaPaciente dtv = new DtVCitaPaciente();
+	//private static DtVCitaPaciente dtv = new DtVCitaPaciente();
 	private static ResultSet rs; // Resultset Global
 	PoolConexion pc = PoolConexion.getInstance();
 	Connection con = PoolConexion.getConnection();

@@ -85,8 +85,8 @@ public class SLParientePaciente extends HttpServlet {
 		case "actualizar": {
 			try {
 				int fParientePacienteID = Integer.parseInt(request.getParameter("fParientePacienteID"));
-				pacienteID = Integer.parseInt(request.getParameter("fParienteIDEditar"));
-				parienteID = Integer.parseInt(request.getParameter("fPacienteIDEditar"));
+				pacienteID = Integer.parseInt(request.getParameter("fpacienteEditar"));
+				parienteID = Integer.parseInt(request.getParameter("fparienteEditar"));
 				
                 vpp.setPaciente_parienteID(fParientePacienteID);
                 vpp.setPacienteID(pacienteID);
@@ -151,8 +151,8 @@ public class SLParientePaciente extends HttpServlet {
 
 			out += "<thead>";
 			out += "<tr>";
-			out += "<th>Nombre Paciente</th>";
 			out += "<th>Nombre Pariente</th>";
+			out += "<th>Nombre Paciente</th>";
 			out += "<th>Acciones</th>";
 			out += "</tr>";
 			out += "</thead>";
@@ -160,10 +160,10 @@ public class SLParientePaciente extends HttpServlet {
 			out += "<tbody>";
 			while (rs.next()) {
 				out += "<tr>";
-				out += "<td>" + rs.getString("Nombre1") +" "+ rs.getString("Nombre2") +" "+ rs.getString("Apellido1") +" "+ rs.getString("Apellido2")+"</td>";
-				out += "<td>" + rs.getString("Nombre1par") + " "+rs.getString("Nombre2par")+" "+rs.getString("Apellido1par")+" "+rs.getString("Apellido2par")+"</td>";
+				out += "<td>" + rs.getString("Nombre1par") +" "+rs.getString("Apellido1par")+" "+rs.getString("Apellido2par")+"</td>";
+				out += "<td>" + rs.getString("Nombre1") +" "+ rs.getString("Apellido1") +" "+ rs.getString("Apellido2")+"</td>";
  				out +="<td>";                                                                                                
-				out += "<button id='btnIdActualizar' value="+rs.getInt("ParPacID")+ " class='btn btn-primary btn-label-left' onclick = 'cargarDatos(this.value, \""+rs.getInt("PacienteID")+"\", \""+rs.getInt("ParienteID")+"\");'><span><i class='fa fa-clock-o'></i></span>Actualizar</button>";
+				out += "<button id='btnIdActualizar' value="+rs.getInt("ParPacID")+ " class='btn btn-info' onclick = 'cargarDatos(this.value, \""+rs.getInt("PacienteID")+"\", \""+rs.getInt("ParienteID")+"\");'><span><i class='fa fa-clock-o'></i></span>Actualizar</button>";
 				out +="</td>";
 				out += "</tr>";
 			}
@@ -171,8 +171,8 @@ public class SLParientePaciente extends HttpServlet {
 
 			out += "<tfoot>";
 			out += "<tr>";
-			out += "<th>Nombre Paciente</th>";
 			out += "<th>Nombre Pariente</th>";
+			out += "<th>Nombre Paciente</th>";
 			out += "<th>Acciones</th>";
 			out += "</tr>";
 			out += "</tfoot>";

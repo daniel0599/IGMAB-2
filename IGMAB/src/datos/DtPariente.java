@@ -32,7 +32,7 @@ public class DtPariente {
 		boolean guardado = false;
 		try {
 			DateFormat fechaNac = new SimpleDateFormat("yyyy/MM/dd");
-			Date fechaC = new Date();
+	//		Date fechaC = new Date();
 			dtpar.cargarDatos();
 			Date date = new Date();
 			DateFormat fecha = new SimpleDateFormat("yyyy/MM/dd");
@@ -71,8 +71,8 @@ public class DtPariente {
 	public boolean eliminarPariente(int parienteId) {
 		boolean eliminado = false;
 		try {
-			Date date = new Date();
-			DateFormat fecha = new SimpleDateFormat("yyyy/MM/dd");
+//			Date date = new Date();
+	//		DateFormat fecha = new SimpleDateFormat("yyyy/MM/dd");
 			dtpar.cargarDatos();
 	
 			rs.beforeFirst();

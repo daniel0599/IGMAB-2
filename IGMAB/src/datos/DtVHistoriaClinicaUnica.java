@@ -3,7 +3,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 public class DtVHistoriaClinicaUnica {
-	private static DtVHistoriaClinicaUnica dtv = new DtVHistoriaClinicaUnica();
+	//private static DtVHistoriaClinicaUnica dtv = new DtVHistoriaClinicaUnica();
 	private static ResultSet rs; // Resultset Global
 	PoolConexion pc = PoolConexion.getInstance();
 	Connection con = PoolConexion.getConnection();

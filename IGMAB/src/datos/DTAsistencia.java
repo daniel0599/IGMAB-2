@@ -2,15 +2,15 @@ package datos;
 
 import java.sql.Connection;
 import java.util.Date;
-import java.sql.PreparedStatement;
+//import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.Time;
-import java.text.DateFormat;
+//import java.sql.Time;
+//import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import entidades.Asistencia;
-import entidades.Usuario;
+//import java.time.LocalTime;
+//import entidades.Asistencia;
+//import entidades.Usuario;
 
 
 public class DTAsistencia {
