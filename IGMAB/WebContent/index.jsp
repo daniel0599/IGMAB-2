@@ -132,31 +132,9 @@ response.setDateHeader("Expires", -1);
 						<a href="#" class="show-sidebar">
 						  <i class="fa fa-bars"></i>
 						</a>
-						<!-- <div id="search">
-							<input type="text" placeholder="search"/>
-							<i class="fa fa-search"></i>
-						</div> -->
 					</div>
 					<div class="col-xs-4 col-sm-8 top-panel-right">
 						<ul class="nav navbar-nav pull-right panel-menu">
-							<!-- <li class="hidden-xs">
-								<a href="index.jsp" class="modal-link">
-									<i class="fa fa-bell"></i>
-									<span class="badge">7</span>
-								</a>
-							</li>
-							<li class="hidden-xs">
-								<a class="ajax-link" href="ajax/calendar.html">
-									<i class="fa fa-calendar"></i>
-									<span class="badge">7</span>
-								</a>
-							</li>
-							<li class="hidden-xs">
-								<a href="ajax/page_messages.html" class="ajax-link">
-									<i class="fa fa-envelope"></i>
-									<span class="badge">7</span>
-								</a>
-							</li> -->
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle account" data-toggle="dropdown">
 									<div class="avatar">
@@ -169,36 +147,6 @@ response.setDateHeader("Expires", -1);
 									</div>
 								</a>
 								<ul class="dropdown-menu">
-<!-- 									<li> -->
-<!-- 										<a href="#"> -->
-<!-- 											<i class="fa fa-user"></i> -->
-<!-- 											<span class="hidden-sm text">Profile</span> -->
-<!-- 										</a> -->
-<!-- 									</li> -->
-<!-- 									<li> -->
-<!-- 										<a href="ajax/page_messages.html" class="ajax-link"> -->
-<!-- 											<i class="fa fa-envelope"></i> -->
-<!-- 											<span class="hidden-sm text">Messages</span> -->
-<!-- 										</a> -->
-<!-- 									</li> -->
-<!-- 									<li> -->
-<!-- 										<a href="ajax/gallery_simple.html" class="ajax-link"> -->
-<!-- 											<i class="fa fa-picture-o"></i> -->
-<!-- 											<span class="hidden-sm text">Albums</span> -->
-<!-- 										</a> -->
-<!-- 									</li> -->
-<!-- 									<li> -->
-<!-- 										<a href="ajax/calendar.html" class="ajax-link"> -->
-<!-- 											<i class="fa fa-tasks"></i> -->
-<!-- 											<span class="hidden-sm text">Tasks</span> -->
-<!-- 										</a> -->
-<!-- 									</li> -->
-<!-- 									<li> -->
-<!-- 										<a href="#"> -->
-<!-- 											<i class="fa fa-cog"></i> -->
-<!-- 											<span class="hidden-sm text">Settings</span> -->
-<!-- 										</a> -->
-<!-- 									</li> -->
 									<li id="logout">									
 										<a href="Home.jsp">
 											<i class="fa fa-power-off"></i>
@@ -329,7 +277,7 @@ response.setDateHeader("Expires", -1);
 <script src="plugins/justified-gallery/jquery.justifiedgallery.min.js"></script>
 <script src="plugins/tinymce/tinymce.min.js"></script>
 <script src="plugins/tinymce/jquery.tinymce.min.js"></script>
-<!--  <script src="jquery-1.7.1.min.js"></script>-->
+<!--  <script src="plugins/jquery-3.4.1.min.js"></script>-->
 <script src="jAlert-master/dist/jAlert.min.js"></script>
 <script src="jAlert-master/dist/jAlert-functions.min.js"> //optional!!</script>
 <!-- All functions for this theme + document.ready processing -->

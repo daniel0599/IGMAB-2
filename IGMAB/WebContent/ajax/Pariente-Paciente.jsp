@@ -218,10 +218,7 @@
 						</button>
 					</div>
 					<div class="col-sm-6 text-center">
-						<!-- 									<button class="ajax-link action" onClick="guardarParentesco();" title="Guardar"> -->
-						<!-- 										Guardar -->
-						<!-- 									</button> -->
-						<button id="btnEditar"
+		                 <button id="btnEditar"
 							class="ajax-link btn btn-primary btn-label-left"
 							onCLick="" title="Editar">
 							<span><i class="fa fa-check-circle txt-success"></i></span>
@@ -337,8 +334,9 @@
 	function actualizar(idClicked) {
 		var id;
 		id = idClicked;
-		console.log(id)
+		console.log("En el primer actualizar con id "+id)
 		actualizarParientePaciente(id);
+		websocket.send("Modificar");
 		//refrescar();
 	}
 	//		METODO PARA EJECUTAR EL WREBSOCKET. ON MESSAGE Y ELEIMINAR
@@ -349,6 +347,7 @@
 	// }
 	//METODO PARA REFRESCAR EL DATATABLE A TRAVËS DEL SERVLET
 	function refrescar() {
+		console.log("adentro del refrescar");
 		var opcion = "";
 		opcion = "refrescar";
 		//var table = $('#datatable-1').DataTable();
@@ -360,6 +359,7 @@
 				'opcion' : opcion
 			},
 			success : function(data) {
+				console.log("Se fue al servlet a armar la datatable");
 				$('#datatable-1').html(data);
 				$('#datatable-1').dataTable().fnDestroy();
 				AllTables();
@@ -367,6 +367,8 @@
 						"table table-hover table-heading table-datatable");
 			}
 		});
+		
+		console.log("Saliendo del refrescar");
 	}
 	//Método para guardar el psicologo a través del servlet
 	function guardarParientePaciente() {
@@ -416,15 +418,22 @@
 	// }
 	//METODO PARA ACTUALIZAR EL REGISTRO
 function actualizarParientePaciente(idClicked) {
-	    var opcion = "";
+	   console.log("dentro de actualizar pariente paciente");
+		var opcion = "";
 	    var fParientePacienteID = idClicked;
-	    var fparienteEditar;
-		var fpacienteEditar;
+	    var fparienteEditar = 0;
+		var fpacienteEditar = 0;
 		
 		opcion = "actualizar";
 		fparienteEditar = $("#ParienteEditar").val();
 		fpacienteEditar = $("#PacienteEditar").val();
 		
+		
+		console.log("opcion"+opcion);
+		console.log("fparienteEditar "+ fparienteEditar);
+		console.log("fpacienteEditar "+ fpacienteEditar);
+		
+		console.log("antes del ajax");
 		$.ajax({
 			url : "SLParientePaciente",
 			type : "post",
@@ -436,7 +445,11 @@ function actualizarParientePaciente(idClicked) {
 				'opcion' : opcion
 			},
 			succes : function(data) {
+				console.log("estando antes de enviar el mensaje en e succes");
+				console.log("estando antes de enviar el mensaje en e succes");
+				
 				websocket.send("Modificar");
+				console.log("despues del websocket antes del alert");
 				successAlert('Listo', 'Actualizado exitosamente');
 				$('#ParienteEditar').val(null);
 				$('#PacienteEditar').val(null);

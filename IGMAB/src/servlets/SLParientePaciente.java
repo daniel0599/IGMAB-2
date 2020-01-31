@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import javax.swing.JOptionPane;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 
@@ -105,26 +106,6 @@ public class SLParientePaciente extends HttpServlet {
 			}
 			break;
 		
-
-		/// EN CASO DE ELIMINAR
-//		case "eliminar": {
-//			try {
-//				int fIdPsicologo = Integer.parseInt(request.getParameter("fPsicologoID"));
-//				System.out.println(fIdPsicologo);
-//
-//				if (dtps.eliminarPsicologo(fIdPsicologo)) {
-//					System.out.println("Eliminado exitosamente");
-//				}
-//
-//			} catch (Exception e) {
-//				System.out.println("SL:  error en el srevlet: " + e.getMessage());
-//				e.printStackTrace();
-//
-//			}
-//			break;
-//		}
-		///////////////////////////////////// En caso de rrescar
-
 		case "refrescar": {
 			refrescar(request, response);
 			break;
@@ -181,6 +162,7 @@ public class SLParientePaciente extends HttpServlet {
 
 			PrintWriter pw = response.getWriter();
 			pw.write(out);
+			JOptionPane.showMessageDialog(null, "ya paso por el servlet al refrescar");
 			pw.flush();
 			boolean error = pw.checkError();
 			 System.out.println("Error en el servlet : "+error);
