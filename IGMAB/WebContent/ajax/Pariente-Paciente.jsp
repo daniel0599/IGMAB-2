@@ -144,8 +144,9 @@
 </div>
 
 <!-- FIN DE FORMULARIO PARA GUARDAR UN PSICOLGO-->
-
-
+<div class="row">
+	<div class="col-xs-12 col-sm-12">
+	
 <!--INICIO DE FORMULARIO PARA EDITAR  UN PSICOLOGO -->
 <div id="frm-edita" class="box">
 	<div class="box-header">
@@ -161,16 +162,17 @@
 		</div>
 		<div class="no-move"></div>
 	</div>
-	<div class="box-content no-padding">
+	<div class="box-content">
 		<div class="row">
-			 <form id="edit" class="form-horizontal" method="post" action="javascript:void(0);" onsubmit="actualizar($('#btnEditar').val());">
+			  <h4 class="page-header">Editar Pariente a Paciente</h4>
+			 <form id="edit" class="form-horizontal" role= "form" method="post" action="javascript:void(0);" onsubmit="actualizar($('#btnEditar').val());">
 			<div class="col-sm-6">
 				<h5 class="page-header">Datos</h5>
 
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Pariente</label>
-					<div class="col-sm-4">
-						<select name="Pariente" id="ParienteEditar" class="form-control">
+					<div class="col-sm-5">
+						<select name="ParienteEditar" id="ParienteEditar" required>
 							<option value="">Seleccione</option>
 							<%
 								DtPariente dtpare = new DtPariente();
@@ -187,8 +189,8 @@
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Paciente</label>
-					<div class="col-sm-4">
-						<select name="Paciente" id="PacienteEditar" class="form-control">
+					<div class="col-sm-5">
+						<select name="PacienteEditar" id="PacienteEditar" required>
 							<option value="">Seleccione</option>
 							<%
 								DtPaciente dtpace = new DtPaciente();
@@ -232,6 +234,9 @@
 		</div>
 	</div>
 </div>
+</div>
+</div>
+
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">
@@ -410,14 +415,12 @@
 	// 	});	
 	// }
 	//METODO PARA ACTUALIZAR EL REGISTRO
-	function actualizarParientePaciente(idClicked) {
-	 	
+function actualizarParientePaciente(idClicked) {
 	    var opcion = "";
-		var fparienteEditar;
+	    var fParientePacienteID = idClicked;
+	    var fparienteEditar;
 		var fpacienteEditar;
-		var fParientePacienteID = idClicked;
 		
-		//fParientePacienteID = idCLicked;
 		opcion = "actualizar";
 		fparienteEditar = $("#ParienteEditar").val();
 		fpacienteEditar = $("#PacienteEditar").val();
@@ -433,13 +436,16 @@
 				'opcion' : opcion
 			},
 			succes : function(data) {
+				websocket.send("Modificar");
+				successAlert('Listo', 'Actualizado exitosamente');
 				$('#ParienteEditar').val(null);
 				$('#PacienteEditar').val(null);
 				$("#edit")[0].reset();
 				$('#frm-edita').fadeOut();
 				websocket.send("Modificar");
 				successAlert('Listo', 'Actualizado exitosamente');
-				refrescar();
+				
+				//refrescar();
 			}
 		});
 	}

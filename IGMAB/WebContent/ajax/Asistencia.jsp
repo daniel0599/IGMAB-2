@@ -12,7 +12,6 @@ response.setDateHeader("Expires", -1);
 	
 	
 	Dt_Vw_rol_opciones dtvrop = new Dt_Vw_rol_opciones();
-
 	Usuario us = new Usuario();
 	us = (Usuario)session.getAttribute("usuarioVerificado");
 	
@@ -60,7 +59,6 @@ response.setDateHeader("Expires", -1);
 	{
 		response.sendRedirect("error.jsp");
 	}
-
 %>
 
 <div class="row">
@@ -102,7 +100,6 @@ response.setDateHeader("Expires", -1);
 											DTPsicologo dtpsi = new DTPsicologo();
 											 rs = dtpsi.cargarDatos();
 											rs.beforeFirst();
-
 											while (rs.next()) {
 										%>
 										<option value="<%=rs.getInt("PsicologoID")%>"><%=rs.getString("Nombre1")+" "+rs.getString("Nombre2")+" "+rs.getString("Apellido1")+" "+rs.getString("Apellido2")%></option>

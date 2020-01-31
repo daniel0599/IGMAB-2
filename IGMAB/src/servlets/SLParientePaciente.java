@@ -82,21 +82,21 @@ public class SLParientePaciente extends HttpServlet {
 			break;
 
 		/// ACTUALIZAR
-		case "actualizar": {
+		case "actualizar": 
 			try {
 				int fParientePacienteID = Integer.parseInt(request.getParameter("fParientePacienteID"));
-				pacienteID = Integer.parseInt(request.getParameter("fpacienteEditar"));
 				parienteID = Integer.parseInt(request.getParameter("fparienteEditar"));
+				pacienteID = Integer.parseInt(request.getParameter("fpacienteEditar"));
 				
                 vpp.setPaciente_parienteID(fParientePacienteID);
-                vpp.setPacienteID(pacienteID);
-				vpp.setParienteID(parienteID);
-		
+            	vpp.setParienteID(parienteID);
+        		vpp.setPacienteID(pacienteID);
+			
 		
 				
 				if (dtvpp.actualizarParientePaciente(vpp)) {
 					System.out.println("Actualizado exitosamente");
-					refrescar(request, response);
+					//refrescar(request, response);
 				}
 
 			} catch (Exception e) {
@@ -104,7 +104,7 @@ public class SLParientePaciente extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
-		}
+		
 
 		/// EN CASO DE ELIMINAR
 //		case "eliminar": {
@@ -164,7 +164,8 @@ public class SLParientePaciente extends HttpServlet {
 				out += "<td>" + rs.getString("Nombre1par") +" "+rs.getString("Apellido1par")+" "+rs.getString("Apellido2par")+"</td>";
 				out += "<td>" + rs.getString("Nombre1") +" "+ rs.getString("Apellido1") +" "+ rs.getString("Apellido2")+"</td>";
  				out +="<td>";                                                                                                
-				out += "<button id='btnIdActualizar' value="+rs.getInt("ParPacID")+ " class='btn btn-info' onclick = 'cargarDatos(this.value, \""+rs.getInt("PacienteID")+"\", \""+rs.getInt("ParienteID")+"\");'><span><i class='fa fa-clock-o'></i></span>Actualizar</button>";
+				out += "<button id='btnIdActualizar' value="+rs.getInt("ParPacID")+ " class='btn btn-info' "
+				+ "onclick = 'cargarDatos(\""+ rs.getInt("ParPacID") +"\", \""+ rs.getInt("PacienteID")+"\", \""+rs.getInt("ParienteID")+"\");'><span><i class='fa fa-edit'></i></span>Actualizar</button>";
 				out +="</td>";
 				out += "</tr>";
 			}
