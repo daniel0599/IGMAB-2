@@ -160,7 +160,7 @@ response.setDateHeader("Expires", -1);
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle account" data-toggle="dropdown">
 									<div class="avatar">
-										<img src="img/logoUCA.png" class="img-rounded" alt="avatar" />
+										<img src="img/ultima.PNG" class="img-rounded"/> <!-- alt="avatar"--> 
 									</div>
 									<i class="fa fa-angle-down pull-right"></i>
 									<div class="user-mini pull-right">
