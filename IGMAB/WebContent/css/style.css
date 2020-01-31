@@ -267,12 +267,12 @@ a.show-sidebar:hover {
   background: #CEA9A9;
 }
 .avatar {
-  width: 40px;
+  width: 60px;
   float: left;
   margin-right: 5px;
 }
 .avatar > img {
-  width:40px;
+  width:60px;
   height:40px;
   border: 1px solid #F8F8F8;
 }
