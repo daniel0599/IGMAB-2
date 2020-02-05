@@ -84,7 +84,7 @@ response.setDateHeader("Expires", -1);
 		<div id="frm-agrega" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-search"></i> <span>Crear Historia Clinica</span>
+					<i class="fa fa-address-card-o"></i> <span>Crear Historia Clinica</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -330,7 +330,7 @@ response.setDateHeader("Expires", -1);
 		<div id="frm-edita" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-search"></i> <span>Actualizar Historia Clinica</span>
+					<i class="fa fa-file-text-o"></i> <span>Actualizar Historia Clinica</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -583,7 +583,7 @@ response.setDateHeader("Expires", -1);
 		<div id="frm-visualizar" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-search"></i> <span>Visualizar Historia Clinica</span>
+					<i class="fa fa-eye"></i> <span>Visualizar Historia Clinica</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -814,7 +814,7 @@ response.setDateHeader("Expires", -1);
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-location-arrow"></i> <span>Lista de
+					<i class="fa fa-list"></i> <span>Lista de
 						pacientes</span>
 				</div>
 				<div class="box-icons">

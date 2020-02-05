@@ -286,7 +286,7 @@
 							<td><button id='btnIdActualizar'
 									onClick="cargarDatos('<%=rsvv.getInt("ParPacID")%>', '<%=rsvv.getInt("PacienteID")%>', '<%=rsvv.getInt("ParienteID")%>');"
 									value=<%=rsvv.getInt("ParPacID")%>
-									class="btn btn-info">
+									class="btn btn-primary btn-label-left">
 									<span><i class="fa fa-edit"></i></span> Actualizar
 								</button>
 								
@@ -311,21 +311,30 @@
 <script type="text/javascript">
 	/////////////////////////////FUNCIONES DEL WEBSOCKET/////////////////////////////
 	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
-	var websocket = new WebSocket(wsUri); //creamos el socket
-	websocket.onopen = function(evt) { //manejamos los eventos...
-		console.log("Conectado...");
-	};
-	websocket.onmessage = function(evt) { // cuando se recibe un mensaje
-		//alert("Hubo cambio en la base de datos. Actualiza la página para verlos");
-		//log("Mensaje recibido:" + evt.data);
-		console.log("Se Refrescara");
-		refrescar();
-		console.log("Se Refresco");
-	};
-	websocket.onerror = function(evt) {
-		console.log("oho!.. error:" + evt.data);
-	};
-	//	MEtodo para ejecutar el websocket. onmessage y guardar
+	var websocket = null; //creamos el socket
+	
+	if (!(websocket instanceof WebSocket) || websocket.readyState !== WebSocket.OPEN) {
+		console.log("antes de nueva webSocket");
+		websocket = new WebSocket(wsUri); //instanciamos el socket
+		console.log("luego de nueva webSocket");
+		
+		websocket.onopen = function(evt) { //manejamos los eventos...
+			console.log("Conectado...");
+		};
+		websocket.onmessage = function(evt) { // cuando se recibe un mensaje
+			refrescar();
+		};
+		websocket.onerror = function(evt) {
+			console.log("oho!.. error:" + evt.data);
+		};
+			
+			
+		
+	}
+	else
+		
+		console.log("no conectar webRecibo");
+//	MEtodo para ejecutar el websocket. onmessage y guardar
 	function guardar() {
 		guardarParientePaciente();
 		console.log("Se guardo");
@@ -334,17 +343,9 @@
 	function actualizar(idClicked) {
 		var id;
 		id = idClicked;
-		console.log("En el primer actualizar con id "+id)
 		actualizarParientePaciente(id);
-		websocket.send("Modificar");
-		//refrescar();
 	}
-	//		METODO PARA EJECUTAR EL WREBSOCKET. ON MESSAGE Y ELEIMINAR
-	// function eliminar(idClicked){
-	// 	eliminarPsicologo(idClicked);
-	// 	//refrescar();
-	// 	websocket.send("Eliminar");
-	// }
+	
 	//METODO PARA REFRESCAR EL DATATABLE A TRAVËS DEL SERVLET
 	function refrescar() {
 		console.log("adentro del refrescar");
@@ -398,24 +399,7 @@
 			}
 		});
 	}
-	//METODO para eliminar el Registro a través del sevlet
-	// function eliminarPsicologo(idClicked){
-	// 	var opcion = "";
-	// 	var fPsicologoID = idClicked;
-	// 	opcion = "eliminar";
-	// 	$.ajax({
-	// 	  url : "SLParientePaciente",
-	// 	  type: "post",
-	// 	  datatype : 'html',
-	// 	  data : {
-	// 		  'opcion': opcion,
-	// 	      'fPsicologoID': fPsicologoID
-	// 	  },
-	// 	  succes : function(data) {
-	// 		  alert('Eliminado exitosamente');
-	// 	  }
-	// 	});	
-	// }
+
 	//METODO PARA ACTUALIZAR EL REGISTRO
 function actualizarParientePaciente(idClicked) {
 	   console.log("dentro de actualizar pariente paciente");
@@ -427,16 +411,10 @@ function actualizarParientePaciente(idClicked) {
 		opcion = "actualizar";
 		fparienteEditar = $("#ParienteEditar").val();
 		fpacienteEditar = $("#PacienteEditar").val();
-		
-		
-		console.log("opcion"+opcion);
-		console.log("fparienteEditar "+ fparienteEditar);
-		console.log("fpacienteEditar "+ fpacienteEditar);
-		
-		console.log("antes del ajax");
+
 		$.ajax({
-			url : "SLParientePaciente",
-			type : "post",
+			url : "./SLParientePaciente",
+			type : "POST",
 			datatype : 'html',
 			data : {
 				'fParientePacienteID' : fParientePacienteID,
@@ -444,21 +422,16 @@ function actualizarParientePaciente(idClicked) {
 				'fpacienteEditar' : fpacienteEditar,
 				'opcion' : opcion
 			},
-			succes : function(data) {
-				console.log("estando antes de enviar el mensaje en e succes");
-				console.log("estando antes de enviar el mensaje en e succes");
-				
-				websocket.send("Modificar");
-				console.log("despues del websocket antes del alert");
-				successAlert('Listo', 'Actualizado exitosamente');
-				$('#ParienteEditar').val(null);
-				$('#PacienteEditar').val(null);
+			success : function(data) {
 				$("#edit")[0].reset();
 				$('#frm-edita').fadeOut();
 				websocket.send("Modificar");
 				successAlert('Listo', 'Actualizado exitosamente');
+
+			},
+			error: function(errorThrown){
+				infoAlert('AVISO', 'no se pudo actualizar bien');
 				
-				//refrescar();
 			}
 		});
 	}
@@ -512,15 +485,10 @@ function actualizarParientePaciente(idClicked) {
 	}
 	// Add Drag-n-Drop feature
 	$(document).ready(function() {
-		// cambiarID();
-		//  $('#Carnet').mask("9999999999");
-		// $('#CarnetEditar').mask("9999999999");
+
 		$('#frm-edita').hide();
 		$('#frm-agrega').hide();
-		// Initialize datepicker
-// 		$('#input_date').datepicker({
-// 			setDate : new Date()
-// 		});
+
 		/////////////////////////////LLAMAR A LA FUNCION QUE CARGA LOS REGISTROS DE LA TABLA/////////////////////////////
 		LoadDataTablesScripts(AllTables);
 		/////////////////////////////ESTILO PARA LOS TOOLTIP/////////////////////////////
@@ -539,4 +507,5 @@ function actualizarParientePaciente(idClicked) {
 		/////////////////////////////CONTROL DE VENTANAS (PROPIO DE LA PLANTILLA)/////////////////////////////
 		WinMove();
 	});
+	
 </script>
