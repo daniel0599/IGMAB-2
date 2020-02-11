@@ -66,7 +66,7 @@
 		<div id="frm-agrega" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-search"></i> <span>Registro de cita</span>
+					<i class="fa fa-address-card-o"></i> <span>Registro de cita</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -164,7 +164,7 @@
 		<div id="frm-edita" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-search"></i> <span>Registro de cita</span>
+					<i class="fa fa-file-text-o"></i> <span>Registro de cita</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -260,7 +260,7 @@
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-location-arrow"></i> <span>Lista de Citas</span>
+					<i class="fa fa-list"></i> <span>Lista de Citas</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>

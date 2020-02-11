@@ -66,7 +66,7 @@
 		<div id="frm-agrega" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-user"></i> <span>Asignar Opciones a un Rol</span>
+					<i class="fa fa-address-card-o"></i> <span>Asignar Opciones a un Rol</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -158,7 +158,7 @@
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-user"></i><span>Roles y sus Opciones</span>
+					<i class="fa fa-list"></i><span>Roles y sus Opciones</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>

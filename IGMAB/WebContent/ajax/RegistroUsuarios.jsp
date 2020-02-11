@@ -146,7 +146,7 @@
 				<div id="frm-edita" class="box">
 					<div class="box-header">
 						<div class="box-name">
-							<i class="fa fa-user"></i> <span>Cambiar Contraseña de
+							<i class="fa fa-file-text-o"></i> <span>Cambiar Contraseña de
 								Usuario</span>
 						</div>
 						<div class="box-icons">
@@ -238,7 +238,7 @@
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-user"></i><span>Lista de Usuarios</span>
+					<i class="fa fa-list"></i><span>Lista de Usuarios</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>

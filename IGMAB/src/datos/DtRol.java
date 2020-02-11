@@ -37,6 +37,10 @@ public class DtRol {
 			rs.updateString("Nombre", rl.getNombre());
 			rs.insertRow();
 			rs.moveToCurrentRow();
+			rs.close();
+			rs = null;
+			Runtime garbage = Runtime.getRuntime();
+		    garbage.gc();
 			guardado = true;
 		} catch (Exception e) {
 			System.err.println("Datos: Error al guardar el rol " + e.getMessage());
@@ -55,6 +59,10 @@ public class DtRol {
 				if (rs.getInt("RolID") == rolId) {
 					rs.updateInt("Eliminado", 1);
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
 					eliminado = true;
 				}
 			}
@@ -75,6 +83,10 @@ public class DtRol {
 				if (rs.getInt("RolID") == r.getRolId()) {
 					rs.updateString("Nombre", r.getNombre());
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
 					actualizado = true;
 				}
 			}
@@ -86,19 +98,24 @@ public class DtRol {
 	}
 	
 	public boolean validarRolRepetido(String rol){
+		boolean repetido = true;
 		try {
 			cargarDatos();
 			rs.beforeFirst();
 			while(rs.next()){
 				if(rs.getString("Nombre").equalsIgnoreCase(rol)){
-					return false;
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
+					repetido = false;
 				}
 			}
 		} catch (Exception e) {
 			System.err.println("Datos: Error al validar el rol: " + e.getMessage());
 			e.printStackTrace();
 		}
-		return true;
+		return repetido;
 	}
 
 }

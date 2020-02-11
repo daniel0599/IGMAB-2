@@ -45,6 +45,11 @@ public class DtRespuestaVista {
 				    
 				
 			}
+			rs.close();
+			rs = null;
+			Runtime garbage = Runtime.getRuntime();
+		    garbage.gc();
+		    return numero;
 		} catch (Exception e) {
 			System.err.println("Datos: Error al validar el numero de respuesta que estan en la DB " + e.getMessage());
 			e.printStackTrace();

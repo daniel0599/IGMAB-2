@@ -66,7 +66,7 @@
 		<div id="frm-agrega" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-user"></i> <span>Asignar Rol a Usuario</span>
+					<i class="fa fa-address-card-o"></i> <span>Asignar Rol a Usuario</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -158,7 +158,7 @@
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-user"></i><span>Usuarios y sus Roles</span>
+					<i class="fa fa-list"></i><span>Usuarios y sus Roles</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>

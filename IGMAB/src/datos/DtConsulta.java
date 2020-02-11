@@ -81,6 +81,10 @@ public class DtConsulta {
 				
 				rs.insertRow();
 				rs.moveToCurrentRow();
+				rs.close();
+				rs = null;
+				Runtime garbage = Runtime.getRuntime();
+			    garbage.gc();
 				guardado = true;
 			}
 			catch (Exception e){
@@ -105,6 +109,10 @@ public class DtConsulta {
 					if(rs.getInt("ConsultaID")== consultaId){
 						rs.updateInt("Eliminado", 1);
 						rs.updateRow();
+						rs.close();
+						rs = null;
+						Runtime garbage = Runtime.getRuntime();
+					    garbage.gc();
 						eliminado = true;
 					}
 				}
@@ -141,6 +149,10 @@ public boolean actualizarConsulta(Consulta c){
 				rs.updateString("Fechamodificacion", fecha.format(fechaC));
 				rs.updateInt("Usuariomodificacion", 1);
 				rs.updateRow();
+				rs.close();
+				rs = null;
+				Runtime garbage = Runtime.getRuntime();
+			    garbage.gc();
 				actualizado = true;
 
 			}

@@ -40,6 +40,10 @@ public class Dt_Clasificacion_Respuesta {
 			 
 			  contador++;
 		  }
+		  rs.close();
+			rs = null;
+			Runtime garbage = Runtime.getRuntime();
+		    garbage.gc();
 		  return contador;
 			
 		}catch(Exception e){

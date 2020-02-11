@@ -52,6 +52,10 @@ public class DtRolUsuario {
 			rs.updateInt("RolID", tru.getRolID());
 			rs.updateInt("UsuarioID", tru.getUsuarioID());
 			rs.insertRow();
+			rs.close();
+			rs = null;
+			Runtime garbage = Runtime.getRuntime();
+		    garbage.gc();
 			guardado = true;
 		} catch (Exception e) {
 			System.err.println("Error al guardar " + e.getMessage());
@@ -69,6 +73,10 @@ public class DtRolUsuario {
 			while (rs.next()) {
 				if (rs.getInt("Rol_Usuario") == rolUsuarioID) {
 					rs.deleteRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
 					eliminado = true;
 				}
 			}

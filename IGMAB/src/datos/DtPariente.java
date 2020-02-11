@@ -59,6 +59,10 @@ public class DtPariente {
 
 			rs.insertRow();
 			rs.moveToCurrentRow();
+			rs.close();
+			rs = null;
+			Runtime garbage = Runtime.getRuntime();
+		    garbage.gc();
 			guardado = true;
 		} catch (Exception e) {
 			System.err.println("Datos: Error al guardar el pariente " + e.getMessage());
@@ -81,6 +85,10 @@ public class DtPariente {
 					rs.updateInt("Eliminado", 1);
 					//rs.updateString("Fechaeliminacion", fecha.format(date));
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
 					eliminado= true;
 				}
 			}
@@ -120,6 +128,11 @@ public class DtPariente {
 					rs.updateInt("ParentescoID", par.getParentescoId());
 					rs.updateString("Fechamodificacion",fecha.format(date));
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
+				    actualizado = true;
 				}
 			}
 		} catch (Exception e) {

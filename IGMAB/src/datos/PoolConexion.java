@@ -23,6 +23,7 @@ public class PoolConexion
 	private PoolConexion()
     {
 		inicializaDataSource();
+		
     }
 	
 	//Metodos
@@ -52,8 +53,8 @@ public class PoolConexion
         basicDataSource.setUsername(user);
         basicDataSource.setPassword(pass);
         basicDataSource.setUrl(url);
-        basicDataSource.setInitialSize(10);
-        basicDataSource.setMaxActive(150);
+        basicDataSource.setInitialSize(15);
+        basicDataSource.setMaxActive(160);
         basicDataSource.setMaxIdle(30);
         basicDataSource.setMaxWait(10000);
         dataSource = basicDataSource;

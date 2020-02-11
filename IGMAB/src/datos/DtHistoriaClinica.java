@@ -57,6 +57,10 @@ public class DtHistoriaClinica {
 			rs.updateInt("PacienteID", hc.getPacienteId());
 			rs.insertRow();
 			rs.moveToCurrentRow();
+			rs.close();
+			rs = null;
+			Runtime garbage = Runtime.getRuntime();
+		    garbage.gc();
 			guardado = true;
 			
 		} catch (Exception e) {
@@ -94,6 +98,11 @@ public class DtHistoriaClinica {
 					rs.updateString("Padecimientoh_f", hc.getPadecimientoH_F());
 					rs.updateInt("PacienteID", hc.getPacienteId());
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
+				    actualizado= true;
 				}
 			}
 		} catch (Exception e) {

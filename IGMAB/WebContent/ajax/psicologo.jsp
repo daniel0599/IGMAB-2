@@ -83,7 +83,7 @@ response.setDateHeader("Expires", -1);
 		<div id="frm-agrega" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-location-arrow"></i> <span>Agregar Psicologo</span>
+					<i class="fa fa-address-card-o"></i> <span>Agregar Psicologo</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -217,7 +217,7 @@ response.setDateHeader("Expires", -1);
 		<div id="frm-edita" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-location-arrow"></i> <span>Editar Psicologo</span>
+					<i class="fa fa-file-text-o"></i> <span>Editar Psicologo</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -350,7 +350,7 @@ response.setDateHeader("Expires", -1);
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-location-arrow"></i> 
+					<i class="fa fa-list"></i> 
 					<span>Lista de Psicologos</span>
 				</div>
 				<div class="box-icons">
@@ -569,7 +569,7 @@ function eliminarPsicologo(idClicked){
 		  'opcion': opcion,
 	      'fPsicologoID': fPsicologoID
 	  },
-	  succes : function(data) {
+	  success : function(data) {
 		  websocket.send("Eliminar");
 		  successAlert('Listo', 'Eliminado exitosamente')
 	  }
@@ -581,7 +581,6 @@ function eliminarPsicologo(idClicked){
 //METODO PARA ACTUALIZAR EL REGISTRO
 function actualizarPsicologo(idClicked){
 	
-	alert('Actualizado exitoso')
 	var opcion= "";
 	var fPsicologoID = idClicked;
 	var fNombre1Editar="";
@@ -616,7 +615,7 @@ function actualizarPsicologo(idClicked){
 			'fUsuarioIdEditar' : fUsuarioIdEditar,
 			'opcion' : opcion
 		},
-		succes : function(data){
+		success : function(data){
 			if(data=="1") {
 				errorAlert("El carnet ya existe");
 			}

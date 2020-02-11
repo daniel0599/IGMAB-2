@@ -123,8 +123,8 @@ select#soflow-color {
 			
 			
 				<div class="box-name">
-					<i class="fa fa-search"></i>
-					<span>Formulario de clasificación de preguntas</span>
+					<i class="fa fa-address-card-o"></i>
+					<span>Formulario de Registro para Tipos de Preguntas y Respuestas</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link">
@@ -243,8 +243,8 @@ select#soflow-color {
 		<div id="frm-edita" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-search"></i>
-					<span>Formulario de clasificación de preguntas</span>
+					<i class="fa fa-file-text-o"></i>
+					<span>Formulario de Edicion para Tipos de Preguntas y Respuestas</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link">
@@ -354,7 +354,7 @@ select#soflow-color {
 			<div class="box">
 				<div class="box-header">
 					<div class="box-name">
-						<i class="fa fa-location-arrow"></i>
+						<i class="fa fa-list"></i>
 						<span>Lista</span>
 					</div>
 					<div class="box-icons">

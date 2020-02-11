@@ -37,6 +37,10 @@ public class DtTituloPregunta {
 			rs.updateString("Descripcion", t.getDescripcion());
 			rs.insertRow();
 			rs.moveToCurrentRow();
+			rs.close();
+			rs = null;
+			Runtime garbage = Runtime.getRuntime();
+		    garbage.gc();
 			guardado = true;
 		}
 		catch (Exception e){
@@ -56,6 +60,10 @@ public class DtTituloPregunta {
 			if(rs.getInt("TitulopreguntaID")==tituloPreguntaId){
 				rs.updateInt("Eliminado", 1);
 				rs.updateRow();
+				rs.close();
+				rs = null;
+				Runtime garbage = Runtime.getRuntime();
+			    garbage.gc();
 				eliminado = true;
 			}
 		}
@@ -77,6 +85,10 @@ public class DtTituloPregunta {
 				if(rs.getInt("TitulopreguntaID")==t.getTituloPreguntaId()){
 					rs.updateString("Descripcion", t.getDescripcion());
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
 					actualizado = true;
 				}
 			}
@@ -97,6 +109,10 @@ public class DtTituloPregunta {
 		 
 		  contador++;
 	  }
+	  rs.close();
+		rs = null;
+		Runtime garbage = Runtime.getRuntime();
+	    garbage.gc();
 	  return contador;
 		
 	}catch(Exception e){

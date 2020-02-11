@@ -54,6 +54,10 @@ public class DtRespuesta {
 			rs.updateInt("ClasificacionID", r.getClasificacionID());
 			rs.insertRow();
 			rs.moveToCurrentRow();
+			rs.close();
+			rs = null;
+			Runtime garbage = Runtime.getRuntime();
+		    garbage.gc();
 			System.out.println("SI SE GUARDO ");
 			guardado = true;
 		}
@@ -75,6 +79,10 @@ public class DtRespuesta {
 				if(rs.getInt("PacienteID")==pacienteID)
 				{	
 					presente = true;
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
 					System.out.println("EL paciente si esta en la tabla respuesta");
 				    
 					break;

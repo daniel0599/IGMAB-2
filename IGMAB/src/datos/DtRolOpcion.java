@@ -56,6 +56,10 @@ public class DtRolOpcion {
 			rs.updateInt("OpcionID", tro.getOpcionID());
 			rs.updateInt("RolID", tro.getRolID());
 			rs.insertRow();
+			rs.close();
+			rs = null;
+			Runtime garbage = Runtime.getRuntime();
+		    garbage.gc();
 			guardado=true;
 		}catch (Exception e) 
 		{
@@ -74,6 +78,10 @@ public class DtRolOpcion {
 			while (rs.next()) {
 				if (rs.getInt("rol_opcion") == rolopcionID) {
 					rs.deleteRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
 					eliminado = true;
 				}
 			}

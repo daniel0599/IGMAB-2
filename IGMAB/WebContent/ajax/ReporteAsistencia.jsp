@@ -21,7 +21,7 @@
 	<div class="box">
 		<div class="box-header">
 			<div class="box-name">
-				<i class="fa fa-bell-o"></i> <span>Lista de Asistencia</span>
+				<i class="fa fa-list"></i> <span>Lista de Asistencia</span>
 			</div>
 			<div class="box-icons">
 				<a class="collapse-link"> <i class="fa fa-chevron-up"></i>

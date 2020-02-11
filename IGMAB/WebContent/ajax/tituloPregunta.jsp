@@ -78,7 +78,7 @@
 		<div id="frm-agrega" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-search"></i> <span>Formulario de Registro
+					<i class="fa fa-address-card-o"></i> <span>Formulario para Registrar
 						Título Pregunta</span>
 				</div>
 				<div class="box-icons">
@@ -138,7 +138,7 @@
 		<div id="frm-edita" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-search"></i> <span>Formulario de Registro Título Pregunta</span>
+					<i class="fa fa-file-text-o"></i> <span>Formulario para Editar Título Pregunta</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -205,7 +205,7 @@
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-location-arrow"></i> <span>Lista de Títulos Pregunta</span>
+					<i class="fa fa-list"></i> <span>Lista de Títulos Pregunta</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>

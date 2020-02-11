@@ -71,7 +71,7 @@
 		<div id="frm-agrega" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-search"></i> <span>Consulta</span>
+					<i class="fa fa-address-card-o"></i> <span>Consulta</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -211,7 +211,7 @@
 		<div id="frm-edita" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-search"></i> <span>Consulta</span>
+					<i class="fa fa-file-text-o"></i> <span>Consulta</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -330,7 +330,7 @@
 		<div id="frm-visualizar" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-search"></i> <span>Consulta</span>
+					<i class="fa fa-eye"></i> <span>Consulta</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -454,7 +454,7 @@
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-location-arrow"></i> <span>Lista de
+					<i class="fa fa-list"></i> <span>Lista de
 						consultas</span>
 				</div>
 

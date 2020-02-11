@@ -57,6 +57,10 @@ public class DtCita {
 			 rs.updateInt("Usuariocreacion", 1);
 			 rs.insertRow();
 			 rs.moveToCurrentRow();
+			 rs.close();
+				rs = null;
+				Runtime garbage = Runtime.getRuntime();
+			    garbage.gc();
 			 
 			 guardado=true;
 
@@ -82,6 +86,10 @@ public class DtCita {
 					rs.updateInt("Eliminado", 1);
 					rs.updateString("Fechaeliminacion", fechaCompleta.format(date.getTime()));
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
 					eliminado = true;
 				}
 			}
@@ -112,6 +120,10 @@ public class DtCita {
 					 rs.updateString("Hora", shf.format(c.getHora()));
 					 rs.updateInt("Numsesion", c.getNumSesion());
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
 					actualizado = true;
 				}
 			}
@@ -141,6 +153,10 @@ public boolean actualizarAsistencia (int citaId) {
 				 rs.updateInt("Asistencia", citaId);
 			
 				rs.updateRow();
+				rs.close();
+				rs = null;
+				Runtime garbage = Runtime.getRuntime();
+			    garbage.gc();
 				actualizado = true;
 			}
 		}

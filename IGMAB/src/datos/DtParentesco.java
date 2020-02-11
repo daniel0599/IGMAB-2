@@ -36,6 +36,10 @@ public class DtParentesco {
 			rs.updateString("Parentesco", p.getParentesco());
 			rs.insertRow();
 			rs.moveToCurrentRow();
+			rs.close();
+			rs = null;
+			Runtime garbage = Runtime.getRuntime();
+		    garbage.gc();
 			guardado = true;
 		} catch (Exception e) {
 			System.err.println("Datos: Error al guardar el parentesco " + e.getMessage());
@@ -54,6 +58,10 @@ public class DtParentesco {
 				if(rs.getInt("ParentescoID")==parentescoId){
 					rs.updateInt("Eliminado", 1);
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
 					eliminado = true;
 				}
 			}
@@ -74,6 +82,10 @@ public class DtParentesco {
 				if(rs.getInt("ParentescoID")==p.getParentescoID()){
 					rs.updateString("Parentesco", p.getParentesco());
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
 					actualizado = true;
 				}
 			}
@@ -90,6 +102,10 @@ public class DtParentesco {
 			rs.beforeFirst();
 			while(rs.next()){
 				if(rs.getString("Parentesco").equalsIgnoreCase(parentesco)){
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
 					return false;
 				}
 			}

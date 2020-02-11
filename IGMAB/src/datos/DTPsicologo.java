@@ -52,7 +52,11 @@ public class DTPsicologo {
 		//	System.out.println("LOS DATOS: "+p.getNombre1()+" "+p.getNombre2()+" "+p.getApellido1()+" "+p.getApellido2()+".."+"LA FECHA"+p.getFechaCreacion()+"...CARNET: "+p.getCarnet());
 			rs.insertRow();
 			rs.moveToCurrentRow();
-			System.out.println("SI SE GUARDO true");
+		
+			rs.close();
+			rs = null;
+			Runtime garbage = Runtime.getRuntime();
+		    garbage.gc();
 			guardado = true;
 		} catch (Exception e) {
 			System.err.println("Datos: Error al guardar el psicologo " + e.getMessage());
@@ -71,6 +75,10 @@ public class DTPsicologo {
 				if (rs.getInt("PsicologoID") == psicologoID) {
 					rs.updateInt("Eliminado", 1);
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
 					eliminado = true;
 				}
 			}
@@ -100,6 +108,11 @@ public class DTPsicologo {
 					rs.updateInt("Usuariomodificacion", p.getUsuarioModificacion());
 					rs.updateInt("UsuarioID", p.getUsuarioID());
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
+				    actualizado = true;
 				}
 			}
 
@@ -118,6 +131,10 @@ public class DTPsicologo {
 			rs.beforeFirst();
 			while(rs.next()){
 				if(rs.getString("Carnet").equalsIgnoreCase(carnet)){
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
 					return false;
 				}
 			}

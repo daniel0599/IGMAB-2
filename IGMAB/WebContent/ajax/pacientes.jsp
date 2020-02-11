@@ -19,7 +19,7 @@
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-bell-o"></i> 
+					<i class="fa fa-list"></i> 
 					<span>Lista de Pacientes</span>
 				</div>
 				<div class="box-icons">

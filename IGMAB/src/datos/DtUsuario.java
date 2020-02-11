@@ -52,6 +52,10 @@ public class DtUsuario {
 			rs.updateString("Fechacreacion", fechaCompleta.format(date));
 			rs.insertRow();
 			rs.moveToCurrentRow();
+			rs.close();
+			rs = null;
+			Runtime garbage = Runtime.getRuntime();
+		    garbage.gc();
 			guardado = true;
 			
 
@@ -78,6 +82,10 @@ public boolean eliminarUsuario(int usuarioID) {
 				//rs.updateInt("Usuarioeliminacion", u.getUsuarioEliminacion());
 				rs.updateString("Fechaeliminacion", fechaCompleta.format(date));
 				rs.updateRow();
+				rs.close();
+				rs = null;
+				Runtime garbage = Runtime.getRuntime();
+			    garbage.gc();
 				eliminado = true;
 			}
 		}
@@ -103,6 +111,10 @@ public boolean actualizarUsuario(Usuario u) {
 				//rs.updateInt("Usuariomodificacion", u.getUsuarioModificacion());
 				//rs.updateString("Fechamodificacion", fechaCompleta.format(date));
 				rs.updateRow();
+				rs.close();
+				rs = null;
+				Runtime garbage = Runtime.getRuntime();
+			    garbage.gc();
 				actualizado = true;
 			}
 		}
@@ -140,19 +152,24 @@ public boolean actualizarUsuario(Usuario u) {
 	}
 	
 	public boolean validarUsuarioRepetido(String usuario){
+		boolean repetido = false;
 		try {
 			cargarDatos();
 			rs.beforeFirst();
 			while(rs.next()){
 				if(rs.getString("Usuario").equalsIgnoreCase(usuario)){
-					return false;
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
+					repetido = true;
 				}
 			}
 		} catch (Exception e) {
 			System.err.println("Datos: Error al validar el usuario " + e.getMessage());
 			e.printStackTrace();
 		}
-		return true;
+		return repetido;
 	}
 
 

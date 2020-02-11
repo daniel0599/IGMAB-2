@@ -311,12 +311,8 @@
 <script type="text/javascript">
 	/////////////////////////////FUNCIONES DEL WEBSOCKET/////////////////////////////
 	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
-	var websocket = null; //creamos el socket
+	var websocket = new WebSocket(wsUri); //instanciamos el socket
 	
-	if (!(websocket instanceof WebSocket) || websocket.readyState !== WebSocket.OPEN) {
-		console.log("antes de nueva webSocket");
-		websocket = new WebSocket(wsUri); //instanciamos el socket
-		console.log("luego de nueva webSocket");
 		
 		websocket.onopen = function(evt) { //manejamos los eventos...
 			console.log("Conectado...");
@@ -328,12 +324,7 @@
 			console.log("oho!.. error:" + evt.data);
 		};
 			
-			
-		
-	}
-	else
-		
-		console.log("no conectar webRecibo");
+
 //	MEtodo para ejecutar el websocket. onmessage y guardar
 	function guardar() {
 		guardarParientePaciente();
@@ -413,7 +404,7 @@ function actualizarParientePaciente(idClicked) {
 		fpacienteEditar = $("#PacienteEditar").val();
 
 		$.ajax({
-			url : "./SLParientePaciente",
+			url : "SLParientePaciente",
 			type : "POST",
 			datatype : 'html',
 			data : {

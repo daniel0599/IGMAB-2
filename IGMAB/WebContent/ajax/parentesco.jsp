@@ -81,7 +81,9 @@ response.setDateHeader("Expires", -1);
 
 		<div id="frm-agrega" class="box">
 			<div class="box-header">
-
+                <div class="box-name">
+					<i class="fa fa-address-card-o"></i> <span>Crear Parentesco</span>
+				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
 					</a> <a class="expand-link"> <i class="fa fa-expand"></i>
@@ -140,7 +142,9 @@ response.setDateHeader("Expires", -1);
 
 		<div id="frm-edita" class="box">
 			<div class="box-header">
-
+               <div class="box-name">
+					<i class="fa fa-file-text-o"></i> <span>Editar Parentesco</span>
+				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
 					</a> <a class="expand-link"> <i class="fa fa-expand"></i>
@@ -208,7 +212,7 @@ response.setDateHeader("Expires", -1);
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-location-arrow"></i> <span>Lista de
+					<i class="fa fa-list"></i> <span>Lista de
 						Parentesco</span>
 				</div>
 				<div class="box-icons">

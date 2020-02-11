@@ -37,7 +37,10 @@ public class DtOpcion {
 			rs.updateString("Opcion", op.getOpcion());
 			rs.insertRow();
 			rs.moveToCurrentRow();
-			
+			rs.close();
+			rs = null;
+			Runtime garbage = Runtime.getRuntime();
+		    garbage.gc();
 			guardado = true;
 		}
 		catch (Exception e) {
@@ -57,6 +60,10 @@ public class DtOpcion {
 				if(rs.getInt("OpcionId")==opcionId){
 					rs.updateInt("Eliminado", 1);
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
 					eliminado=true;
 				}
 			}
@@ -80,6 +87,10 @@ public class DtOpcion {
 				if(rs.getInt("opcionId")==op.getOpcionId()){
 					rs.updateString("opcion", op.getOpcion());
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
 					actualizado=true;
 				}
 			}

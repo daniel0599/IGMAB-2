@@ -41,6 +41,10 @@ public class DtRespuestaCatalogo {
 				rs.updateInt("titulopreguntaid", rc.getTituloPreguntaId());
 				rs.insertRow();
 				rs.moveToCurrentRow();
+				rs.close();
+				rs = null;
+				Runtime garbage = Runtime.getRuntime();
+			    garbage.gc();
 				guardado = true;
 			}
 			catch (Exception e){
@@ -60,6 +64,10 @@ public class DtRespuestaCatalogo {
 				if(rs.getInt("respuestaCatalogoID")==respuestaCatalogoID){
 					rs.updateInt("Eliminado", 1);
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
 					eliminado = true;
 				}
 			}
@@ -82,6 +90,10 @@ public boolean actualizarRespuestaCatalogo(RespuestaCatalogo rc) {
 				rs.updateInt("TitulopreguntaID", rc.getTituloPreguntaId());
 				rs.updateInt("ClasificacionID", rc.getRespClasificacion());
 				rs.updateRow();
+				rs.close();
+				rs = null;
+				Runtime garbage = Runtime.getRuntime();
+			    garbage.gc();
 				actualizado = true;
 			}
 		}
@@ -101,7 +113,12 @@ public int calcularRespuestasCatalogo(){
 		 
 		  contador++;
 	  }
+	  rs.close();
+		rs = null;
+		Runtime garbage = Runtime.getRuntime();
+	    garbage.gc();
 	  return contador;
+	  
 		
 	}catch(Exception e){
 		System.err.println("Datos: Error al calcular el numero de clasificaciones" + e.getMessage());
@@ -119,6 +136,10 @@ public int returnIdClasificacion(int respuestacatID) {
 			if(rs.getInt("respuestaCatalogoID")==respuestacatID)
 			{	
 				idClasificacion = rs.getInt("ClasificacionID");
+				rs.close();
+				rs = null;
+				Runtime garbage = Runtime.getRuntime();
+			    garbage.gc();
 				
 			}
 		}
@@ -139,6 +160,10 @@ public int returnIdTitulo(int respuestacatID) {
 			if(rs.getInt("respuestaCatalogoID")==respuestacatID)
 			{	
 				idTitulo = rs.getInt("TitulopreguntaID");
+				rs.close();
+				rs = null;
+				Runtime garbage = Runtime.getRuntime();
+			    garbage.gc();
 				
 			}
 		}
