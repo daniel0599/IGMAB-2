@@ -370,6 +370,7 @@ public class SlPaciente extends HttpServlet {
 				out +="</td>";
 				out += "</tr>";
 			}
+			
 			out += "</tbody>";
 
 			out += "<tfoot>";

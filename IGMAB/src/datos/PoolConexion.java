@@ -52,7 +52,10 @@ public class PoolConexion
         basicDataSource.setUsername(user);
         basicDataSource.setPassword(pass);
         basicDataSource.setUrl(url);
-        basicDataSource.setMaxActive(50);
+        basicDataSource.setInitialSize(10);
+        basicDataSource.setMaxActive(150);
+        basicDataSource.setMaxIdle(30);
+        basicDataSource.setMaxWait(10000);
         dataSource = basicDataSource;
     }
     

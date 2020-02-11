@@ -3,6 +3,7 @@ package datos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -16,7 +17,7 @@ public class DtPaciente {
 
 	private static DtPaciente dtpac = new DtPaciente(); // Instanciando la
 	// Clase
-	private static ResultSet rs; // ResultSet Global
+	private static ResultSet rs; // ResultSet Global;
 	PoolConexion pc = PoolConexion.getInstance(); //
 	Connection con = PoolConexion.getConnection();
 
@@ -30,8 +31,11 @@ public class DtPaciente {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error en DtPaciente: " + e.getMessage());
+
 		}
+		
 		return rs;
+	
 	}
 
 	public ResultSet cargarDatosInactivos() {
@@ -112,10 +116,15 @@ public class DtPaciente {
 			}
 			rs.insertRow();
 			rs.moveToCurrentRow();
+			rs.close();
+			rs = null;
+			Runtime garbage = Runtime.getRuntime();
+		    garbage.gc();
 			guardado = true;
 		} catch (Exception e) {
 			System.err.println("Datos: Error al guardar el paciente " + e.getMessage());
 			e.printStackTrace();
+		
 		}
 		return guardado;
 	}
@@ -130,12 +139,18 @@ public class DtPaciente {
 				if (rs.getInt("PacienteID") == pacienteId) {
 					rs.updateInt("Eliminado", 1);
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
+
 					eliminado = true;
 				}
 			}
 		} catch (Exception e) {
 			System.err.println("Datos: Error al eliminar el paciente " + e.getMessage());
 			e.printStackTrace();
+		
 		}
 		return eliminado;
 	}
@@ -149,17 +164,23 @@ public class DtPaciente {
 				if (rs.getInt("PacienteID") == pacienteId) {
 					rs.updateInt("Eliminado", 2);
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
+
 					eliminado = true;
 				}
 			}
 		} catch (Exception e) {
 			System.err.println("Datos: Error al eliminar el paciente " + e.getMessage());
 			e.printStackTrace();
+		
 		}
 		return eliminado;
 	}
 
-	//////// M�todo para actualizar/////
+
 	public boolean actualizarPaciente(Paciente pac) {
 		boolean actualizado = false;
 		DateFormat fecha = new SimpleDateFormat("yyyy/MM/dd");
@@ -192,12 +213,18 @@ public class DtPaciente {
 					rs.updateInt("EscolaridadID", pac.getEscolaridadID());
 					rs.updateInt("Uca", pac.getEstudianteUCA());
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
+
 					actualizado = true;
 				}
 			}
 		} catch (Exception e) {
 			System.err.println("Datos: Error al actualizar el paciente " + e.getMessage());
 			e.printStackTrace();
+	
 		}
 		return actualizado;
 	}
@@ -212,12 +239,18 @@ public class DtPaciente {
 				if (rs.getInt("PacienteID") == pacienteId) {
 					rs.updateInt("Eliminado", 0);
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
+
 					reactivado = true;
 				}
 			}
 		} catch (Exception e) {
 			System.err.println("Datos: Error al reactivar el paciente " + e.getMessage());
 			e.printStackTrace();
+		
 		}
 		return reactivado;
 	}
@@ -232,12 +265,18 @@ public class DtPaciente {
 				if (rs.getInt("PacienteID") == pacienteId) {
 					rs.updateInt("Eliminado", 0);
 					rs.updateRow();
+					rs.close();
+					rs = null;
+					Runtime garbage = Runtime.getRuntime();
+				    garbage.gc();
+
 					reactivado = true;
 				}
 			}
 		} catch (Exception e) {
 			System.err.println("Datos: Error al reactivar el paciente " + e.getMessage());
 			e.printStackTrace();
+		
 		}
 		return reactivado;
 	}
@@ -254,6 +293,7 @@ public class DtPaciente {
 		} catch (Exception e) {
 			System.err.println("Datos: Error al transferir el paciente " + e.getMessage());
 			e.printStackTrace();
+		
 		}
 		return false;
 	}

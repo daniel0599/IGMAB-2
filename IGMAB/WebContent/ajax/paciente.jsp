@@ -1279,7 +1279,8 @@ response.setDateHeader("Expires", -1);
 							%>
 						</tr>
 				          <%
-							}
+							} 
+							
 						   %>
 					</tbody>
 					<tfoot>
