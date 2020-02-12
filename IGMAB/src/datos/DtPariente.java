@@ -31,7 +31,7 @@ public class DtPariente {
 	public boolean guardarPariente(Pariente par) {
 		boolean guardado = false;
 		try {
-			DateFormat fechaNac = new SimpleDateFormat("yyyy/MM/dd");
+			//DateFormat fechaNac = new SimpleDateFormat("yyyy/MM/dd");
 	//		Date fechaC = new Date();
 			dtpar.cargarDatos();
 			Date date = new Date();
@@ -43,7 +43,7 @@ public class DtPariente {
 			rs.updateString("Apellido2", par.getApellido2());
 			rs.updateInt("Estadovida", par.getEstadoVida());
 			rs.updateString("Edad", par.getEdad());
-			rs.updateString("Fechanac", fechaNac.format(par.getFechaNac()));
+		//	rs.updateString("Fechanac", fechaNac.format(par.getFechaNac()));
 			rs.updateString("Causamuerte", par.getCausaMuerte());
 			rs.updateInt("EscolaridadID", par.getEscolaridadID());
 			rs.updateString("Escolaridad", par.getEscolaridad());
@@ -103,7 +103,7 @@ public class DtPariente {
 	public boolean actualizarPariente(Pariente par) {
 		boolean actualizado = false;
 		try {
-			DateFormat fechaNac = new SimpleDateFormat("yyyy/MM/dd");
+			//DateFormat fechaNac = new SimpleDateFormat("yyyy/MM/dd");
 			dtpar.cargarDatos();
 			Date date = new Date();
 			DateFormat fecha = new SimpleDateFormat("yyyy/MM/dd");
@@ -116,7 +116,7 @@ public class DtPariente {
 					rs.updateString("Apellido2", par.getApellido2());
 					rs.updateInt("Estadovida", par.getEstadoVida());
 					rs.updateString("Edad", par.getEdad());
-					rs.updateString("Fechanac", fechaNac.format(par.getFechaNac()));
+					//rs.updateString("Fechanac", fechaNac.format(par.getFechaNac()));
 					rs.updateString("Causamuerte", par.getCausaMuerte());
 					rs.updateString("Escolaridad", par.getEscolaridad());
 					rs.updateString("Ocupacion", par.getOcupacion());

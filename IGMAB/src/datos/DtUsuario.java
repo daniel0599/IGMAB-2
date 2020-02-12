@@ -152,7 +152,7 @@ public boolean actualizarUsuario(Usuario u) {
 	}
 	
 	public boolean validarUsuarioRepetido(String usuario){
-		boolean repetido = false;
+		boolean repetido = true;
 		try {
 			cargarDatos();
 			rs.beforeFirst();
@@ -162,7 +162,7 @@ public boolean actualizarUsuario(Usuario u) {
 					rs = null;
 					Runtime garbage = Runtime.getRuntime();
 				    garbage.gc();
-					repetido = true;
+					repetido = false;
 				}
 			}
 		} catch (Exception e) {

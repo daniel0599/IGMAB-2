@@ -128,7 +128,7 @@ response.setDateHeader("Expires", -1);
 						<label class="col-sm-2 control-label">Cargo</label>
 						<div class="col-sm-4">
 							<input type="text" class="form-control" placeholder="Cargo" id="cargo" name="cargo">
-							<span class="fa fa-check-square-o txt-success form-control-feedback"></span>
+<!-- 							<span class="fa fa-check-square-o txt-success form-control-feedback"></span> -->
 						</div>
 						<label class="col-sm-2 control-label">Salario</label>
 						<div class="col-sm-4">
@@ -137,21 +137,21 @@ response.setDateHeader("Expires", -1);
 					</div>
 
                     <div class="form-group">
-						<!--<label class="col-sm-2 control-label">Edad</label>-->
-						<!--<div class="col-sm-4">-->
-							<input type="hidden" class="form-control" placeholder="Edad"
+						<label class="col-sm-2 control-label">Edad</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Edad"
 									id="edad" name="edad" required>
 							<span class="fa fa-calendar txt-danger form-control-feedback"></span>
-						<!--</div>-->
+						</div>
 
-                        <label class="col-sm-2 control-label">Fecha de
-                            nacimiento</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control"
-                                   placeholder="Fecha de nacimiento" data-toggle="tooltip"
-                                   data-placement="bottom" id="fechaNac" name="fechaNac"
-                                   title="La fecha de nacimiento es requerida" required />
-                        </div>
+<!--                         <label class="col-sm-2 control-label">Fecha de -->
+<!--                             nacimiento</label> -->
+<!--                         <div class="col-sm-4"> -->
+<!--                             <input type="text" class="form-control" -->
+<!--                                    placeholder="Fecha de nacimiento" data-toggle="tooltip" -->
+<!--                                    data-placement="bottom" id="fechaNac" name="fechaNac" -->
+<!--                                    title="La fecha de nacimiento es requerida" required /> -->
+<!--                         </div> -->
 
 						<label class="col-sm-2 control-label">Escolaridad</label>
                         <div class="col-sm-2">
@@ -318,7 +318,7 @@ response.setDateHeader("Expires", -1);
 						<label class="col-sm-2 control-label">Cargo</label>
 						<div class="col-sm-4">
 							<input type="text" class="form-control" placeholder="Cargo" id="cargoEditar" name="cargo">
-							<span class="fa fa-check-square-o txt-success form-control-feedback"></span>
+<!-- 							<span class="fa fa-check-square-o txt-success form-control-feedback"></span> -->
 						</div>
 						<label class="col-sm-2 control-label">Salario</label>
 						<div class="col-sm-4">
@@ -327,21 +327,21 @@ response.setDateHeader("Expires", -1);
 					</div>
 
                     <div class="form-group has-warning has-feedback">
-						<!--<label class="col-sm-2 control-label">Edad</label>-->
-						<!--<div class="col-sm-4">-->
-							<input type="hidden" class="form-control" placeholder="Edad"
+						<label class="col-sm-2 control-label">Edad</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Edad"
 									id="edadEditar" name="edad">
 							<span class="fa fa-calendar txt-danger form-control-feedback"></span>
-						<!--</div>-->
+						</div>
 
-                        <label class="col-sm-2 control-label">Fecha de
-                            nacimiento</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control"
-                                   placeholder="Fecha de nacimiento" data-toggle="tooltip"
-                                   data-placement="bottom" id="fechaNacEdit" name="fechaNac"
-                                   title="La fecha de nacimiento es requerida" required />
-                        </div>
+<!--                         <label class="col-sm-2 control-label">Fecha de -->
+<!--                             nacimiento</label> -->
+<!--                         <div class="col-sm-4"> -->
+<!--                             <input type="text" class="form-control" -->
+<!--                                    placeholder="Fecha de nacimiento" data-toggle="tooltip" -->
+<!--                                    data-placement="bottom" id="fechaNacEdit" name="fechaNac" -->
+<!--                                    title="La fecha de nacimiento es requerida" required /> -->
+<!--                         </div> -->
 
 						<label class="col-sm-2 control-label">Escolaridad</label>
                         <div class="col-sm-2">
@@ -446,7 +446,7 @@ response.setDateHeader("Expires", -1);
         <div id="frm-visualizar" class="box">
             <div class="box-header">
                 <div class="box-name">
-                    <i class="fa fa-eye"></i> <span>Registro Pariente</span>
+                    <i class="fa fa-eye"></i> <span>Ver Pariente</span>
                 </div>
                 <div class="box-icons">
                     <a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -459,7 +459,7 @@ response.setDateHeader("Expires", -1);
 
 
             <div class="box-content">
-                <h4 class="page-header">Formulario de registro</h4>
+                <h4 class="page-header">Ver registro</h4>
                 <form class="form-horizontal" role ="form" action="javascript:void(0);" onsubmit="guardar();">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Primer nombre</label>
@@ -504,21 +504,21 @@ response.setDateHeader("Expires", -1);
                     </div>
 
                     <div class="form-group has-warning has-feedback">
-                        <!--<label class="col-sm-2 control-label">Edad</label>-->
-                        <!--<div class="col-sm-4">-->
-                        <input disabled type="hidden" class="form-control" placeholder="Edad"
+                        <label class="col-sm-2 control-label">Edad</label>
+                        <div class="col-sm-4">
+                        <input disabled type="text" class="form-control" placeholder="Edad"
                                id="edadVi" name="edad" required>
                         <span class="fa fa-calendar txt-danger form-control-feedback"></span>
-                        <!--</div>-->
-
-                        <label class="col-sm-2 control-label">Fecha de
-                            nacimiento</label>
-                        <div class="col-sm-4">
-                            <input disabled type="text" class="form-control"
-                                   placeholder="Fecha de nacimiento" data-toggle="tooltip"
-                                   data-placement="bottom" id="fechaNacVi" name="fechaNac"
-                                   title="La fecha de nacimiento es requerida" required />
                         </div>
+
+<!--                         <label class="col-sm-2 control-label">Fecha de -->
+<!--                             nacimiento</label> -->
+<!--                         <div class="col-sm-4"> -->
+<!--                             <input disabled type="text" class="form-control" -->
+<!--                                    placeholder="Fecha de nacimiento" data-toggle="tooltip" -->
+<!--                                    data-placement="bottom" id="fechaNacVi" name="fechaNac" -->
+<!--                                    title="La fecha de nacimiento es requerida" required /> -->
+<!--                         </div> -->
 
                         <label class="col-sm-2 control-label">Escolaridad</label>
                         <div class="col-sm-2">
@@ -574,7 +574,7 @@ response.setDateHeader("Expires", -1);
                                 <option>Seleccione</option>
 
                                 <%
-                                    rs = dtpar.cargarDatos();
+                                   // rs = dtpar.cargarDatos();
                                     rs.beforeFirst();
 
                                     while (rs.next()) {
@@ -657,8 +657,8 @@ response.setDateHeader("Expires", -1);
 						<%
 							DtVParienteParentesco dtparen = new DtVParienteParentesco();
 							ResultSet rp = dtparen.cargarVista();
-                            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                            SimpleDateFormat fechaM = new SimpleDateFormat("dd/MM/yyyy");
+                          //  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                            //SimpleDateFormat fechaM = new SimpleDateFormat("dd/MM/yyyy");
 							rp.beforeFirst();
 							while (rp.next()) {
 						%>
@@ -696,8 +696,8 @@ response.setDateHeader("Expires", -1);
 								}
 							%>
 							<td><%=rp.getString("Parentesco")%></td>
-							<td>
-                                <% Date fecha = formatter.parse(rp.getString("Fechanac")); %>
+                            <td> 
+<%--                                 <% Date fecha = formatter.parse(rp.getString("Fechanac")); %> --%>
 
 								<button id="btnIdVisualizar"
 								onClick="visualizarDatos(this.value, '<%=rp.getString("Nombre1")%>',
@@ -709,7 +709,7 @@ response.setDateHeader("Expires", -1);
 								'<%=rp.getString("Cargo")%>',
 								'<%=rp.getString("Salariomensual")%>',
 								'<%=rp.getString("Edad")%>',
-								'<%=fechaM.format(fecha)%>',
+<%-- 								'<%=fechaM.format(fecha)%>', --%>
 								'<%=rp.getInt("EscolaridadID")%>',
 								'<%=rp.getString("Escolaridad")%>',
 								'<%=rp.getInt("Estadovida")%>',
@@ -732,7 +732,7 @@ response.setDateHeader("Expires", -1);
                                             '<%=rp.getString("Cargo")%>',
                                             '<%=rp.getString("Salariomensual")%>',
                                             '<%=rp.getString("Edad")%>',
-                                            '<%=fechaM.format(fecha)%>',
+<%--                                             '<%=fechaM.format(fecha)%>', --%>
                                             '<%=rp.getInt("EscolaridadID")%>',
                                             '<%=rp.getString("Escolaridad")%>',
 										'<%=rp.getInt("Estadovida")%>',
@@ -852,7 +852,7 @@ response.setDateHeader("Expires", -1);
 		var fsegundoApellido = "";
 		var festadoVida = 0;
 		var fedad = "";
-        var ffechaNac = "";
+       // var ffechaNac = "";
 		var fcausaMuerte = "";
 		var fescolaridadId=0;
 		var fescolaridad = "";
@@ -874,7 +874,7 @@ response.setDateHeader("Expires", -1);
 		fcausaMuerte = $("#causaMuerte").val();
 		fescolaridadId = $("#escolaridadId").val();
 		fescolaridad = $("#escolaridad").val();
-        ffechaNac = $('#fechaNac').val();
+        fedad = $('#edad').val();
 		focupacion = $("#ocupacion").val();
 		flugarTrabajo = $("#lugarTrabajo").val();
 		fcargo = $("#cargo").val();
@@ -883,13 +883,13 @@ response.setDateHeader("Expires", -1);
 		fparentescoid = $("#parentesco").val();
 
         //Calcular edad
-        var fecha = new Date();
-        var year = fecha.getFullYear();
-        var age = parseInt(ffechaNac.substring(6, 10));
-        var realAge = year - age;
-        console.log("realAge is: "+realAge);
-        $('#edad').val(realAge);
-        fedad = $('#edad').val();
+//         var fecha = new Date();
+//         var year = fecha.getFullYear();
+//         var age = parseInt(ffechaNac.substring(6, 10));
+//         var realAge = year - age;
+//         console.log("realAge is: "+realAge);
+//         $('#edad').val(realAge);
+//         fedad = $('#edad').val();
 
 		$.ajax({
 			url : "SlPariente",
@@ -902,7 +902,6 @@ response.setDateHeader("Expires", -1);
 				'fprimerApellido' : fprimerApellido,
 				'fsegundoApellido' : fsegundoApellido,
 				'festadoVida' : festadoVida,
-                'ffechaNac' :ffechaNac,
 				'fedad' : fedad,
 				'fcausaMuerte' : fcausaMuerte,
                 'fescolaridadId' : fescolaridadId,
@@ -960,7 +959,7 @@ response.setDateHeader("Expires", -1);
 		var fsegundoApellidoEditar = "";
 		var festadoVidaEditar;
 		var fedadEditar = "";
-        var ffechaNac;
+     //   var ffechaNac;
 		var fcausaMuerteEditar = "";
 		var fescolaridadIdEditar=0;
 		var fescolaridadEditar = "";
@@ -978,7 +977,7 @@ response.setDateHeader("Expires", -1);
 		fsegundoApellidoEditar = $("#segundoApellidoEditar").val();
 		festadoVidaEditar = $("#estadoVidaEditar").val();
 		fcausaMuerteEditar = $("#causaMuerteEditar").val();
-        ffechaNac = $('#fechaNacEdit').val();
+        fedadEditar = $('#edadEditar').val();
         fescolaridadIdEditar=$("#escolaridadIdEditar").val();
 		fescolaridadEditar = $("#escolaridadEditar").val();
 		focupacionEditar = $("#ocupacionEditar").val();
@@ -989,13 +988,13 @@ response.setDateHeader("Expires", -1);
 		fparentescoidEditar = $("#parentescoidEditar").val();
 
         //Calcular edad
-        var fecha = new Date();
-        var year = fecha.getFullYear();
-        var age = parseInt(ffechaNac.substring(6, 10));
-        var realAge = year - age;
-        console.log("realAgeEdit is: "+realAge);
-        $('#edadEditar').val(realAge);
-        fedadEditar = $('#edadEditar').val();
+//         var fecha = new Date();
+//         var year = fecha.getFullYear();
+//         var age = parseInt(ffechaNac.substring(6, 10));
+//         var realAge = year - age;
+//         console.log("realAgeEdit is: "+realAge);
+//         $('#edadEditar').val(realAge);
+//         fedadEditar = $('#edadEditar').val();
 
 		$.ajax({
 			url : "SlPariente",
@@ -1010,7 +1009,7 @@ response.setDateHeader("Expires", -1);
 				'fsegundoApellidoEditar' : fsegundoApellidoEditar,
 				'festadoVidaEditar' : festadoVidaEditar,
 				'fedadEditar' : fedadEditar,
-                'ffechaNac' : ffechaNac,
+             //   'ffechaNac' : ffechaNac,
 				'fcausaMuerteEditar' : fcausaMuerteEditar,
                 'fescolaridadIdEditar' : fescolaridadIdEditar,
 				'fescolaridadEditar' : fescolaridadEditar,
@@ -1034,7 +1033,7 @@ response.setDateHeader("Expires", -1);
 
 	//MÉTODO PARA CARGAR DATOS EN EL FORMULARIO
 	function cargarDatos(parienteId, primerNombre, segundoNombre,
-			primerApellido, segundoApellido, ocupacion, lugarTrabajo, cargo, salarioMensual, edad, fechaNac, escolaridadId,escolaridad, estadoVida, causaMuerte, parentescoId,
+			primerApellido, segundoApellido, ocupacion, lugarTrabajo, cargo, salarioMensual, edad, escolaridadId,escolaridad, estadoVida, causaMuerte, parentescoId,
                          tutor ) {
 
 		var fParienteId = parienteId;
@@ -1047,7 +1046,7 @@ response.setDateHeader("Expires", -1);
         var fcargo = cargo;
         var fsalarioMensual = salarioMensual;
         var fedad = edad;
-        var ffechaNac= fechaNac;
+       // var ffechaNac= fechaNac;
         var fescolaridadId=escolaridadId;
         var fescolaridad = escolaridad;
 		var festadoVida = estadoVida;
@@ -1066,7 +1065,7 @@ response.setDateHeader("Expires", -1);
         $("#cargoEditar").val(fcargo);
         $("#salarioEditar").val(fsalarioMensual);
         $("#edadEditar").val(fedad);
-        $('#fechaNacEdit').val(ffechaNac);
+     //   $('#fechaNacEdit').val(ffechaNac);
         $('#escolaridadIdEditar').val(fescolaridadId).change();
         $("#escolaridadEditar").val(fescolaridad);
 		$("#estadoVidaEditar").val(festadoVida).change();
@@ -1080,7 +1079,7 @@ response.setDateHeader("Expires", -1);
 
     //Metodo para visualizar pariente
     function visualizarDatos(parienteId, primerNombre, segundoNombre,
-                             primerApellido, segundoApellido, ocupacion, lugarTrabajo, cargo, salarioMensual, edad, fechaNac, escolaridadId,escolaridad, estadoVida, causaMuerte, parentescoId,
+                             primerApellido, segundoApellido, ocupacion, lugarTrabajo, cargo, salarioMensual, edad, escolaridadId,escolaridad, estadoVida, causaMuerte, parentescoId,
                              tutor ) {
         var fParienteId = parienteId;
         var fprimerNombre = primerNombre;
@@ -1092,7 +1091,7 @@ response.setDateHeader("Expires", -1);
         var fcargo = cargo;
         var fsalarioMensual = salarioMensual;
         var fedad = edad;
-        var ffechaNac= fechaNac;
+      //  var ffechaNac= fechaNac;
         var fescolaridadId= escolaridadId;
         var fescolaridad = escolaridad;
         var festadoVida = estadoVida;
@@ -1110,7 +1109,7 @@ response.setDateHeader("Expires", -1);
         $("#cargoVi").val(fcargo);
         $("#salarioVi").val(fsalarioMensual);
         $("#edadVi").val(fedad);
-        $('#fechaNacVi').val(ffechaNac);
+      //  $('#fechaNacVi').val(ffechaNac);
         $("#escolaridadIdVi").val(fescolaridadId).change();
         $("#escolaridadVi").val(fescolaridad);
         $("#estadoVidaVi").val(festadoVida).change();
@@ -1183,15 +1182,15 @@ response.setDateHeader("Expires", -1);
 		$('#frm-edita').hide();
 		$('#frm-visualizar').hide();
 		// Initialize datepicker
-		$('#fecha').datepicker({
-			setDate : new Date()
-		});
-		$('#fechaEditar').datepicker({
-			setDate : new Date()
-		});
+		//$('#fecha').datepicker({
+			//setDate : new Date()
+		//});
+		//$('#fechaEditar').datepicker({
+			//setDate : new Date()
+		//});
 
-        $("#fechaNac").mask("99/99/9999",{placeholder:"dd/mm/aaaa"});
-        $("#fechaNacEdit").mask("99/99/9999",{placeholder:"dd/mm/aaaa"});
+      // $("#fechaNac").mask("99/99/9999",{placeholder:"dd/mm/aaaa"});
+        //$("#fechaNacEdit").mask("99/99/9999",{placeholder:"dd/mm/aaaa"});
 		/////////////////////////////LLAMAR A LA FUNCION QUE CARGA LOS REGISTROS DE LA TABLA/////////////////////////////
 		LoadDataTablesScripts(AllTables);
 		/////////////////////////////ESTILO PARA LOS TOOLTIP/////////////////////////////

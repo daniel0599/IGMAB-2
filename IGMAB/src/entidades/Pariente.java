@@ -15,7 +15,7 @@ public class Pariente {
 	private int eliminado;
 	private int escolaridadID;
 
-	private Date fechaNac;
+	//private Date fechaNac;
 
 	/**
 	 * Primer apellido del tutor. (Longitud m�xima de 30 caracteres)
@@ -327,13 +327,13 @@ public class Pariente {
 		//asd
 	}
 
-	public Date getFechaNac() {
-		return fechaNac;
-	}
-
-	public void setFechaNac(Date fechaNac) {
-		this.fechaNac = fechaNac;
-	}
+//	public Date getFechaNac() {
+//		return fechaNac;
+//	}
+//
+//	public void setFechaNac(Date fechaNac) {
+//		this.fechaNac = fechaNac;
+//	}
 
 	public int getEscolaridadID() {
 		return escolaridadID;

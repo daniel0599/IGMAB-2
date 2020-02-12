@@ -3,8 +3,8 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+//import java.text.SimpleDateFormat;
+//import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,7 +52,7 @@ public class SlPariente extends HttpServlet {
 		String segundoApellido="";
 		int estadoVida;
 		String edad;
-		String fechaNac;
+	//	String fechaNac;
 		String causaMuerte="";
 		int escolaridadId=0;
 		String escolaridad="";
@@ -75,7 +75,7 @@ public class SlPariente extends HttpServlet {
 				segundoApellido = request.getParameter("fsegundoApellido");
 				estadoVida = Integer.parseInt(request.getParameter("festadoVida"));
 				edad = request.getParameter("fedad");
-                fechaNac = request.getParameter("ffechaNac");
+            //    fechaNac = request.getParameter("ffechaNac");
 				causaMuerte = request.getParameter("fcausaMuerte");
 				escolaridadId = Integer.parseInt(request.getParameter("fescolaridadId"));
 				escolaridad = request.getParameter("fescolaridad");
@@ -85,8 +85,8 @@ public class SlPariente extends HttpServlet {
 				salarioMensual =request.getParameter("fsalarioMensual");
 				tutor = Integer.parseInt(request.getParameter("ftutor"));
 
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                Date fecha = formatter.parse(fechaNac);
+             //   SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            //    Date fecha = formatter.parse(fechaNac);
 
 				par.setNombre1(primerNombre);
 				par.setNombre2(segundoNombre);
@@ -94,7 +94,7 @@ public class SlPariente extends HttpServlet {
 				par.setApellido2(segundoApellido);
 				par.setEstadoVida(estadoVida);
 				par.setEdad(edad);
-				par.setFechaNac(fecha);
+			//	par.setFechaNac(fecha);
 				par.setCausaMuerte(causaMuerte);
 				par.setEscolaridadID(escolaridadId);
 				par.setEscolaridad(escolaridad);
@@ -128,7 +128,7 @@ public class SlPariente extends HttpServlet {
 				segundoApellido = request.getParameter("fsegundoApellidoEditar");
 				estadoVida = Integer.parseInt(request.getParameter("festadoVidaEditar"));
 				edad = request.getParameter("fedadEditar");
-                fechaNac = request.getParameter("ffechaNac");
+            //    fechaNac = request.getParameter("ffechaNac");
 				causaMuerte = request.getParameter("fcausaMuerteEditar");
 				escolaridad = request.getParameter("fescolaridadEditar");
 				ocupacion = request.getParameter("focupacionEditar");
@@ -137,8 +137,8 @@ public class SlPariente extends HttpServlet {
 				salarioMensual =request.getParameter("fsalarioMensualEditar");
 				tutor = Integer.parseInt(request.getParameter("ftutorEditar"));
 
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                Date fecha = formatter.parse(fechaNac);
+               // SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            //    Date fecha = formatter.parse(fechaNac);
 
 				par.setParienteId(parienteID);
 				par.setNombre1(primerNombre);
@@ -147,7 +147,7 @@ public class SlPariente extends HttpServlet {
 				par.setApellido2(segundoApellido);
 				par.setEstadoVida(estadoVida);
 				par.setEdad(edad);
-				par.setFechaNac(fecha);
+				//par.setFechaNac(fecha);
 				par.setCausaMuerte(causaMuerte);
 				par.setEscolaridadID(escolaridadId);
 				par.setEscolaridad(escolaridad);
@@ -194,8 +194,8 @@ public class SlPariente extends HttpServlet {
 	
 	protected void refrescar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat fechaM = new SimpleDateFormat("dd/MM/yyyy");
+           // SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+           // SimpleDateFormat fechaM = new SimpleDateFormat("dd/MM/yyyy");
 			DtVParienteParentesco dtpar = new DtVParienteParentesco();
 			ResultSet rs = dtpar.cargarVista();
 			response.setContentType("text/html; charset=UTF-8");
@@ -232,7 +232,7 @@ public class SlPariente extends HttpServlet {
 				}
 				out += "<td>" + rs.getString("Parentesco") + "</td>";
 				out += "<td>";
-                Date fecha = formatter.parse(rs.getString("Fechanac"));
+            //    Date fecha = formatter.parse(rs.getString("Fechanac"));
 
                 out += "<button id='btnIdVisualizar' value="+rs.getInt("ParienteID")+" class='btn btn-info' "
                         + "onclick ='visualizarDatos(this.value, \""+ rs.getString("Nombre1") + "\", "
@@ -244,7 +244,7 @@ public class SlPariente extends HttpServlet {
                         + "\""+rs.getString("Cargo")+"\","
                         + "\""+rs.getString("Salariomensual")+"\","
                         + "\""+rs.getString("Edad")+"\","
-                        + "\""+fechaM.format(fecha)+"\","
+                      //  + "\""+fechaM.format(fecha)+"\","
                         + "\""+rs.getInt("EscolaridadID")+"\","
                         + "\""+rs.getString("Escolaridad")+"\","
                         + "\""+rs.getInt("Estadovida")+"\","
@@ -262,7 +262,7 @@ public class SlPariente extends HttpServlet {
                         + "\""+rs.getString("Cargo")+"\","
                         + "\""+rs.getString("Salariomensual")+"\","
                         + "\""+rs.getString("Edad")+"\","
-                        + "\""+fechaM.format(fecha)+"\","
+                      //  + "\""+fechaM.format(fecha)+"\","
                         + "\""+rs.getInt("EscolaridadID")+"\","
                         + "\""+rs.getString("Escolaridad")+"\","
                         + "\""+rs.getInt("Estadovida")+"\","
