@@ -297,7 +297,7 @@ response.setDateHeader("Expires", -1);
 							<div class="form-group">
 								<label class="col-sm-6 control-label">Seleccione un usuario</label>
 								<div class="col-sm-6">
-									<select name="country" id="usuarioIdEditar" disabled>
+									<select name="country" id="usuarioIdEditar">
 									<option value=""> Selecciona el usuario </option>
 									<%
 										DtUsuario dtus = new DtUsuario();
