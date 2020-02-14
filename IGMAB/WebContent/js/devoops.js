@@ -2384,7 +2384,7 @@ $(document).ready(function () {
 		.on('click', '.close-link', function (e) {
 			e.preventDefault();
 			var content = $(this).closest('div.box');
-			content.remove();
+			content.fadeOut();;
 		});
 	$('#locked-screen').on('click', function (e) {
 		e.preventDefault();

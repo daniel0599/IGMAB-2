@@ -414,7 +414,8 @@ a.show-sidebar:hover {
   box-shadow:inset 0 0 1px 0 #CECECE;
 }
 .expanded a.close-link {
-  display:none;
+   visibility: hidden;
+ 
 }
 #sidebar-left.col-xs-2 {
   opacity: 0;

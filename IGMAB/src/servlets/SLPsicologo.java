@@ -135,11 +135,11 @@ public class SLPsicologo extends HttpServlet {
 				psi.setFechaModificacion(fechaModificacion);
 				psi.setUsuarioModificacion(1);
 				
-				if(dtps.validarCarnetRepetido(psi.getCarnet())) {
+				//if(dtps.validarCarnetRepetido(psi.getCarnet())) {
 					if (dtps.actualizarPsicologo(psi)) {
 						System.out.println("Actualizado exitosamente");
 					}					
-				}
+				//}
 				else 
 				{
 					System.out.println("Pasa por el else validar carnet de psicólogo");

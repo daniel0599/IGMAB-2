@@ -44,6 +44,7 @@
 		response.sendRedirect("error.jsp");
 	}
 %>
+<input id="TipoRol" name="TipoROl" type="hidden" value=<%=r.getRolId()%>  checked>
 
 <div class="row">
 	<div id="breadcrumb" class="col-md-12">
@@ -283,6 +284,48 @@
 						+ rsvv.getString("Apellido1par") + " " + rsvv.getString("Apellido2par")%></td>
 							<td><%=rsvv.getString("Nombre1") + " "
 						+ rsvv.getString("Apellido1") + " " + rsvv.getString("Apellido2")%></td>
+							<%
+							if(r.getRolId() == 1){
+							%>
+							<td><button id='btnIdActualizar'
+									onClick="cargarDatos('<%=rsvv.getInt("ParPacID")%>', '<%=rsvv.getInt("PacienteID")%>', '<%=rsvv.getInt("ParienteID")%>');"
+									value=<%=rsvv.getInt("ParPacID")%>
+									class="btn btn-primary btn-label-left">
+									<span><i class="fa fa-edit"></i></span> Actualizar
+								</button>
+							</td>
+							<% 	
+							}
+							%>
+							<%
+							if(r.getRolId() == 2){
+							%>
+							<td><button id='btnIdActualizar'
+									onClick="cargarDatos('<%=rsvv.getInt("ParPacID")%>', '<%=rsvv.getInt("PacienteID")%>', '<%=rsvv.getInt("ParienteID")%>');"
+									value=<%=rsvv.getInt("ParPacID")%>
+									class="btn btn-primary btn-label-left">
+									<span><i class="fa fa-edit"></i></span> Actualizar
+								</button>
+							</td>
+							<% 	
+							}
+							%>
+							<%
+							if(r.getRolId() == 3){
+							%>
+							<td><button id='btnIdActualizar' disabled
+									onClick="cargarDatos('<%=rsvv.getInt("ParPacID")%>', '<%=rsvv.getInt("PacienteID")%>', '<%=rsvv.getInt("ParienteID")%>');"
+									value=<%=rsvv.getInt("ParPacID")%>
+									class="btn btn-primary btn-label-left">  
+									<span><i class="fa fa-edit"></i></span> Actualizar
+								</button>
+							</td>
+							<% 	
+							}
+							%>
+							<%
+							if(r.getRolId() == 4){
+							%>
 							<td><button id='btnIdActualizar'
 									onClick="cargarDatos('<%=rsvv.getInt("ParPacID")%>', '<%=rsvv.getInt("PacienteID")%>', '<%=rsvv.getInt("ParienteID")%>');"
 									value=<%=rsvv.getInt("ParPacID")%>
@@ -290,7 +333,10 @@
 									<span><i class="fa fa-edit"></i></span> Actualizar
 								</button>
 								
-								</td>
+							</td>
+							<% 	
+							}
+							%>
 						</tr>
 						<%
 							}
@@ -486,8 +532,13 @@ function actualizarParientePaciente(idClicked) {
 		$('.form-control').tooltip();
 		/////////////////////////////CONTROLAR EL FORMULARIO AGREGAR Y CERRAR FORMULARIO EDITAR/////////////////////////////
 		$('#btn-agrega-abrir').click(function() {
-			$('#frm-agrega').fadeIn();
-			$('#frm-edita').fadeOut();
+			var TipoRol = "";
+			TipoRol = $("#TipoRol").val();
+			if(TipoRol != 3){
+				$('#frm-agrega').fadeIn();
+				$('#frm-edita').fadeOut()
+				
+			}
 		});
 		$('#cancelar_nuevo').click(function() {
 			$('#frm-agrega').fadeOut();

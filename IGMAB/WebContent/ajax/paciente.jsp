@@ -1164,7 +1164,7 @@ response.setDateHeader("Expires", -1);
 									</span> Ver ficha
 								</button>
 								<button id="btnTransferir"  onClick="transferir(this.value);"
-									class="ajax-link action btn btn-default btn-label-left" disabled
+									class="ajax-link action btn btn-default btn-label-left" 
 									value=<%=rs.getInt("PacienteID")%>>
 									<span> <i class="fa fa-edit"></i>
 									</span> Transferir
@@ -1986,8 +1986,14 @@ response.setDateHeader("Expires", -1);
 		$('.form-control').tooltip();
 		/////////////////////////////CONTROLAR EL FORMULARIO AGREGAR Y CERRAR FORMULARIO EDITAR/////////////////////////////
 		$('#btn-agrega-abrir').click(function() {
-			$('#frm-agrega').fadeIn();
-			$('#frm-edita').fadeOut();
+			var TipoRol = "";
+			TipoRol = $("#TipoRol").val();
+			if(TipoRol != 3){
+				$('#frm-agrega').fadeIn();
+				$('#frm-edita').fadeOut()
+				
+			}
+			
 		});
 		$('#cancelar_nuevo').click(function() {
 			$('#frm-agrega').fadeOut();
