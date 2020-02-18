@@ -518,6 +518,7 @@ response.setDateHeader("Expires", -1);
                     </div>
                 </div>
                 <div class="clearfix"></div>
+                <h5 class="page-header">Acciones</h5>
                 <div class="form-group">
                     <div id="cancelar_nuevo_edit" class="col-sm-offset-2 col-sm-2">
                         <button

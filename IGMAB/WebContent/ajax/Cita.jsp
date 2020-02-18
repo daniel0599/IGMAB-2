@@ -87,7 +87,7 @@
 							<!-- 						Combo con buscar -->
 							<select class="populate placeholder" id="paciente"
 								name="paciente">
-								<option value="">-- Seleccione paciente --</option>
+								<option value=""> Seleccione paciente </option>
 								<%
 									DtPaciente dtp = new DtPaciente();
 									ResultSet rp = dtp.cargarDatos();
@@ -157,14 +157,17 @@
 				</form>
 			</div>
 		</div>
+	</div>
+</div>
 		<!-- FIN DE FORMULARIO PARA AGREGAR UNA CITA  -->
 
 		<!-- INICIO DE FORMULARIO PARA EDITAR UNA CITA  -->
-
+       <div class="row">
+       <div class="col-xs-12 col-sm-12">
 		<div id="frm-edita" class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-file-text-o"></i> <span>Registro de cita</span>
+					<i class="fa fa-file-text-o"></i> <span>Editar cita</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -242,7 +245,7 @@
 						<div class="col-sm-2">
 							<button id="btnEditar"
 								class="ajax-link btn btn-primary btn-label-left"
-								onClick="actualizar(this.value);" title="Editar">
+								onClick="" title="Editar">
 								<span><i class="fa fa-check-circle txt-success"></i></span>
 								Editar
 							</button>
@@ -252,8 +255,8 @@
 			</div>
 		</div>
 	</div>
+	</div>
 
-</div>
 
 <div class="row">
 	<div class="col-xs-12">

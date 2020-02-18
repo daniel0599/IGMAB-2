@@ -54,7 +54,7 @@ public class DtCita {
 			 rs.updateString("Hora", shf.format(c.getHora()));
 			 rs.updateInt("PacienteID", c.getPacienteId());
 			 rs.updateInt("Numsesion", c.getNumSesion());
-			 rs.updateInt("Usuariocreacion", 1);
+			 rs.updateInt("Usuariocreacion", 4);
 			 rs.insertRow();
 			 rs.moveToCurrentRow();
 			 rs.close();

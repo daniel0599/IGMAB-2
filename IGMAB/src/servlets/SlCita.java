@@ -161,7 +161,7 @@ public class SlCita extends HttpServlet {
 			refrescar(request, response);
 			break;
 
-			case "refrescarConTodas":
+		case "refrescarConTodas":
 				refrescarConTodas(request, response);
 				break;
 		}
