@@ -37,6 +37,37 @@ public class DtPaciente {
 		return rs;
 	
 	}
+	
+	public ResultSet cargarPacientesAPsicologos(int psicologoID) {
+		ResultSet rsn = null;
+		PreparedStatement s;
+		try {
+			s = con.prepareStatement("SELECT * FROM igmab.Paciente pac INNER JOIN Consulta con ON con.PacienteID=pac.PacienteID INNER JOIN Psicologo psi ON psi.PsicologoID=con.PsicologoID WHERE psi.PsicologoID = ? AND pac.Eliminado = 0");
+			s.setInt(1, psicologoID);
+			rsn = s.executeQuery();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error en obtenerPsicologoID() de DtConsulta: " + e.getMessage());
+		}
+		return rsn;
+	}
+	
+	
+	public ResultSet cargarDatosInactivosAPsicologos(int psicologoID) {
+		ResultSet rsn = null;
+		PreparedStatement s;
+		try {
+			s = con.prepareStatement("SELECT * FROM igmab.Paciente pac INNER JOIN Consulta con ON con.PacienteID=pac.PacienteID INNER JOIN Psicologo psi ON psi.PsicologoID=con.PsicologoID WHERE psi.PsicologoID = ? AND pac.Eliminado=1");
+			s.setInt(1, psicologoID);
+			rsn = s.executeQuery();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error en obtenerPsicologoID() de DtConsulta: " + e.getMessage());
+		}
+		return rsn;
+	}
 
 	public ResultSet cargarDatosInactivos() {
 		Statement s;
@@ -62,6 +93,21 @@ public class DtPaciente {
 			System.out.println("Error en DtPaciente: " + e.getMessage());
 		}
 		return rs;
+	}
+	
+	public ResultSet cargarDatosAltaAPsicologos(int psicologoID) {
+		ResultSet rsn = null;
+		PreparedStatement s;
+		try {
+			s = con.prepareStatement("SELECT * FROM igmab.Paciente pac INNER JOIN Consulta con ON con.PacienteID=pac.PacienteID INNER JOIN Psicologo psi ON psi.PsicologoID=con.PsicologoID WHERE psi.PsicologoID = ? AND pac.Eliminado=2");
+			s.setInt(1, psicologoID);
+			rsn = s.executeQuery();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error en obtenerPsicologoID() de DtConsulta: " + e.getMessage());
+		}
+		return rsn;
 	}
 
 

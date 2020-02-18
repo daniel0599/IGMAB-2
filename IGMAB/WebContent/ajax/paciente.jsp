@@ -1,4 +1,4 @@
-<%@page import="entidades.*"%>
+  <%@page import="entidades.*"%>
 <%@page import="java.sql.ResultSet, java.text.SimpleDateFormat, java.util.Date"%>
 <%@page import="datos.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -32,7 +32,7 @@ response.setDateHeader("Expires", -1);
 	String opcionActual = "";
 	
 	
-	ResultSet rs;
+	ResultSet rs = null;
 	
 	if(us != null && r != null)
 	{
@@ -66,6 +66,8 @@ response.setDateHeader("Expires", -1);
 	DtRespuesta dtres = new DtRespuesta();
 
 %>
+<input id="usuarioID" name="usuarioID" type="hidden" value=<%=us.getUsuarioID()%> checked>
+
 <input id="TipoRol" name="TipoROl" type="hidden" value=<%=r.getRolId()%>  checked>
 								
 <div class="row">
@@ -899,107 +901,113 @@ response.setDateHeader("Expires", -1);
 					<tbody>
 
 						<%
+							ResultSet rspac=null;
+						    DtConsulta dtcon = new DtConsulta();
 							DtPaciente dtp = new DtPaciente();
-							rs = dtp.cargarDatos();
-							rs.beforeFirst();
+							
+						if (r.getRolId() == 1 || r.getRolId() == 4) { //Carga TODOS los registros para Administrador y Directora
+							rspac = dtp.cargarDatos();
+						
+						} else if (r.getRolId() == 3) { //Carga únicamente los registros relacionados un psicólogo
+							rspac = dtp.cargarPacientesAPsicologos(dtcon.obtenerPsicologoID(us.getUsuarioID()));
+							
+						}
+							
 							
 							SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 							SimpleDateFormat fechaM = new SimpleDateFormat("dd/MM/yyyy");
-
-							while (rs.next()) {
+							rspac.beforeFirst();
+							while (rspac.next()) {
 						%>
 
 						<tr>
-							<td><%=rs.getString("Expediente")%></td>
-							<td><%=rs.getString("Nombre1") + " "+ rs.getString("Nombre2") + " " + rs.getString("Apellido1") + " "+ rs.getString("Apellido2")%></td>
-							<td><%=rs.getString("Edad")%></td>
+							<td><%=rspac.getString("Expediente")%></td>
+							<td><%=rspac.getString("Nombre1") + " "+ rspac.getString("Nombre2") + " " + rspac.getString("Apellido1") + " "+ rspac.getString("Apellido2")%></td>
+							<td><%=rspac.getString("Edad")%></td>
 							<%
 							if(r.getRolId() == 1){
 							%>
 							<td>
-								<% Date fecha = formatter.parse(rs.getString("Fechanac")); %>
+								<% Date fecha = formatter.parse(rspac.getString("Fechanac")); %>
 								
 								<button id='btnIdVisualizar'
 									class="btn btn-default btn-label-left"
-									OnClick="cargarDatosVisualizar(this.value, '<%=rs.getString("Nombre1")%>',
-										'<%=rs.getString("Nombre2")%>',
-										'<%=rs.getString("Apellido1")%>',
-										'<%=rs.getString("Apellido2")%>',
-										'<%=rs.getInt("Celular")%>',
-										'<%=rs.getString("Edad")%>',
+									OnClick="cargarDatosVisualizar(this.value, '<%=rspac.getString("Nombre1")%>',
+										'<%=rspac.getString("Nombre2")%>',
+										'<%=rspac.getString("Apellido1")%>',
+										'<%=rspac.getString("Apellido2")%>',
+										'<%=rspac.getInt("Celular")%>',
+										'<%=rspac.getString("Edad")%>',
 										'<%=fechaM.format(fecha)%>',
-										'<%=rs.getInt("Sexo")%>',
-										'<%=rs.getInt("Estadocivil")%>',
-										'<%=rs.getString("Escolaridad")%>', 
-										'<%=rs.getString("Direccion")%>',
-										'<%=rs.getString("Conquienvive")%>',
-										'<%=rs.getString("Lugartrabajo")%>',
-										'<%=rs.getString("Empleo")%>',
-										'<%=rs.getString("Salario")%>',
-										'<%=rs.getInt("Terapia")%>',
-										'<%=rs.getInt("Internado")%>',
-										'<%=rs.getString("Internadoafirmativo")%>',
-										'<%=rs.getString("EscolaridadID")%>',
-                                            '<%=rs.getString("Uca")%>');"
-									value=<%=rs.getInt("PacienteID")%> class="btn btn-info">
+										'<%=rspac.getInt("Sexo")%>',
+										'<%=rspac.getInt("Estadocivil")%>',
+										'<%=rspac.getString("Escolaridad")%>', 
+										'<%=rspac.getString("Direccion")%>',
+										'<%=rspac.getString("Conquienvive")%>',
+										'<%=rspac.getString("Lugartrabajo")%>',
+										'<%=rspac.getString("Empleo")%>',
+										'<%=rspac.getString("Salario")%>',
+										'<%=rspac.getInt("Terapia")%>',
+										'<%=rspac.getInt("Internado")%>',
+										'<%=rspac.getString("Internadoafirmativo")%>',
+										'<%=rspac.getString("EscolaridadID")%>',
+                                            '<%=rspac.getString("Uca")%>');"
+									value=<%=rspac.getInt("PacienteID")%> class="btn btn-info">
 									<span><i class="fa fa-eye"></i></span> Ver paciente
 								</button>
 								<button id='btnIdActualizar'
 									class="btn btn-primary btn-label-left"
-									OnClick="cargarDatos(this.value, '<%=rs.getString("Nombre1")%>',
-										'<%=rs.getString("Nombre2")%>',
-										'<%=rs.getString("Apellido1")%>',
-										'<%=rs.getString("Apellido2")%>',
-										'<%=rs.getInt("Celular")%>',
-										'<%=rs.getString("Edad")%>',
+									OnClick="cargarDatos(this.value, '<%=rspac.getString("Nombre1")%>',
+										'<%=rspac.getString("Nombre2")%>',
+										'<%=rspac.getString("Apellido1")%>',
+										'<%=rspac.getString("Apellido2")%>',
+										'<%=rspac.getInt("Celular")%>',
+										'<%=rspac.getString("Edad")%>',
 										'<%=fechaM.format(fecha)%>',
-										'<%=rs.getInt("Sexo")%>',
-										'<%=rs.getInt("Estadocivil")%>',
-										'<%=rs.getString("Escolaridad")%>', 
-										'<%=rs.getString("Direccion")%>',
-										'<%=rs.getString("Conquienvive")%>',
-										'<%=rs.getString("Lugartrabajo")%>',
-										'<%=rs.getString("Empleo")%>',
-										'<%=rs.getString("Salario")%>',
-										'<%=rs.getInt("Terapia")%>',
-										'<%=rs.getInt("Internado")%>',
-										'<%=rs.getString("Internadoafirmativo")%>',
-										'<%=rs.getString("EscolaridadID")%>',
-                                            '<%=rs.getString("Uca")%>');"
-									value=<%=rs.getInt("PacienteID")%> class="btn btn-info">
+										'<%=rspac.getInt("Sexo")%>',
+										'<%=rspac.getInt("Estadocivil")%>',
+										'<%=rspac.getString("Escolaridad")%>', 
+										'<%=rspac.getString("Direccion")%>',
+										'<%=rspac.getString("Conquienvive")%>',
+										'<%=rspac.getString("Lugartrabajo")%>',
+										'<%=rspac.getString("Empleo")%>',
+										'<%=rspac.getString("Salario")%>',
+										'<%=rspac.getInt("Terapia")%>',
+										'<%=rspac.getInt("Internado")%>',
+										'<%=rspac.getString("Internadoafirmativo")%>',
+										'<%=rspac.getString("EscolaridadID")%>',
+                                            '<%=rspac.getString("Uca")%>');"
+									value=<%=rspac.getInt("PacienteID")%> class="btn btn-info">
 									<span><i class="fa fa-edit"></i></span> Actualizar
 								</button>
 								<input id="validacionPaciente" name="validacionPaciente" type="hidden" value=<%=dtres.validarPaciente(rs.getInt("PacienteID"))%>  checked>
 								<button id="btnRespuesta"  onClick="redirect(this.value);"
 									class="ajax-link action btn btn-default btn-label-left"
-									value=<%=rs.getInt("PacienteID")%>>
+									value=<%=rspac.getInt("PacienteID")%>>
 									<span> <i class="fa fa-edit"></i>
 									</span> Ficha
 								</button>
 								<button id="btnRespuestaVista"  onClick="redirectII(this.value);"
 									class="ajax-link action btn btn-default btn-label-left"
-									value=<%=rs.getInt("PacienteID")%>>
+									value=<%=rspac.getInt("PacienteID")%>>
 									<span> <i class="fa fa-eye"></i>
 									</span> Ver ficha
 								</button>
 								<button id="btnTransferir"  onClick="transferir(this.value);"
 									class="ajax-link action btn btn-default btn-label-left"
-									value=<%=rs.getInt("PacienteID")%>>
+									value=<%=rspac.getInt("PacienteID")%>>
 									<span> <i class="fa fa-edit"></i>
 									</span> Transferir
 								</button>
                                 <button id="btnIdAlta"
-                                        value=<%=rs.getInt("PacienteID")%>
+                                        value=<%=rspac.getInt("PacienteID")%>
                                                 class='ajax-link action btn btn-default btn-label-left'
                                 onClick='eliminarAlta(this.value);'>
                                 <span><i class="fa fa-trash-o txt-danger"></i></span>Dar de alta</button>
 								<button id="btnIdEliminar"
-									value=<%=rs.getInt("PacienteID")%>
+									value=<%=rspac.getInt("PacienteID")%>
 									class='ajax-link action btn btn-default btn-label-left' onClick='eliminar(this.value);'>
 									<span><i class="fa fa-trash-o txt-danger"></i></span>Dar de baja</button>
-
-																	
-<%-- 								<%System.out.println("la validacion dijo que "+dtres.validarPaciente(rs.getInt("PAcienteID"))); %> --%>
 							</td>
 							<%
 							} 
@@ -1008,89 +1016,86 @@ response.setDateHeader("Expires", -1);
 							if(r.getRolId() == 2){
 							%>
 							<td>
-								<% Date fecha = formatter.parse(rs.getString("Fechanac")); %>
+								<% Date fecha = formatter.parse(rspac.getString("Fechanac")); %>
 								
 								<button id='btnIdVisualizar'
 									class="btn btn-default btn-label-left"
-									OnClick="cargarDatosVisualizar(this.value, '<%=rs.getString("Nombre1")%>',
-										'<%=rs.getString("Nombre2")%>',
-										'<%=rs.getString("Apellido1")%>',
-										'<%=rs.getString("Apellido2")%>',
-										'<%=rs.getInt("Celular")%>',
-										'<%=rs.getString("Edad")%>',
+									OnClick="cargarDatosVisualizar(this.value, '<%=rspac.getString("Nombre1")%>',
+										'<%=rspac.getString("Nombre2")%>',
+										'<%=rspac.getString("Apellido1")%>',
+										'<%=rspac.getString("Apellido2")%>',
+										'<%=rspac.getInt("Celular")%>',
+										'<%=rspac.getString("Edad")%>',
 										'<%=fechaM.format(fecha)%>',
-										'<%=rs.getInt("Sexo")%>',
-										'<%=rs.getInt("Estadocivil")%>',
-										'<%=rs.getString("Escolaridad")%>', 
-										'<%=rs.getString("Direccion")%>',
-										'<%=rs.getString("Conquienvive")%>',
-										'<%=rs.getString("Lugartrabajo")%>',
-										'<%=rs.getString("Empleo")%>',
-										'<%=rs.getString("Salario")%>',
-										'<%=rs.getInt("Terapia")%>',
-										'<%=rs.getInt("Internado")%>',
-										'<%=rs.getString("Internadoafirmativo")%>',
-										'<%=rs.getString("EscolaridadID")%>',
-                                            '<%=rs.getString("Uca")%>');"
-									value=<%=rs.getInt("PacienteID")%> class="btn btn-info">
+										'<%=rspac.getInt("Sexo")%>',
+										'<%=rspac.getInt("Estadocivil")%>',
+										'<%=rspac.getString("Escolaridad")%>', 
+										'<%=rspac.getString("Direccion")%>',
+										'<%=rspac.getString("Conquienvive")%>',
+										'<%=rspac.getString("Lugartrabajo")%>',
+										'<%=rspac.getString("Empleo")%>',
+										'<%=rspac.getString("Salario")%>',
+										'<%=rspac.getInt("Terapia")%>',
+										'<%=rspac.getInt("Internado")%>',
+										'<%=rspac.getString("Internadoafirmativo")%>',
+										'<%=rspac.getString("EscolaridadID")%>',
+                                            '<%=rspac.getString("Uca")%>');"
+									value=<%=rspac.getInt("PacienteID")%> class="btn btn-info">
 									<span><i class="fa fa-eye"></i></span> Ver paciente
 								</button>
 								<button id='btnIdActualizar'
 									class="btn btn-primary btn-label-left"
-									OnClick="cargarDatos(this.value, '<%=rs.getString("Nombre1")%>',
-										'<%=rs.getString("Nombre2")%>',
-										'<%=rs.getString("Apellido1")%>',
-										'<%=rs.getString("Apellido2")%>',
-										'<%=rs.getInt("Celular")%>',
-										'<%=rs.getString("Edad")%>',
+									OnClick="cargarDatos(this.value, '<%=rspac.getString("Nombre1")%>',
+										'<%=rspac.getString("Nombre2")%>',
+										'<%=rspac.getString("Apellido1")%>',
+										'<%=rspac.getString("Apellido2")%>',
+										'<%=rspac.getInt("Celular")%>',
+										'<%=rspac.getString("Edad")%>',
 										'<%=fechaM.format(fecha)%>',
-										'<%=rs.getInt("Sexo")%>',
-										'<%=rs.getInt("Estadocivil")%>',
-										'<%=rs.getString("Escolaridad")%>', 
-										'<%=rs.getString("Direccion")%>',
-										'<%=rs.getString("Conquienvive")%>',
-										'<%=rs.getString("Lugartrabajo")%>',
-										'<%=rs.getString("Empleo")%>',
-										'<%=rs.getString("Salario")%>',
-										'<%=rs.getInt("Terapia")%>',
-										'<%=rs.getInt("Internado")%>',
-										'<%=rs.getString("Internadoafirmativo")%>',
-										'<%=rs.getString("EscolaridadID")%>',
-                                            '<%=rs.getString("Uca")%>');"
-									value=<%=rs.getInt("PacienteID")%> class="btn btn-info">
+										'<%=rspac.getInt("Sexo")%>',
+										'<%=rspac.getInt("Estadocivil")%>',
+										'<%=rspac.getString("Escolaridad")%>', 
+										'<%=rspac.getString("Direccion")%>',
+										'<%=rspac.getString("Conquienvive")%>',
+										'<%=rspac.getString("Lugartrabajo")%>',
+										'<%=rspac.getString("Empleo")%>',
+										'<%=rspac.getString("Salario")%>',
+										'<%=rspac.getInt("Terapia")%>',
+										'<%=rspac.getInt("Internado")%>',
+										'<%=rspac.getString("Internadoafirmativo")%>',
+										'<%=rspac.getString("EscolaridadID")%>',
+                                            '<%=rspac.getString("Uca")%>');"
+									value=<%=rspac.getInt("PacienteID")%> class="btn btn-info">
 									<span><i class="fa fa-edit"></i></span> Actualizar
 								</button>
 								<input id="validacionPaciente" name="validacionPaciente" type="hidden" value=<%=dtres.validarPaciente(rs.getInt("PacienteID"))%>  checked>
 								<button id="btnRespuesta"  onClick="redirect(this.value);"
 									class="ajax-link action btn btn-default btn-label-left"
-									value=<%=rs.getInt("PacienteID")%>>
+									value=<%=rspac.getInt("PacienteID")%>>
 									<span> <i class="fa fa-edit"></i>
 									</span> Ficha
 								</button>
 								<button id="btnRespuestaVista"  onClick="redirectII(this.value);"
 									class="ajax-link action btn btn-default btn-label-left"
-									value=<%=rs.getInt("PacienteID")%>>
+									value=<%=rspac.getInt("PacienteID")%>>
 									<span> <i class="fa fa-eye"></i>
 									</span> Ver ficha
 								</button>
 								<button id="btnTransferir"  onClick="transferir(this.value);"
 									class="ajax-link action btn btn-default btn-label-left"
-									value=<%=rs.getInt("PacienteID")%>>
+									value=<%=rspac.getInt("PacienteID")%>>
 									<span> <i class="fa fa-edit"></i>
 									</span> Transferir
 								</button>
                                 <button id="btnIdAlta"
-                                        value=<%=rs.getInt("PacienteID")%>
+                                        value=<%=rspac.getInt("PacienteID")%>
                                                 class='ajax-link action btn btn-default btn-label-left'
                                 onClick='eliminarAlta(this.value);'>
                                 <span><i class="fa fa-trash-o txt-danger"></i></span>Dar de alta</button>
 								<button id="btnIdEliminar"
-									value=<%=rs.getInt("PacienteID")%>
+									value=<%=rspac.getInt("PacienteID")%>
 									class='ajax-link action btn btn-default btn-label-left' onClick='eliminar(this.value);'>
 									<span><i class="fa fa-trash-o txt-danger"></i></span>Dar de baja</button>
-
-																	
-<%-- 								<%System.out.println("la validacion dijo que "+dtres.validarPaciente(rs.getInt("PAcienteID"))); %> --%>
 							</td>
 							<% 	
 							} 
@@ -1099,88 +1104,59 @@ response.setDateHeader("Expires", -1);
 							if(r.getRolId() == 3){
 							%>
 							 <td>
-								<% Date fecha = formatter.parse(rs.getString("Fechanac")); %>
+								<% Date fecha = formatter.parse(rspac.getString("Fechanac")); %>
 								
 								<button id='btnIdVisualizar'
 									class="btn btn-default btn-label-left"
-									OnClick="cargarDatosVisualizar(this.value, '<%=rs.getString("Nombre1")%>',
-										'<%=rs.getString("Nombre2")%>',
-										'<%=rs.getString("Apellido1")%>',
-										'<%=rs.getString("Apellido2")%>',
-										'<%=rs.getInt("Celular")%>',
-										'<%=rs.getString("Edad")%>',
+									OnClick="cargarDatosVisualizar(this.value, '<%=rspac.getString("Nombre1")%>',
+										'<%=rspac.getString("Nombre2")%>',
+										'<%=rspac.getString("Apellido1")%>',
+										'<%=rspac.getString("Apellido2")%>',
+										'<%=rspac.getInt("Celular")%>',
+										'<%=rspac.getString("Edad")%>',
 										'<%=fechaM.format(fecha)%>',
-										'<%=rs.getInt("Sexo")%>',
-										'<%=rs.getInt("Estadocivil")%>',
-										'<%=rs.getString("Escolaridad")%>', 
-										'<%=rs.getString("Direccion")%>',
-										'<%=rs.getString("Conquienvive")%>',
-										'<%=rs.getString("Lugartrabajo")%>',
-										'<%=rs.getString("Empleo")%>',
-										'<%=rs.getString("Salario")%>',
-										'<%=rs.getInt("Terapia")%>',
-										'<%=rs.getInt("Internado")%>',
-										'<%=rs.getString("Internadoafirmativo")%>',
-										'<%=rs.getString("EscolaridadID")%>',
-                                            '<%=rs.getString("Uca")%>');"
-									value=<%=rs.getInt("PacienteID")%> class="btn btn-info">
+										'<%=rspac.getInt("Sexo")%>',
+										'<%=rspac.getInt("Estadocivil")%>',
+										'<%=rspac.getString("Escolaridad")%>', 
+										'<%=rspac.getString("Direccion")%>',
+										'<%=rspac.getString("Conquienvive")%>',
+										'<%=rspac.getString("Lugartrabajo")%>',
+										'<%=rspac.getString("Empleo")%>',
+										'<%=rspac.getString("Salario")%>',
+										'<%=rspac.getInt("Terapia")%>',
+										'<%=rspac.getInt("Internado")%>',
+										'<%=rspac.getString("Internadoafirmativo")%>',
+										'<%=rspac.getString("EscolaridadID")%>',
+                                            '<%=rspac.getString("Uca")%>');"
+									value=<%=rspac.getInt("PacienteID")%> class="btn btn-info">
 									<span><i class="fa fa-eye"></i></span> Ver paciente
 								</button>
-								<button id='btnIdActualizar'
-									class="btn btn-primary btn-label-left" disabled
-									OnClick="cargarDatos(this.value, '<%=rs.getString("Nombre1")%>',
-										'<%=rs.getString("Nombre2")%>',
-										'<%=rs.getString("Apellido1")%>',
-										'<%=rs.getString("Apellido2")%>',
-										'<%=rs.getInt("Celular")%>',
-										'<%=rs.getString("Edad")%>',
-										'<%=fechaM.format(fecha)%>',
-										'<%=rs.getInt("Sexo")%>',
-										'<%=rs.getInt("Estadocivil")%>',
-										'<%=rs.getString("Escolaridad")%>', 
-										'<%=rs.getString("Direccion")%>',
-										'<%=rs.getString("Conquienvive")%>',
-										'<%=rs.getString("Lugartrabajo")%>',
-										'<%=rs.getString("Empleo")%>',
-										'<%=rs.getString("Salario")%>',
-										'<%=rs.getInt("Terapia")%>',
-										'<%=rs.getInt("Internado")%>',
-										'<%=rs.getString("Internadoafirmativo")%>',
-										'<%=rs.getString("EscolaridadID")%>',
-                                            '<%=rs.getString("Uca")%>');"
-									value=<%=rs.getInt("PacienteID")%> class="btn btn-info">
-									<span><i class="fa fa-edit"></i></span> Actualizar
-								</button>
-								<input id="validacionPaciente" name="validacionPaciente" type="hidden" value=<%=dtres.validarPaciente(rs.getInt("PacienteID"))%>  checked>
-								<button id="btnRespuesta"  onClick="redirect(this.value);"
-									class="ajax-link action btn btn-default btn-label-left" disabled
-									value=<%=rs.getInt("PacienteID")%>>
-									<span> <i class="fa fa-edit"></i>
-									</span> Ficha
-								</button>
+	
+								<input id="validacionPaciente" name="validacionPaciente" type="hidden" value=<%=dtres.validarPaciente(rspac.getInt("PacienteID"))%>  checked>
+								
 								<button id="btnRespuestaVista"  onClick="redirectII(this.value);"
 									class="ajax-link action btn btn-default btn-label-left"
-									value=<%=rs.getInt("PacienteID")%>>
+									value=<%=rspac.getInt("PacienteID")%>>
 									<span> <i class="fa fa-eye"></i>
 									</span> Ver ficha
 								</button>
 								<button id="btnTransferir"  onClick="transferir(this.value);"
-									class="ajax-link action btn btn-default btn-label-left" 
-									value=<%=rs.getInt("PacienteID")%>>
+									class="ajax-link action btn btn-default btn-label-left"
+									value=<%=rspac.getInt("PacienteID")%>>
 									<span> <i class="fa fa-edit"></i>
 									</span> Transferir
 								</button>
                                 <button id="btnIdAlta"
-                                        value=<%=rs.getInt("PacienteID")%>
+                                        value=<%=rspac.getInt("PacienteID")%>
                                                 class='ajax-link action btn btn-default btn-label-left'
                                 onClick='eliminarAlta(this.value);'>
                                 <span><i class="fa fa-trash-o txt-danger"></i></span>Dar de alta</button>
 								<button id="btnIdEliminar"
-									value=<%=rs.getInt("PacienteID")%>
+									value=<%=rspac.getInt("PacienteID")%>
 									class='ajax-link action btn btn-default btn-label-left' onClick='eliminar(this.value);'>
 									<span><i class="fa fa-trash-o txt-danger"></i></span>Dar de baja</button>
 
-																	
+												
 <%-- 								<%System.out.println("la validacion dijo que "+dtres.validarPaciente(rs.getInt("PAcienteID"))); %> --%>
 							</td>
 							<% 	
@@ -1190,88 +1166,87 @@ response.setDateHeader("Expires", -1);
 							if(r.getRolId() == 4){
 							%>
 							<td>
-							   <% Date fecha = formatter.parse(rs.getString("Fechanac")); %>
+							  	<% Date fecha = formatter.parse(rspac.getString("Fechanac")); %>
 								
 								<button id='btnIdVisualizar'
 									class="btn btn-default btn-label-left"
-									OnClick="cargarDatosVisualizar(this.value, '<%=rs.getString("Nombre1")%>',
-										'<%=rs.getString("Nombre2")%>',
-										'<%=rs.getString("Apellido1")%>',
-										'<%=rs.getString("Apellido2")%>',
-										'<%=rs.getInt("Celular")%>',
-										'<%=rs.getString("Edad")%>',
+									OnClick="cargarDatosVisualizar(this.value, '<%=rspac.getString("Nombre1")%>',
+										'<%=rspac.getString("Nombre2")%>',
+										'<%=rspac.getString("Apellido1")%>',
+										'<%=rspac.getString("Apellido2")%>',
+										'<%=rspac.getInt("Celular")%>',
+										'<%=rspac.getString("Edad")%>',
 										'<%=fechaM.format(fecha)%>',
-										'<%=rs.getInt("Sexo")%>',
-										'<%=rs.getInt("Estadocivil")%>',
-										'<%=rs.getString("Escolaridad")%>', 
-										'<%=rs.getString("Direccion")%>',
-										'<%=rs.getString("Conquienvive")%>',
-										'<%=rs.getString("Lugartrabajo")%>',
-										'<%=rs.getString("Empleo")%>',
-										'<%=rs.getString("Salario")%>',
-										'<%=rs.getInt("Terapia")%>',
-										'<%=rs.getInt("Internado")%>',
-										'<%=rs.getString("Internadoafirmativo")%>',
-										'<%=rs.getString("EscolaridadID")%>',
-                                            '<%=rs.getString("Uca")%>');"
-									value=<%=rs.getInt("PacienteID")%> class="btn btn-info">
+										'<%=rspac.getInt("Sexo")%>',
+										'<%=rspac.getInt("Estadocivil")%>',
+										'<%=rspac.getString("Escolaridad")%>', 
+										'<%=rspac.getString("Direccion")%>',
+										'<%=rspac.getString("Conquienvive")%>',
+										'<%=rspac.getString("Lugartrabajo")%>',
+										'<%=rspac.getString("Empleo")%>',
+										'<%=rspac.getString("Salario")%>',
+										'<%=rspac.getInt("Terapia")%>',
+										'<%=rspac.getInt("Internado")%>',
+										'<%=rspac.getString("Internadoafirmativo")%>',
+										'<%=rspac.getString("EscolaridadID")%>',
+                                            '<%=rspac.getString("Uca")%>');"
+									value=<%=rspac.getInt("PacienteID")%> class="btn btn-info">
 									<span><i class="fa fa-eye"></i></span> Ver paciente
 								</button>
 								<button id='btnIdActualizar'
 									class="btn btn-primary btn-label-left"
-									OnClick="cargarDatos(this.value, '<%=rs.getString("Nombre1")%>',
-										'<%=rs.getString("Nombre2")%>',
-										'<%=rs.getString("Apellido1")%>',
-										'<%=rs.getString("Apellido2")%>',
-										'<%=rs.getInt("Celular")%>',
-										'<%=rs.getString("Edad")%>',
+									OnClick="cargarDatos(this.value, '<%=rspac.getString("Nombre1")%>',
+										'<%=rspac.getString("Nombre2")%>',
+										'<%=rspac.getString("Apellido1")%>',
+										'<%=rspac.getString("Apellido2")%>',
+										'<%=rspac.getInt("Celular")%>',
+										'<%=rspac.getString("Edad")%>',
 										'<%=fechaM.format(fecha)%>',
-										'<%=rs.getInt("Sexo")%>',
-										'<%=rs.getInt("Estadocivil")%>',
-										'<%=rs.getString("Escolaridad")%>', 
-										'<%=rs.getString("Direccion")%>',
-										'<%=rs.getString("Conquienvive")%>',
-										'<%=rs.getString("Lugartrabajo")%>',
-										'<%=rs.getString("Empleo")%>',
-										'<%=rs.getString("Salario")%>',
-										'<%=rs.getInt("Terapia")%>',
-										'<%=rs.getInt("Internado")%>',
-										'<%=rs.getString("Internadoafirmativo")%>',
-										'<%=rs.getString("EscolaridadID")%>',
-                                            '<%=rs.getString("Uca")%>');"
-									value=<%=rs.getInt("PacienteID")%> class="btn btn-info">
+										'<%=rspac.getInt("Sexo")%>',
+										'<%=rspac.getInt("Estadocivil")%>',
+										'<%=rspac.getString("Escolaridad")%>', 
+										'<%=rspac.getString("Direccion")%>',
+										'<%=rspac.getString("Conquienvive")%>',
+										'<%=rspac.getString("Lugartrabajo")%>',
+										'<%=rspac.getString("Empleo")%>',
+										'<%=rspac.getString("Salario")%>',
+										'<%=rspac.getInt("Terapia")%>',
+										'<%=rspac.getInt("Internado")%>',
+										'<%=rspac.getString("Internadoafirmativo")%>',
+										'<%=rspac.getString("EscolaridadID")%>',
+                                            '<%=rspac.getString("Uca")%>');"
+									value=<%=rspac.getInt("PacienteID")%> class="btn btn-info">
 									<span><i class="fa fa-edit"></i></span> Actualizar
 								</button>
 								<input id="validacionPaciente" name="validacionPaciente" type="hidden" value=<%=dtres.validarPaciente(rs.getInt("PacienteID"))%>  checked>
 								<button id="btnRespuesta"  onClick="redirect(this.value);"
 									class="ajax-link action btn btn-default btn-label-left"
-									value=<%=rs.getInt("PacienteID")%>>
+									value=<%=rspac.getInt("PacienteID")%>>
 									<span> <i class="fa fa-edit"></i>
 									</span> Ficha
 								</button>
 								<button id="btnRespuestaVista"  onClick="redirectII(this.value);"
 									class="ajax-link action btn btn-default btn-label-left"
-									value=<%=rs.getInt("PacienteID")%>>
+									value=<%=rspac.getInt("PacienteID")%>>
 									<span> <i class="fa fa-eye"></i>
 									</span> Ver ficha
 								</button>
 								<button id="btnTransferir"  onClick="transferir(this.value);"
 									class="ajax-link action btn btn-default btn-label-left"
-									value=<%=rs.getInt("PacienteID")%>>
+									value=<%=rspac.getInt("PacienteID")%>>
 									<span> <i class="fa fa-edit"></i>
 									</span> Transferir
 								</button>
                                 <button id="btnIdAlta"
-                                        value=<%=rs.getInt("PacienteID")%>
+                                        value=<%=rspac.getInt("PacienteID")%>
                                                 class='ajax-link action btn btn-default btn-label-left'
                                 onClick='eliminarAlta(this.value);'>
                                 <span><i class="fa fa-trash-o txt-danger"></i></span>Dar de alta</button>
 								<button id="btnIdEliminar"
-									value=<%=rs.getInt("PacienteID")%>
+									value=<%=rspac.getInt("PacienteID")%>
 									class='ajax-link action btn btn-default btn-label-left' onClick='eliminar(this.value);'>
 									<span><i class="fa fa-trash-o txt-danger"></i></span>Dar de baja</button>
-
-																	
+							  						
 <%-- 								<%System.out.println("la validacion dijo que "+dtres.validarPaciente(rs.getInt("PAcienteID"))); %> --%>
 							
 							</td>
@@ -1391,13 +1366,21 @@ response.setDateHeader("Expires", -1);
 	//MÉTODO PARA REFRESCAR EL DATATABLE A TRAVÉS DEL SERVLET
 	function refrescar() {
 		var opcion = "";
+		var TipoRol = "";
+		var usuarioID = "";
+		
 		opcion = "refrescar";
 
+		fTipoRol = $("#TipoRol").val();
+		fusuarioID = $("#usuarioID").val();
+		
 		$.ajax({
 			url : "SlPaciente",
 			type : "post",
 			datatype : 'html',
 			data : {
+				fTipoRol : fTipoRol,
+				fusuarioID : fusarioID,
 				'opcion' : opcion
 			},
 			success : function(data) {
@@ -1414,6 +1397,11 @@ response.setDateHeader("Expires", -1);
 
 	function refrescarInactivos() {
         var opcion = "";
+        var TipoRol = "";
+		var usuarioID = "";
+		
+		fTipoRol = $("#TipoRol").val();
+		fusuarioID = $("#usuarioID").val();
         opcion = "refrescarInactivos";
 
         $.ajax({
@@ -1421,6 +1409,8 @@ response.setDateHeader("Expires", -1);
             type : "post",
             datatype : 'html',
             data : {
+            	'fTipoRol' : fTipoROl,
+            	'fusuarioID' : fusuarioID,
                 'opcion' : opcion
             },
             success : function(data) {
@@ -1437,13 +1427,22 @@ response.setDateHeader("Expires", -1);
 
 	function refrescarDatosAlta() {
         var opcion = "";
+        var TipoRol = "";
+		var usuarioID = "";
+		
         opcion = "refrescarDatosAlta";
-
+        fTipoRol = $("#TipoRol").val();
+		fusuarioID = $("#usuarioID").val();
+        console.log("REfrescar datos alta");
+        
         $.ajax({
             url : "SlPaciente",
             type : "post",
             datatype : 'html',
             data : {
+            	
+            	'fTipoRol' : fTipoRol,
+            	'fusuarioID' : fusuarioID,
                 'opcion' : opcion
             },
             success : function(data) {
