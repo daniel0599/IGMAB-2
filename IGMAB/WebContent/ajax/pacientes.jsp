@@ -69,10 +69,14 @@
 						<div class="col-sm-4 has-rpromedix">
 							<div class="combo-contenedor">
 								<select id="estadocivil" name="estadocivil" class="populate placeholder">
-									<option value="2">Seleccione</option>
-								 	<option value="1">Casado/a</option>
-								 	<option value="0">Soltero/a</option>
-								</select>
+									    <option>Seleccione</option>
+                                        <option value=0>Soltero/a</option>
+                                        <option value=1>Casado/a</option>
+                                        <option value=2>Divorciado/a</option>
+                                        <option value=3>Viudo/a</option>
+                                        <option value=4>En una relación</option>
+                                        <option value=5>Acompañado/a</option>
+                                  </select>
 							</div>
 						</div>
 						
@@ -144,6 +148,10 @@ function busqueda()
 		{
 		edad = "";
 		}
+	if(edad2 == null)
+	{
+	edad2 = "";
+	}
 	if(sexo == 2)
 		{
 		sexo = "";
@@ -162,7 +170,7 @@ function busqueda()
 		data: {'edad' :edad, 'sexo' :sexo, 'estadocivil' : estadocivil, 'edad2' : edad2},
 		success: function(data)
 		{
-			console.log("edad2: "+edad);
+			console.log("edad2: "+edad2);
 			$('#datatable-2').html(data);
 			$('#datatable-2').dataTable().fnDestroy();
 			LoadDataTablesScripts(AllTables);

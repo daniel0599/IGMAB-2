@@ -1,7 +1,7 @@
 package servlets;
 
 import java.io.IOException;
-import javax.swing.JOptionPane;
+
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 
@@ -162,7 +162,7 @@ public class SLParientePaciente extends HttpServlet {
 
 			PrintWriter pw = response.getWriter();
 			pw.write(out);
-			JOptionPane.showMessageDialog(null, "ya paso por el servlet al refrescar");
+			//JOptionPane.showMessageDialog(null, "ya paso por el servlet al refrescar");
 			pw.flush();
 			boolean error = pw.checkError();
 			 System.out.println("Error en el servlet : "+error);

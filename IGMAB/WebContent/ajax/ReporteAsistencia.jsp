@@ -145,10 +145,10 @@ function busqueda()
 			$('#datatable-2').html(data);
 			$('#datatable-2').dataTable().fnDestroy();
 			LoadDataTablesScripts(AllTables);
-			$('#datatable-2').dataTable({ 
-				"aaData": orgContent,
-	            "bLengthChange": true //used to hide the property  
-			});
+// 			$('#datatable-2').dataTable({ 
+// 				"aaData": orgContent,
+// 	            "bLengthChange": true //used to hide the property  
+// 			});
 		}
 	});
 }
