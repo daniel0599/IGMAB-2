@@ -13,9 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import datos.DtConsulta;
 import datos.DtPaciente;
-import datos.DtRespuesta;
 import entidades.Paciente;
 
 /**
@@ -287,27 +285,10 @@ public class SlPaciente extends HttpServlet {
 
 	protected void refrescar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			
-		int tiporol = 0;
-		int usuarioID =0;
-		
-		tiporol = Integer.parseInt(request.getParameter("fTipoRol"));
-		usuarioID = Integer.parseInt(request.getParameter("fusuarioID"));
-		
+
 		try {
-			ResultSet rspac=null;
-		    DtConsulta dtcon = new DtConsulta();
 			DtPaciente dtp = new DtPaciente();
-			DtRespuesta dtres = new DtRespuesta();
-			
-			if (tiporol == 1 || tiporol == 4) { //Carga TODOS los registros para Administrador y Directora
-				rspac = dtp.cargarDatos();
-			
-			} else if (tiporol == 3) { //Carga únicamente los registros relacionados un psicólogo
-				rspac = dtp.cargarPacientesAPsicologos(dtcon.obtenerPsicologoID(usuarioID));
-			}	
-			
-			
+			ResultSet rs = dtp.cargarDatos();
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			SimpleDateFormat fechaM = new SimpleDateFormat("dd/MM/yyyy");
@@ -325,231 +306,68 @@ public class SlPaciente extends HttpServlet {
 			out += "</thead>";
 
 			out += "<tbody>";
-			while (rspac.next()) {
+			while (rs.next()) {
 				out += "<tr>";
-				out += "<td>" + rspac.getString("Expediente") +"</td>";
-				out += "<td>" + rspac.getString("Nombre1") + " " + rspac.getString("Nombre2") + " " + rspac.getString("Apellido1") + " " + rspac.getString("Apellido2")+ "</td>";
-				out += "<td>" + rspac.getString("Edad") +"</td>";
-				if(tiporol == 1){
+				out += "<td>" + rs.getString("Expediente") +"</td>";
+				out += "<td>" + rs.getString("Nombre1") + " " + rs.getString("Nombre2") + " " + rs.getString("Apellido1") + " " + rs.getString("Apellido2")+ "</td>";
+				out += "<td>" + rs.getString("Edad") +"</td>";
 				out +="<td>";
-				Date fecha = formatter.parse(rspac.getString("Fechanac"));
+				Date fecha = formatter.parse(rs.getString("Fechanac"));
 				
 				
-				out += "<button id='btnIdVisualizar' value="+rspac.getInt("PacienteID")+" class='btn btn-default btn-label-left' "
-						+ "onclick = 'cargarDatosVisualizar(this.value, \""+ rspac.getString("Nombre1") + "\", "
-						+ "\""+rspac.getString("Nombre2")+"\","
-						+ "\""+rspac.getString("Apellido1")+"\","
-						+ "\""+rspac.getString("Apellido2")+"\","
-						+ "\""+rspac.getInt("Celular")+"\","
-						+ "\""+rspac.getString("Edad")+"\","
+				out += "<button id='btnIdVisualizar' value="+rs.getInt("PacienteID")+" class='btn btn-default btn-label-left' "
+						+ "onclick = 'cargarDatosVisualizar(this.value, \""+ rs.getString("Nombre1") + "\", "
+						+ "\""+rs.getString("Nombre2")+"\","
+						+ "\""+rs.getString("Apellido1")+"\","
+						+ "\""+rs.getString("Apellido2")+"\","
+						+ "\""+rs.getInt("Celular")+"\","
+						+ "\""+rs.getString("Edad")+"\","
 						+ "\""+fechaM.format(fecha)+"\","
-						+ "\""+rspac.getInt("Sexo")+"\","
-						+ "\""+rspac.getInt("Estadocivil")+"\","
-						+ "\""+rspac.getString("Escolaridad")+"\","
-						+ "\""+rspac.getString("Direccion")+"\","
-						+ "\""+rspac.getString("Conquienvive")+"\","
-						+ "\""+rspac.getString("Lugartrabajo")+"\","
-						+ "\""+rspac.getString("Empleo")+"\","
-						+ "\""+rspac.getString("Salario")+"\","
-						+ "\""+rspac.getInt("Terapia")+"\","
-						+ "\""+rspac.getString("Internado")+"\","
-						+ "\""+rspac.getString("Internadoafirmativo")+"\","
-						+ "\""+rspac.getInt("EscolaridadID")+"\","
-						+ "\""+rspac.getInt("Uca")+"\")'><span><i class='fa fa-eye'></i></span>Ver paciente</button>";
-				out += "<button id='btnIdActualizar' value="+rspac.getInt("PacienteID")+" class='btn btn-primary btn-label-left btn-info' "
-						+ "onclick = 'cargarDatos(this.value, \""+ rspac.getString("Nombre1") + "\", "
-						+ "\""+rspac.getString("Nombre2")+"\","
-						+ "\""+rspac.getString("Apellido1")+"\","
-						+ "\""+rspac.getString("Apellido2")+"\","
-						+ "\""+rspac.getInt("Celular")+"\","
-						+ "\""+rspac.getString("Edad")+"\","
+						+ "\""+rs.getInt("Sexo")+"\","
+						+ "\""+rs.getInt("Estadocivil")+"\","
+						+ "\""+rs.getString("Escolaridad")+"\","
+						+ "\""+rs.getString("Direccion")+"\","
+						+ "\""+rs.getString("Conquienvive")+"\","
+						+ "\""+rs.getString("Lugartrabajo")+"\","
+						+ "\""+rs.getString("Empleo")+"\","
+						+ "\""+rs.getString("Salario")+"\","
+						+ "\""+rs.getInt("Terapia")+"\","
+						+ "\""+rs.getString("Internado")+"\","
+						+ "\""+rs.getString("Internadoafirmativo")+"\","
+						+ "\""+rs.getInt("EscolaridadID")+"\","
+						+ "\""+rs.getInt("Uca")+"\")'><span><i class='fa fa-eye'></i></span>Ver paciente</button>";
+				out += "<button id='btnIdActualizar' value="+rs.getInt("PacienteID")+" class='btn btn-primary btn-label-left btn-info' "
+						+ "onclick = 'cargarDatos(this.value, \""+ rs.getString("Nombre1") + "\", "
+						+ "\""+rs.getString("Nombre2")+"\","
+						+ "\""+rs.getString("Apellido1")+"\","
+						+ "\""+rs.getString("Apellido2")+"\","
+						+ "\""+rs.getInt("Celular")+"\","
+						+ "\""+rs.getString("Edad")+"\","
 						+ "\""+fechaM.format(fecha)+"\","
-						+ "\""+rspac.getInt("Sexo")+"\","
-						+ "\""+rspac.getInt("Estadocivil")+"\","
-						+ "\""+rspac.getString("Escolaridad")+"\","
-						+ "\""+rspac.getString("Direccion")+"\","
-						+ "\""+rspac.getString("Conquienvive")+"\","
-						+ "\""+rspac.getString("Lugartrabajo")+"\","
-						+ "\""+rspac.getString("Empleo")+"\","
-						+ "\""+rspac.getString("Salario")+"\","
-						+ "\""+rspac.getInt("Terapia")+"\","
-						+ "\""+rspac.getString("Internado")+"\","
-						+ "\""+rspac.getString("Internadoafirmativo")+"\","
-						+ "\""+rspac.getInt("EscolaridadID")+"\", "
-						+ "\""+rspac.getInt("Uca")+"\")'><span><i class='fa fa-edit'></i></span>Actualizar</button>";
+						+ "\""+rs.getInt("Sexo")+"\","
+						+ "\""+rs.getInt("Estadocivil")+"\","
+						+ "\""+rs.getString("Escolaridad")+"\","
+						+ "\""+rs.getString("Direccion")+"\","
+						+ "\""+rs.getString("Conquienvive")+"\","
+						+ "\""+rs.getString("Lugartrabajo")+"\","
+						+ "\""+rs.getString("Empleo")+"\","
+						+ "\""+rs.getString("Salario")+"\","
+						+ "\""+rs.getInt("Terapia")+"\","
+						+ "\""+rs.getString("Internado")+"\","
+						+ "\""+rs.getString("Internadoafirmativo")+"\","
+						+ "\""+rs.getInt("EscolaridadID")+"\", "
+						+ "\""+rs.getInt("Uca")+"\")'><span><i class='fa fa-edit'></i></span>Actualizar</button>";
 				
-				out += "<input id='validacionPaciente' name='validacionPaciente' type='hidden' value="+dtres.validarPaciente(rspac.getInt("PacienteID"))+"  checked>";
+				out +="<button id='btnRespuesta' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='redirect(this.value);'><span><i class='fa fa-edit'></i></span>Ficha</button>";
 				
-				out +="<button id='btnRespuesta' value="+rspac.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='redirect(this.value);'><span><i class='fa fa-edit'></i></span>Ficha</button>";
-				
-				out += "<button id='btnRespuestaVista' onClick='redirectII(this.value);' class='btn btn-default btn-label-left' value="+rspac.getInt("PacienteID")+" <span> <i class='fa fa-eye'></i></span> Ver ficha</button>";
+				out += "<button id='btnRespuestaVista' onClick='redirectII(this.value);' class='btn btn-default btn-label-left' value="+rs.getInt("PacienteID")+" <span> <i class='fa fa-eye'></i></span> Ver ficha</button>";
 							
-				out +="<button id='btnTransferir' value="+rspac.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='transferir(this.value);'><span><i class='fa fa-edit'></i></span>Trasladar</button>";
+				out +="<button id='btnTransferir' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='transferir(this.value);'><span><i class='fa fa-edit'></i></span>Trasladar</button>";
 
-                out +="<button id='btnIdEliminar' value="+rspac.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='eliminarAlta(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Dar de alta</button>";
+                out +="<button id='btnIdEliminar' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='eliminarAlta(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Dar de alta</button>";
 
-				out +="<button id='btnIdEliminar' value="+rspac.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='eliminar(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Dar de baja</button>";
+				out +="<button id='btnIdEliminar' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='eliminar(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Dar de baja</button>";
 				out +="</td>";
-				}else if (tiporol == 2){
-					out +="<td>";
-					Date fecha = formatter.parse(rspac.getString("Fechanac"));
-					
-					
-					out += "<button id='btnIdVisualizar' value="+rspac.getInt("PacienteID")+" class='btn btn-default btn-label-left' "
-							+ "onclick = 'cargarDatosVisualizar(this.value, \""+ rspac.getString("Nombre1") + "\", "
-							+ "\""+rspac.getString("Nombre2")+"\","
-							+ "\""+rspac.getString("Apellido1")+"\","
-							+ "\""+rspac.getString("Apellido2")+"\","
-							+ "\""+rspac.getInt("Celular")+"\","
-							+ "\""+rspac.getString("Edad")+"\","
-							+ "\""+fechaM.format(fecha)+"\","
-							+ "\""+rspac.getInt("Sexo")+"\","
-							+ "\""+rspac.getInt("Estadocivil")+"\","
-							+ "\""+rspac.getString("Escolaridad")+"\","
-							+ "\""+rspac.getString("Direccion")+"\","
-							+ "\""+rspac.getString("Conquienvive")+"\","
-							+ "\""+rspac.getString("Lugartrabajo")+"\","
-							+ "\""+rspac.getString("Empleo")+"\","
-							+ "\""+rspac.getString("Salario")+"\","
-							+ "\""+rspac.getInt("Terapia")+"\","
-							+ "\""+rspac.getString("Internado")+"\","
-							+ "\""+rspac.getString("Internadoafirmativo")+"\","
-							+ "\""+rspac.getInt("EscolaridadID")+"\","
-							+ "\""+rspac.getInt("Uca")+"\")'><span><i class='fa fa-eye'></i></span>Ver paciente</button>";
-					out += "<button id='btnIdActualizar' value="+rspac.getInt("PacienteID")+" class='btn btn-primary btn-label-left btn-info' "
-							+ "onclick = 'cargarDatos(this.value, \""+ rspac.getString("Nombre1") + "\", "
-							+ "\""+rspac.getString("Nombre2")+"\","
-							+ "\""+rspac.getString("Apellido1")+"\","
-							+ "\""+rspac.getString("Apellido2")+"\","
-							+ "\""+rspac.getInt("Celular")+"\","
-							+ "\""+rspac.getString("Edad")+"\","
-							+ "\""+fechaM.format(fecha)+"\","
-							+ "\""+rspac.getInt("Sexo")+"\","
-							+ "\""+rspac.getInt("Estadocivil")+"\","
-							+ "\""+rspac.getString("Escolaridad")+"\","
-							+ "\""+rspac.getString("Direccion")+"\","
-							+ "\""+rspac.getString("Conquienvive")+"\","
-							+ "\""+rspac.getString("Lugartrabajo")+"\","
-							+ "\""+rspac.getString("Empleo")+"\","
-							+ "\""+rspac.getString("Salario")+"\","
-							+ "\""+rspac.getInt("Terapia")+"\","
-							+ "\""+rspac.getString("Internado")+"\","
-							+ "\""+rspac.getString("Internadoafirmativo")+"\","
-							+ "\""+rspac.getInt("EscolaridadID")+"\", "
-							+ "\""+rspac.getInt("Uca")+"\")'><span><i class='fa fa-edit'></i></span>Actualizar</button>";
-					
-					out += "<input id='validacionPaciente' name='validacionPaciente' type='hidden' value="+dtres.validarPaciente(rspac.getInt("PacienteID"))+"  checked>";
-					
-					out +="<button id='btnRespuesta' value="+rspac.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='redirect(this.value);'><span><i class='fa fa-edit'></i></span>Ficha</button>";
-					
-					out += "<button id='btnRespuestaVista' onClick='redirectII(this.value);' class='btn btn-default btn-label-left' value="+rspac.getInt("PacienteID")+" <span> <i class='fa fa-eye'></i></span> Ver ficha</button>";
-								
-					out +="<button id='btnTransferir' value="+rspac.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='transferir(this.value);'><span><i class='fa fa-edit'></i></span>Trasladar</button>";
-
-	                out +="<button id='btnIdEliminar' value="+rspac.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='eliminarAlta(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Dar de alta</button>";
-
-					out +="<button id='btnIdEliminar' value="+rspac.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='eliminar(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Dar de baja</button>";
-					out +="</td>";
-				}else if (tiporol == 3){
-					out +="<td>";
-					Date fecha = formatter.parse(rspac.getString("Fechanac"));
-					
-					
-					out += "<button id='btnIdVisualizar' value="+rspac.getInt("PacienteID")+" class='btn btn-default btn-label-left' "
-							+ "onclick = 'cargarDatosVisualizar(this.value, \""+ rspac.getString("Nombre1") + "\", "
-							+ "\""+rspac.getString("Nombre2")+"\","
-							+ "\""+rspac.getString("Apellido1")+"\","
-							+ "\""+rspac.getString("Apellido2")+"\","
-							+ "\""+rspac.getInt("Celular")+"\","
-							+ "\""+rspac.getString("Edad")+"\","
-							+ "\""+fechaM.format(fecha)+"\","
-							+ "\""+rspac.getInt("Sexo")+"\","
-							+ "\""+rspac.getInt("Estadocivil")+"\","
-							+ "\""+rspac.getString("Escolaridad")+"\","
-							+ "\""+rspac.getString("Direccion")+"\","
-							+ "\""+rspac.getString("Conquienvive")+"\","
-							+ "\""+rspac.getString("Lugartrabajo")+"\","
-							+ "\""+rspac.getString("Empleo")+"\","
-							+ "\""+rspac.getString("Salario")+"\","
-							+ "\""+rspac.getInt("Terapia")+"\","
-							+ "\""+rspac.getString("Internado")+"\","
-							+ "\""+rspac.getString("Internadoafirmativo")+"\","
-							+ "\""+rspac.getInt("EscolaridadID")+"\","
-							+ "\""+rspac.getInt("Uca")+"\")'><span><i class='fa fa-eye'></i></span>Ver paciente</button>";
-					
-					out += "<input id='validacionPaciente' name='validacionPaciente' type='hidden' value="+dtres.validarPaciente(rspac.getInt("PacienteID"))+"  checked>";
-					
-					
-					out += "<button id='btnRespuestaVista' onClick='redirectII(this.value);' class='btn btn-default btn-label-left' value="+rspac.getInt("PacienteID")+" <span> <i class='fa fa-eye'></i></span> Ver ficha</button>";
-								
-					out +="<button id='btnTransferir' value="+rspac.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='transferir(this.value);'><span><i class='fa fa-edit'></i></span>Trasladar</button>";
-
-	                out +="<button id='btnIdEliminar' value="+rspac.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='eliminarAlta(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Dar de alta</button>";
-
-					out +="<button id='btnIdEliminar' value="+rspac.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='eliminar(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Dar de baja</button>";
-					out +="</td>";
-				}else if (tiporol == 4){
-					out +="<td>";
-					Date fecha = formatter.parse(rspac.getString("Fechanac"));
-					
-					
-					out += "<button id='btnIdVisualizar' value="+rspac.getInt("PacienteID")+" class='btn btn-default btn-label-left' "
-							+ "onclick = 'cargarDatosVisualizar(this.value, \""+ rspac.getString("Nombre1") + "\", "
-							+ "\""+rspac.getString("Nombre2")+"\","
-							+ "\""+rspac.getString("Apellido1")+"\","
-							+ "\""+rspac.getString("Apellido2")+"\","
-							+ "\""+rspac.getInt("Celular")+"\","
-							+ "\""+rspac.getString("Edad")+"\","
-							+ "\""+fechaM.format(fecha)+"\","
-							+ "\""+rspac.getInt("Sexo")+"\","
-							+ "\""+rspac.getInt("Estadocivil")+"\","
-							+ "\""+rspac.getString("Escolaridad")+"\","
-							+ "\""+rspac.getString("Direccion")+"\","
-							+ "\""+rspac.getString("Conquienvive")+"\","
-							+ "\""+rspac.getString("Lugartrabajo")+"\","
-							+ "\""+rspac.getString("Empleo")+"\","
-							+ "\""+rspac.getString("Salario")+"\","
-							+ "\""+rspac.getInt("Terapia")+"\","
-							+ "\""+rspac.getString("Internado")+"\","
-							+ "\""+rspac.getString("Internadoafirmativo")+"\","
-							+ "\""+rspac.getInt("EscolaridadID")+"\","
-							+ "\""+rspac.getInt("Uca")+"\")'><span><i class='fa fa-eye'></i></span>Ver paciente</button>";
-					out += "<button id='btnIdActualizar' value="+rspac.getInt("PacienteID")+" class='btn btn-primary btn-label-left btn-info' "
-							+ "onclick = 'cargarDatos(this.value, \""+ rspac.getString("Nombre1") + "\", "
-							+ "\""+rspac.getString("Nombre2")+"\","
-							+ "\""+rspac.getString("Apellido1")+"\","
-							+ "\""+rspac.getString("Apellido2")+"\","
-							+ "\""+rspac.getInt("Celular")+"\","
-							+ "\""+rspac.getString("Edad")+"\","
-							+ "\""+fechaM.format(fecha)+"\","
-							+ "\""+rspac.getInt("Sexo")+"\","
-							+ "\""+rspac.getInt("Estadocivil")+"\","
-							+ "\""+rspac.getString("Escolaridad")+"\","
-							+ "\""+rspac.getString("Direccion")+"\","
-							+ "\""+rspac.getString("Conquienvive")+"\","
-							+ "\""+rspac.getString("Lugartrabajo")+"\","
-							+ "\""+rspac.getString("Empleo")+"\","
-							+ "\""+rspac.getString("Salario")+"\","
-							+ "\""+rspac.getInt("Terapia")+"\","
-							+ "\""+rspac.getString("Internado")+"\","
-							+ "\""+rspac.getString("Internadoafirmativo")+"\","
-							+ "\""+rspac.getInt("EscolaridadID")+"\", "
-							+ "\""+rspac.getInt("Uca")+"\")'><span><i class='fa fa-edit'></i></span>Actualizar</button>";
-					
-					out += "<input id='validacionPaciente' name='validacionPaciente' type='hidden' value="+dtres.validarPaciente(rspac.getInt("PacienteID"))+"  checked>";
-					
-					out +="<button id='btnRespuesta' value="+rspac.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='redirect(this.value);'><span><i class='fa fa-edit'></i></span>Ficha</button>";
-					
-					out += "<button id='btnRespuestaVista' onClick='redirectII(this.value);' class='btn btn-default btn-label-left' value="+rspac.getInt("PacienteID")+" <span> <i class='fa fa-eye'></i></span> Ver ficha</button>";
-								
-					out +="<button id='btnTransferir' value="+rspac.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='transferir(this.value);'><span><i class='fa fa-edit'></i></span>Trasladar</button>";
-
-	                out +="<button id='btnIdEliminar' value="+rspac.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='eliminarAlta(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Dar de alta</button>";
-
-					out +="<button id='btnIdEliminar' value="+rspac.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='eliminar(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Dar de baja</button>";
-					out +="</td>";
-				}
-				
 				out += "</tr>";
 			}
 			
@@ -579,27 +397,10 @@ public class SlPaciente extends HttpServlet {
 
 	protected void refrescarInactivos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int tiporol = 0;
-		int usuarioID =0;
-		
-		tiporol = Integer.parseInt(request.getParameter("fTipoRol"));
-		usuarioID = Integer.parseInt(request.getParameter("fusuarioID"));
-		
-		
+
 		try {
-			
-			ResultSet rspac=null;
-		    DtConsulta dtcon = new DtConsulta();
 			DtPaciente dtp = new DtPaciente();
-		     
-			
-			if (tiporol == 1 || tiporol == 4) { //Carga TODOS los registros para Administrador y Directora
-				rspac = dtp.cargarDatosInactivos();
-			
-			} else if (tiporol == 3) { //Carga únicamente los registros relacionados un psicólogo
-				rspac = dtp.cargarDatosInactivosAPsicologos(dtcon.obtenerPsicologoID(usuarioID));
-			}	
-			
+			ResultSet rs = dtp.cargarDatosInactivos();
 
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			SimpleDateFormat fechaM = new SimpleDateFormat("dd/MM/yyyy");
@@ -609,7 +410,7 @@ public class SlPaciente extends HttpServlet {
 
 			out += "<thead>";
 			out += "<tr>";
-			out += "<th>Codigo</th>";
+			out += "<th>Código</th>";
 			out += "<th>Nombre</th>";
 			out += "<th>Edad</th>";
 			out += "<th>Acciones</th>";
@@ -617,38 +418,38 @@ public class SlPaciente extends HttpServlet {
 			out += "</thead>";
 
 			out += "<tbody>";
-			while (rspac.next()) {
+			while (rs.next()) {
 				out += "<tr>";
-				out += "<td>" + rspac.getString("Expediente") +"</td>";
-				out += "<td>" + rspac.getString("Nombre1") + " " + rspac.getString("Nombre2") + " " + rspac.getString("Apellido1") + " " + rspac.getString("Apellido2")+ "</td>";
-				out += "<td>" + rspac.getString("Edad") +"</td>";
+				out += "<td>" + rs.getString("Expediente") +"</td>";
+				out += "<td>" + rs.getString("Nombre1") + " " + rs.getString("Nombre2") + " " + rs.getString("Apellido1") + " " + rs.getString("Apellido2")+ "</td>";
+				out += "<td>" + rs.getString("Edad") +"</td>";
 				out +="<td>";
-				Date fecha = formatter.parse(rspac.getString("Fechanac"));
+				Date fecha = formatter.parse(rs.getString("Fechanac"));
 
 
-				out += "<button id='btnIdVisualizar' value="+rspac.getInt("PacienteID")+" class='btn btn-default btn-label-left' "
-						+ "onclick = 'cargarDatosVisualizar(this.value, \""+ rspac.getString("Nombre1") + "\", "
-						+ "\""+rspac.getString("Nombre2")+"\","
-						+ "\""+rspac.getString("Apellido1")+"\","
-						+ "\""+rspac.getString("Apellido2")+"\","
-						+ "\""+rspac.getInt("Celular")+"\","
-						+ "\""+rspac.getString("Edad")+"\","
+				out += "<button id='btnIdVisualizar' value="+rs.getInt("PacienteID")+" class='btn btn-default btn-label-left' "
+						+ "onclick = 'cargarDatosVisualizar(this.value, \""+ rs.getString("Nombre1") + "\", "
+						+ "\""+rs.getString("Nombre2")+"\","
+						+ "\""+rs.getString("Apellido1")+"\","
+						+ "\""+rs.getString("Apellido2")+"\","
+						+ "\""+rs.getInt("Celular")+"\","
+						+ "\""+rs.getString("Edad")+"\","
 						+ "\""+fechaM.format(fecha)+"\","
-						+ "\""+rspac.getInt("Sexo")+"\","
-						+ "\""+rspac.getInt("Estadocivil")+"\","
-						+ "\""+rspac.getString("Escolaridad")+"\","
-						+ "\""+rspac.getString("Direccion")+"\","
-						+ "\""+rspac.getString("Conquienvive")+"\","
-						+ "\""+rspac.getString("Lugartrabajo")+"\","
-						+ "\""+rspac.getString("Empleo")+"\","
-						+ "\""+rspac.getString("Salario")+"\","
-						+ "\""+rspac.getInt("Terapia")+"\","
-						+ "\""+rspac.getString("Internado")+"\","
-						+ "\""+rspac.getString("Internadoafirmativo")+"\","
-						+ "\""+rspac.getInt("EscolaridadID")+"\","
-						+ "\""+rspac.getInt("Uca")+"\")'><span><i class='fa fa-eye'></i></span>Ver paciente</button>";
+						+ "\""+rs.getInt("Sexo")+"\","
+						+ "\""+rs.getInt("Estadocivil")+"\","
+						+ "\""+rs.getString("Escolaridad")+"\","
+						+ "\""+rs.getString("Direccion")+"\","
+						+ "\""+rs.getString("Conquienvive")+"\","
+						+ "\""+rs.getString("Lugartrabajo")+"\","
+						+ "\""+rs.getString("Empleo")+"\","
+						+ "\""+rs.getString("Salario")+"\","
+						+ "\""+rs.getInt("Terapia")+"\","
+						+ "\""+rs.getString("Internado")+"\","
+						+ "\""+rs.getString("Internadoafirmativo")+"\","
+						+ "\""+rs.getInt("EscolaridadID")+"\","
+						+ "\""+rs.getInt("Uca")+"\")'><span><i class='fa fa-eye'></i></span>Ver paciente</button>";
 
-				out +="<button id='btnIdReActivar' value="+rspac.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='reactivar(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Reactivar</button>";
+				out +="<button id='btnIdReActivar' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='reactivar(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Reactivar</button>";
 				out +="</td>";
 				out += "</tr>";
 			}
@@ -656,7 +457,7 @@ public class SlPaciente extends HttpServlet {
 
 			out += "<tfoot>";
 			out += "<tr>";
-			out += "<th>Codigo</th>";
+			out += "<th>Código</th>";
 			out += "<th>Nombre</th>";
 			out += "<th>Edad</th>";
 			out += "<th>Acciones</th>";
@@ -679,28 +480,9 @@ public class SlPaciente extends HttpServlet {
 	protected void refrescarDadosAlta(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		
-		int tiporol = 0;
-		int usuarioID =0;
-		
-		tiporol = Integer.parseInt(request.getParameter("fTipoRol"));
-		usuarioID = Integer.parseInt(request.getParameter("fusuarioID"));
-		System.out.println("YA entro a refrescar los dato de Alta tipo rol"+tiporol+"  usuario ID "+usuarioID);
 		try {
-
-			ResultSet rspac=null;
-		    DtConsulta dtcon = new DtConsulta();
 			DtPaciente dtp = new DtPaciente();
-		     
-			
-			if (tiporol == 1 || tiporol == 4 || tiporol == 2) { //Carga TODOS los registros para Administrador y Directora
-				rspac = dtp.cargarDatosAlta();
-			
-			} else if (tiporol == 3) { //Carga únicamente los registros relacionados un psicólogo
-				rspac = dtp.cargarDatosAltaAPsicologos(dtcon.obtenerPsicologoID(usuarioID));
-			}	
-			
-			
+			ResultSet rs = dtp.cargarDatosAlta();
 
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			SimpleDateFormat fechaM = new SimpleDateFormat("dd/MM/yyyy");
@@ -710,7 +492,7 @@ public class SlPaciente extends HttpServlet {
 
 			out += "<thead>";
 			out += "<tr>";
-			out += "<th>Codigo</th>";
+			out += "<th>Código</th>";
 			out += "<th>Nombre</th>";
 			out += "<th>Edad</th>";
 			out += "<th>Acciones</th>";
@@ -718,38 +500,38 @@ public class SlPaciente extends HttpServlet {
 			out += "</thead>";
 
 			out += "<tbody>";
-			while (rspac.next()) {
+			while (rs.next()) {
 				out += "<tr>";
-				out += "<td>" + rspac.getString("Expediente") +"</td>";
-				out += "<td>" + rspac.getString("Nombre1") + " " + rspac.getString("Nombre2") + " " + rspac.getString("Apellido1") + " " + rspac.getString("Apellido2")+ "</td>";
-				out += "<td>" + rspac.getString("Edad") +"</td>";
+				out += "<td>" + rs.getString("Expediente") +"</td>";
+				out += "<td>" + rs.getString("Nombre1") + " " + rs.getString("Nombre2") + " " + rs.getString("Apellido1") + " " + rs.getString("Apellido2")+ "</td>";
+				out += "<td>" + rs.getString("Edad") +"</td>";
 				out +="<td>";
-				Date fecha = formatter.parse(rspac.getString("Fechanac"));
+				Date fecha = formatter.parse(rs.getString("Fechanac"));
 
 
-				out += "<button id='btnIdVisualizar' value="+rspac.getInt("PacienteID")+" class='btn btn-default btn-label-left' "
-						+ "onclick = 'cargarDatosVisualizar(this.value, \""+ rspac.getString("Nombre1") + "\", "
-						+ "\""+rspac.getString("Nombre2")+"\","
-						+ "\""+rspac.getString("Apellido1")+"\","
-						+ "\""+rspac.getString("Apellido2")+"\","
-						+ "\""+rspac.getInt("Celular")+"\","
-						+ "\""+rspac.getString("Edad")+"\","
+				out += "<button id='btnIdVisualizar' value="+rs.getInt("PacienteID")+" class='btn btn-default btn-label-left' "
+						+ "onclick = 'cargarDatosVisualizar(this.value, \""+ rs.getString("Nombre1") + "\", "
+						+ "\""+rs.getString("Nombre2")+"\","
+						+ "\""+rs.getString("Apellido1")+"\","
+						+ "\""+rs.getString("Apellido2")+"\","
+						+ "\""+rs.getInt("Celular")+"\","
+						+ "\""+rs.getString("Edad")+"\","
 						+ "\""+fechaM.format(fecha)+"\","
-						+ "\""+rspac.getInt("Sexo")+"\","
-						+ "\""+rspac.getInt("Estadocivil")+"\","
-						+ "\""+rspac.getString("Escolaridad")+"\","
-						+ "\""+rspac.getString("Direccion")+"\","
-						+ "\""+rspac.getString("Conquienvive")+"\","
-						+ "\""+rspac.getString("Lugartrabajo")+"\","
-						+ "\""+rspac.getString("Empleo")+"\","
-						+ "\""+rspac.getString("Salario")+"\","
-						+ "\""+rspac.getInt("Terapia")+"\","
-						+ "\""+rspac.getString("Internado")+"\","
-						+ "\""+rspac.getString("Internadoafirmativo")+"\","
-						+ "\""+rspac.getInt("EscolaridadID")+"\""
-						+ "\""+rspac.getInt("Uca")+"\")'><span><i class='fa fa-eye'></i></span>Ver paciente</button>";
+						+ "\""+rs.getInt("Sexo")+"\","
+						+ "\""+rs.getInt("Estadocivil")+"\","
+						+ "\""+rs.getString("Escolaridad")+"\","
+						+ "\""+rs.getString("Direccion")+"\","
+						+ "\""+rs.getString("Conquienvive")+"\","
+						+ "\""+rs.getString("Lugartrabajo")+"\","
+						+ "\""+rs.getString("Empleo")+"\","
+						+ "\""+rs.getString("Salario")+"\","
+						+ "\""+rs.getInt("Terapia")+"\","
+						+ "\""+rs.getString("Internado")+"\","
+						+ "\""+rs.getString("Internadoafirmativo")+"\","
+						+ "\""+rs.getInt("EscolaridadID")+"\""
+						+ "\""+rs.getInt("Uca")+"\")'><span><i class='fa fa-eye'></i></span>Ver paciente</button>";
 
-				out +="<button id='btnIdReActivar' value="+rspac.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='reactivarDadosAlta(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Reactivar</button>";
+				out +="<button id='btnIdReActivar' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='reactivarDadosAlta(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Reactivar</button>";
 				out +="</td>";
 				out += "</tr>";
 			}
@@ -757,7 +539,7 @@ public class SlPaciente extends HttpServlet {
 
 			out += "<tfoot>";
 			out += "<tr>";
-			out += "<th>Codigo</th>";
+			out += "<th>Código</th>";
 			out += "<th>Nombre</th>";
 			out += "<th>Edad</th>";
 			out += "<th>Acciones</th>";
