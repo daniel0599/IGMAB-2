@@ -288,23 +288,23 @@ response.setDateHeader("Expires", -1);
 </div>
 <script type="text/javascript">
 	/////////////////////////////FUNCIONES DEL WEBSOCKET/////////////////////////////
-	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
-	var websocket = new WebSocket(wsUri); //creamos el socket
+// 	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
+// 	var websocket = new WebSocket(wsUri); //creamos el socket
 
-	websocket.onopen = function(evt) { //manejamos los eventos...
-		console.log("Conectado...");
-	};
+// 	websocket.onopen = function(evt) { //manejamos los eventos...
+// 		console.log("Conectado...");
+// 	};
 
-	websocket.onmessage = function(evt) { // cuando se recibe un mensaje
-		//alert("Hubo cambio en la base de datos. Actualiza la página para verlos");
-		//log("Mensaje recibido:" + evt.data);
-		refrescar();
+// 	websocket.onmessage = function(evt) { // cuando se recibe un mensaje
+// 		//alert("Hubo cambio en la base de datos. Actualiza la página para verlos");
+// 		//log("Mensaje recibido:" + evt.data);
+// 		refrescar();
 
-	};
+// 	};
 
-	websocket.onerror = function(evt) {
-		console.log("oho!.. error:" + evt.data);
-	};
+// 	websocket.onerror = function(evt) {
+// 		console.log("oho!.. error:" + evt.data);
+// 	};
 
 	//MÉTODO PARA EJECUTAR EL WEBSOCKET.ONMESSAGE Y GUARDAR
 	function guardar() {
@@ -372,7 +372,8 @@ response.setDateHeader("Expires", -1);
 				}
 				else {
 					$("#parentesco").val(null);
-					websocket.send("Guardar");
+					refrescar();
+					//websocket.send("Guardar");
 					successAlert('Listo', 'Guardado exitosamente');	
 				}
 				
@@ -397,7 +398,8 @@ response.setDateHeader("Expires", -1);
 				'fIdParentesco' : fIdParentesco
 			},
 			success : function(data) {
-				websocket.send("Eliminar");
+				refrescar();
+				//websocket.send("Eliminar");
 				successAlert('Listo', 'Eliminado exitosamente');
 
 			}
@@ -429,7 +431,8 @@ response.setDateHeader("Expires", -1);
 				}
 				else {
 					$("#parentescoEditar").val(null);
-					websocket.send("Modificar");
+					refrescar();
+					//websocket.send("Modificar");
 					successAlert('Listo', 'Actualizado exitosamente');
 					$('#frm-edita').fadeOut();	
 				}

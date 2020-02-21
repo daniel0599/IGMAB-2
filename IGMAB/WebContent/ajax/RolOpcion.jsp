@@ -233,19 +233,19 @@
 
 <script type="text/javascript">
 	/////////////////////////////FUNCIONES DEL WEBSOCKET/////////////////////////////
-	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
-	var websocket = new WebSocket(wsUri); //creamos el socket
+// 	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
+// 	var websocket = new WebSocket(wsUri); //creamos el socket
 
-	// 	websocket.onopen = function(evt) { //manejamos los eventos...
-	// 		System.out.println("Conectado...");
-	// 	};
-	websocket.onerror = function(evt) {
-		console.log("oho!.. error:" + evt.data);
-	};
+// 	// 	websocket.onopen = function(evt) { //manejamos los eventos...
+// 	// 		System.out.println("Conectado...");
+// 	// 	};
+// 	websocket.onerror = function(evt) {
+// 		console.log("oho!.. error:" + evt.data);
+// 	};
 
-	websocket.onmessage = function(evt) { 
-		refrescar();
-	};
+// 	websocket.onmessage = function(evt) { 
+// 		refrescar();
+// 	};
 	
 	//MÉTODO PARA EJECUTAR EL WEBSOCKET.ONMESSAGE Y GUARDAR
 	function guardar() {
@@ -309,7 +309,8 @@
 				AllTables();
 				$('#datatable-1').addClass(
 						"table table-hover table-heading table-datatable");
-				websocket.send("Guardar");
+				refrescar();
+				//websocket.send("Guardar");
 				successAlert('Listo', 'Asignada exitosamente');
 			}
 			
@@ -333,7 +334,8 @@
 				'fIdRolOpcion' : fIdRolOpcion
 			},
 			success : function(data) {
-				websocket.send("Eliminar");
+				refrescar();
+				//websocket.send("Eliminar");
 				successAlert('Listo', 'Eliminado exitosamente');
 
 			}

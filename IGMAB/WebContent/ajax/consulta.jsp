@@ -567,20 +567,20 @@
 
 <script type="text/javascript">
 	// Funciones del Websocket
-	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
-	var websocket = new WebSocket(wsUri); //creamos el socket
+// 	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
+// 	var websocket = new WebSocket(wsUri); //creamos el socket
 
-	websocket.onopen = function(evt) { //manejamos los eventos...
-		console.log("Conectado...");
-	};
+// 	websocket.onopen = function(evt) { //manejamos los eventos...
+// 		console.log("Conectado...");
+// 	};
 
-	websocket.onmessage = function(evt) {
-		refrescar();
-	};
+// 	websocket.onmessage = function(evt) {
+// 		refrescar();
+// 	};
 
-	websocket.onerror = function(evt) {
-		console.log("oho!.. error:" + evt.data);
-	};
+// 	websocket.onerror = function(evt) {
+// 		console.log("oho!.. error:" + evt.data);
+// 	};
 
 	// 	Método para ejecutar el websocket.onmessage y guardar
 	function guardar() {
@@ -668,8 +668,8 @@
 				$("#objetivo").val(null);
 				$("#actividad").val(null);
 				$("#descripcion").val(null);
-
-				websocket.send("Guardar");
+				refrescar();
+				//websocket.send("Guardar");
 				successAlert('Listo', 'Guardado exitosamente');
 				$('#frm-agrega').fadeOut();
 			}
@@ -691,7 +691,8 @@
 				'fConsultaId' : fConsultaId
 			},
 			success : function(data) {
-				websocket.send("Eliminar");
+				refrescar();
+				//websocket.send("Eliminar");
 				successAlert('Listo', 'Eliminado exitosamente');
 
 			}
@@ -739,10 +740,10 @@
 				$("#actividadEditar").val(null);
 				$("#descripcionEditar").val(null);
 				$("#fechaEditar").val(null);
+				refrescar();
+				//websocket.send("Modificar");
 
-				websocket.send("Modificar");
-
-				websocket.send("Modificar");
+				//websocket.send("Modificar");
 				successAlert('Listo', 'Actualizado exitosamente');
 				$('#frm-edita').fadeOut();
 			}

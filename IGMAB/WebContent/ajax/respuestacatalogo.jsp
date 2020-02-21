@@ -447,23 +447,23 @@ select#soflow-color {
 				
 				// Funciones del websocket
 				
-				var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
-				var websocket = new WebSocket(wsUri); //creamos el socket
+// 				var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
+// 				var websocket = new WebSocket(wsUri); //creamos el socket
 				
-				websocket.onopen = function(evt) { //manejamos los eventos...
-					console.log("Conectado...");
-				};
+// 				websocket.onopen = function(evt) { //manejamos los eventos...
+// 					console.log("Conectado...");
+// 				};
 
-				websocket.onmessage = function(evt) { // cuando se recibe un mensaje
-					//alert("Hubo cambio en la base de datos. Actualiza la pÃ¡gina para verlos");
-					//log("Mensaje recibido:" + evt.data);
-					refrescar();
+// 				websocket.onmessage = function(evt) { // cuando se recibe un mensaje
+// 					//alert("Hubo cambio en la base de datos. Actualiza la pÃ¡gina para verlos");
+// 					//log("Mensaje recibido:" + evt.data);
+// 					refrescar();
 
-				};
+// 				};
 
-				websocket.onerror = function(evt) {
-					console.log("oho!.. error:" + evt.data);
-				};
+// 				websocket.onerror = function(evt) {
+// 					console.log("oho!.. error:" + evt.data);
+// 				};
 				
 				//MÃ©todo para ejecutar el websocket.onmessage y guardar
 				function guardar() {
@@ -540,7 +540,8 @@ select#soflow-color {
 							$("#titulopregunta").val(null);
 							$("#clasificacion").val(null);
 							$('#frm-agrega ').fadeOut();
-							websocket.send("Guardar");
+							refrescar();
+							//websocket.send("Guardar");
 							successAlert('Listo', 'Guardado exitosamente');
 							
 						}
@@ -564,7 +565,8 @@ select#soflow-color {
 							'fRespuestaCatalogoID' : fRespuestaCatalogoID
 						},
 						success : function(data) {
-							websocket.send("Eliminar");
+							refrescar();
+							//websocket.send("Eliminar");
 							successAlert('Listo', 'Eliminado exitosamente');
 
 						}
@@ -602,7 +604,8 @@ select#soflow-color {
 							$("#titulopreguntaEditar").val(null);
 							$("#clasificacionEditar").val(null);
 							$('#frm-edita').fadeOut();
-							websocket.send("Modificar");
+							refrescar();
+							//websocket.send("Modificar");
 							successAlert('Listo', 'Actualizado exitosamente');
 							
 						}
