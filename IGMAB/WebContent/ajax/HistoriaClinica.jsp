@@ -927,35 +927,35 @@ response.setDateHeader("Expires", -1);
 
 
 <script type="text/javascript">
-	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
-	var websocket = new WebSocket(wsUri); //creamos el socket
+// 	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
+// 	var websocket = new WebSocket(wsUri); //creamos el socket
 
-	websocket.onopen = function(evt) { //manejamos los eventos...
-		console.log("Conectado...");
-	};
+// 	websocket.onopen = function(evt) { //manejamos los eventos...
+// 		console.log("Conectado...");
+// 	};
 
-	websocket.onmessage = function(evt) { // cuando se recibe un mensaje
-		//alert("Hubo cambio en la base de datos. Actualiza la página para verlos");
-		//log("Mensaje recibido:" + evt.data);
-		refrescar();
+// 	websocket.onmessage = function(evt) { // cuando se recibe un mensaje
+// 		//alert("Hubo cambio en la base de datos. Actualiza la página para verlos");
+// 		//log("Mensaje recibido:" + evt.data);
+// 		refrescar();
 
-	};
+// 	};
 
-	websocket.onerror = function(evt) {
-		console.log("oho!.. error:" + evt.data);
-	};
+// 	websocket.onerror = function(evt) {
+// 		console.log("oho!.. error:" + evt.data);
+// 	};
 
 	//MÉTODO PARA EJECUTAR EL WEBSOCKET.ONMESSAGE Y GUARDAR
 	function guardar() {
 		guardarHistoriaClinica();
-		websocket.send("Guardar");
+		//websocket.send("Guardar");
 
 	}
 
 	//MÉTODO PARA EJECUTAR EL WEBSOCKET.ONMESSAGE Y ACTUALIZAR
 	function actualizar(idClicked) {
 		actualizarHistoriaClinica(idClicked);
-		websocket.send("Modificar");
+		//websocket.send("Modificar");
 	}
 
 	//MÉTODO PARA REFRESCAR EL DATATABLE A TRAVÉS DEL SERVLET
@@ -1075,7 +1075,8 @@ response.setDateHeader("Expires", -1);
 						$("#algoMasAgregar").val(null);
 						$("#impresionDiagnostica").val(null);
 						$('#frm-agrega').fadeOut();
-						websocket.send("Guardar");
+						//websocket.send("Guardar");
+						refrescar();
 						successAlert('Listo', 'Guardado exitosamente');
 
 					}
@@ -1174,7 +1175,8 @@ response.setDateHeader("Expires", -1);
 						$("#algoMasAgregarEditar").val(null);
 						$("#impresionDiagnosticaEditar").val(null);
 
-						websocket.send("Modificar");
+						//websocket.send("Modificar");
+						refrescar();
 						$('#frm-edita').fadeOut();
 						successAlert('Listo', 'Actualizado exitosamente');
 

@@ -1,4 +1,4 @@
-<%@page import="entidades.*"%>
+ <%@page import="entidades.*"%>
 <%@page import="java.util.*"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="datos.*"%>

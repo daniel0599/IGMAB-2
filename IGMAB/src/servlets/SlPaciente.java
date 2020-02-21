@@ -531,7 +531,7 @@ public class SlPaciente extends HttpServlet {
 						+ "\""+rs.getInt("EscolaridadID")+"\""
 						+ "\""+rs.getInt("Uca")+"\")'><span><i class='fa fa-eye'></i></span>Ver paciente</button>";
 
-				out +="<button id='btnIdReActivar' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='reactivarDadosAlta(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Reactivar</button>";
+				out +="<button id='btnIdReActivar' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='reactivarDadosAlta("+rs.getInt("PacienteID")+");'><span><i class='fa fa-trash-o txt-danger'></i></span>Reactivar</button>";
 				out +="</td>";
 				out += "</tr>";
 			}

@@ -203,13 +203,32 @@ response.setDateHeader("Expires", -1);
                                     </div>
 
                                 </div>
-
+                                
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control"
-                                           placeholder="Escolaridad" data-toggle="tooltip"
-                                           data-placement="bottom" id="escolaridad" name="escolaridad"
-                                           title="La escolaridad es requerida" required />
+                                    <select id="escolaridaddetalle">
+                                        <option>Seleccione</option>
+                                        <option value="1">1er</option>
+					   					<option value="2">2do</option>
+                                        <option value="3">3er</option>
+                                        <option value="4">4to</option>
+                                        <option value="5">5to</option>
+                                        <option value="6">6to</option>
+                                        <option value="7">7mo</option>
+                                        <option value="8">8vo</option>
+                                        <option value="9">9no</option>
+                                        <option value="10">10mo</option>
+                                        <option value="11">11vo</option>
+                                         <option value="12">Concluida</option>  
+                                        <option value="13">Otro</option>
+                                    </select>
                                 </div>
+
+<!--                                 <div class="col-sm-2"> -->
+<!--                                     <input type="text" class="form-control" -->
+<!--                                            placeholder="Escolaridad" data-toggle="tooltip" -->
+<!--                                            data-placement="bottom" id="escolaridad" name="escolaridad" -->
+<!--                                            title="La escolaridad es requerida" required /> -->
+<!--                                 </div> -->
 
                                 <label class="col-sm-2 control-label">Dirección</label>
                                 <div class="col-sm-4">
@@ -431,13 +450,30 @@ response.setDateHeader("Expires", -1);
                             </label>
                         </div>
                     </div>
-
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control"
-                               placeholder="Escolaridad" data-toggle="tooltip"
-                               data-placement="bottom" id="escolaridadEdit" name="escolaridad"
-                               title="La escolarida es requerida" required />
-                    </div>
+					 <div class="col-sm-2">
+                                    <select id="escolaridaddetalleedit">
+                                        <option>Seleccione</option>
+                                        <option value="1">1er</option>
+					   					<option value="2">2do</option>
+                                        <option value="3">3er</option>
+                                        <option value="4">4to</option>
+                                        <option value="5">5to</option>
+                                        <option value="6">6to</option>
+                                        <option value="7">7mo</option>
+                                        <option value="8">8vo</option>
+                                        <option value="9">9no</option>
+                                        <option value="10">10mo</option>
+                                        <option value="11">11vo</option> 
+                                         <option value="12">Concluida</option> 
+                                        <option value="13">Otro</option>
+                                    </select>
+                                </div>
+<!--                     <div class="col-sm-2"> -->
+<!--                         <input type="text" class="form-control" -->
+<!--                                placeholder="Escolaridad" data-toggle="tooltip" -->
+<!--                                data-placement="bottom" id="escolaridadEdit" name="escolaridad" -->
+<!--                                title="La escolarida es requerida" required /> -->
+<!--                     </div> -->
 
                     <label class="col-sm-2 control-label">Dirección</label>
                     <div class="col-sm-4">
@@ -663,13 +699,31 @@ response.setDateHeader("Expires", -1);
                                         </label>
                                     </div>
                                 </div>
-
                                 <div class="col-sm-2">
-                                    <input readonly type="text" class="form-control"
-                                           placeholder="Escolaridad" data-toggle="tooltip"
-                                           data-placement="bottom" id="escolaridadView" name="escolaridad"
-                                           title="La escolarida es requerida" required />
+                                    <select disabled id="escolaridaddetalleView">
+                                        <option>Seleccione</option>
+                                        <option value="1">1er</option>
+					   					<option value="2">2do</option>
+                                        <option value="3">3er</option>
+                                        <option value="4">4to</option>
+                                        <option value="5">5to</option>
+                                        <option value="6">6to</option>
+                                        <option value="7">7mo</option>
+                                        <option value="8">8vo</option>
+                                        <option value="9">9no</option>
+                                        <option value="10">10mo</option>
+                                        <option value="11">11vo</option>
+                                        <option value="12">Concluida</option> 
+                                        <option value="13">Otro</option>
+                                    </select>
                                 </div>
+
+<!--                                 <div class="col-sm-2"> -->
+<!--                                     <input readonly type="text" class="form-control" -->
+<!--                                            placeholder="Escolaridad" data-toggle="tooltip" -->
+<!--                                            data-placement="bottom" id="escolaridadView" name="escolaridad" -->
+<!--                                            title="La escolarida es requerida" required /> -->
+<!--                                 </div> -->
 
                                 <label class="col-sm-2 control-label">Dirección</label>
                                 <div class="col-sm-4">
@@ -1485,7 +1539,7 @@ response.setDateHeader("Expires", -1);
         var fpacienteId2 = 0;
         opcion = "reactivarDadosAlta";
         fpacienteId2 = idClicked;
-
+	console.log("EL id a reactivar es "+fpacienteId2);
         $.ajax({
             url : "SlPaciente",
             type : "post",
@@ -1536,7 +1590,8 @@ response.setDateHeader("Expires", -1);
 		ffechaNac = $('#fechaNac').val();
 		fsexo = $('#sexo').val();
 		festadoCivil = $('#estadoCivil').val();
-		fescolaridad = $('#escolaridad').val();
+		fescolaridad = $('#escolaridaddetalle').val();
+		console.log(fescolaridad);
 		fdireccion = $('#direccion').val();
 		fconquienvive = $('#conQuienVive').val();
 		fempleo = $('#empleo').val();
@@ -1701,7 +1756,9 @@ response.setDateHeader("Expires", -1);
 		ffechaNac = $('#fechaNacEdit').val();
 		fsexo = $('#sexoEdit').val();
 		festadoCivil = $('#estadoCivilEdit').val();
-		fescolaridad = $('#escolaridadEdit').val();
+		fescolaridad = $('#escolaridaddetalleedit').val();
+		console.log(festadoCivil);
+		console.log(fescolaridad);
 		fdireccion = $('#direccionEdit').val();
 		fconquienvive = $('#conQuienViveEdit').val();
 		fempleo = $('#empleoEdit').val();
@@ -1799,7 +1856,7 @@ response.setDateHeader("Expires", -1);
 		$('#fechaNacEdit').val(ffechaNac);
 		$('#sexoEdit').val(fsexo).change();
 		$('#estadoCivilEdit').val(festadoCivil).change();
-		$('#escolaridadEdit').val(fescolaridad);
+		$('#escolaridaddetalleedit').val(fescolaridad).change();
 		$('#direccionEdit').val(fdireccion);
 		$('#conQuienViveEdit').val(fconquienvive).change();
 		$('#empleoEdit').val(fempleo);
@@ -1853,7 +1910,7 @@ response.setDateHeader("Expires", -1);
 		$('#fechaNacView').val(ffechaNac);
 		$('#sexoView').val(fsexo).change();
 		$('#estadoCivilView').val(festadoCivil).change();
-		$('#escolaridadView').val(fescolaridad);
+		$('#escolaridaddetalleView').val(fescolaridad).change();
 		$('#direccionView').val(fdireccion);
 		$('#conQuienViveView').val(fconquienvive).change();
 		$('#empleoView').val(fempleo);

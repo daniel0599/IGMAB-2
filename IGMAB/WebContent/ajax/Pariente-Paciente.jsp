@@ -356,19 +356,19 @@
 </div>
 <script type="text/javascript">
 	/////////////////////////////FUNCIONES DEL WEBSOCKET/////////////////////////////
-	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
-	var websocket = new WebSocket(wsUri); //instanciamos el socket
+// 	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
+// 	var websocket = new WebSocket(wsUri); //instanciamos el socket
 	
 		
-		websocket.onopen = function(evt) { //manejamos los eventos...
-			console.log("Conectado...");
-		};
-		websocket.onmessage = function(evt) { // cuando se recibe un mensaje
-			refrescar();
-		};
-		websocket.onerror = function(evt) {
-			console.log("oho!.. error:" + evt.data);
-		};
+// 		websocket.onopen = function(evt) { //manejamos los eventos...
+// 			console.log("Conectado...");
+// 		};
+// 		websocket.onmessage = function(evt) { // cuando se recibe un mensaje
+// 			refrescar();
+// 		};
+// 		websocket.onerror = function(evt) {
+// 			console.log("oho!.. error:" + evt.data);
+// 		};
 			
 
 //	MEtodo para ejecutar el websocket. onmessage y guardar
@@ -427,7 +427,8 @@
 				'opcion' : opcion
 			},
 			success : function(data) {
-				websocket.send("Guardar");
+				//websocket.send("Guardar");
+				refrescar();
 				successAlert('Listo', 'Guardado exitosamente');
 				$('#pariente').val(null);
 				$('#paciente').val(null);
@@ -462,7 +463,8 @@ function actualizarParientePaciente(idClicked) {
 			success : function(data) {
 				$("#edit")[0].reset();
 				$('#frm-edita').fadeOut();
-				websocket.send("Modificar");
+				refrescar();
+				//websocket.send("Modificar");
 				successAlert('Listo', 'Actualizado exitosamente');
 
 			},

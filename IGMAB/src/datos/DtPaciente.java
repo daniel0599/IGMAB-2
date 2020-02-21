@@ -257,16 +257,16 @@ public class DtPaciente {
 
 	public boolean reactivarDadoAlta(int pacienteId) {
 		boolean reactivado = false;
-
+        ResultSet rsAlta;
 		try {
-			dtpac.cargarDatosAlta();
-			rs.beforeFirst();
-			while (rs.next()) {
-				if (rs.getInt("PacienteID") == pacienteId) {
-					rs.updateInt("Eliminado", 0);
-					rs.updateRow();
-					rs.close();
-					rs = null;
+			rsAlta=dtpac.cargarDatosAlta();
+			rsAlta.beforeFirst();
+			while (rsAlta.next()) {
+				if (rsAlta.getInt("PacienteID") == pacienteId) {
+					rsAlta.updateInt("Eliminado", 0);
+					rsAlta.updateRow();
+					rsAlta.close();
+					rsAlta = null;
 					Runtime garbage = Runtime.getRuntime();
 				    garbage.gc();
 
