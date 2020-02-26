@@ -328,9 +328,9 @@
 // 		refrescar();
 // 	};
 
-// 	websocket.onerror = function(evt) {
-// 		console.log("oho!.. error:" + evt.data);
-	};
+// // 	websocket.onerror = function(evt) {
+// // 		console.log("oho!.. error:" + evt.data);
+// 	};
 
 	function checkPassword(str)
 	  {
@@ -377,7 +377,7 @@
 	//MÉTODO PARA EJECUTAR EL WEBSOCKET.ONMESSAGE Y ACTUALIZAR
 	function actualizar(idClicked) {
 		actualizarUsuario(idClicked);
-		websocket.send("Modificar");
+		//websocket.send("Modificar");
 
 	}
 

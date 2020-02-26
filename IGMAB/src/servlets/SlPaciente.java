@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import datos.DtConsulta;
 import datos.DtPaciente;
+import datos.DtRespuesta;
 import entidades.Paciente;
 
 /**
@@ -47,7 +49,8 @@ public class SlPaciente extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
+		
 		///////////////////////////// SE DECLARAN LAS VARIABLES QUE ALMACENAN
 		///////////////////////////// LOS DATOS DE LA INTERFAZ DE
 		///////////////////////////// USUARIO////////////////////////////////
@@ -228,7 +231,39 @@ public class SlPaciente extends HttpServlet {
             case "refrescarDatosAlta":
                 refrescarDadosAlta(request, response);
                 break;
-		
+            case "refrescarApsicologo":{
+            	//  int tiporol = 0;
+        		int usuarioID =0;
+        		
+        		//tiporol = Integer.parseInt(request.getParameter("fTipoRol"));
+        		usuarioID = Integer.parseInt(request.getParameter("fusuarioID"));
+        		
+            	refrescarApsicologo(request, response, usuarioID);
+            	break;
+            }
+    			
+
+    			case "refrescarInactivosApsicologo":{
+    				//int tiporol = 0;
+            		int usuarioID =0;
+            		
+            		//tiporol = Integer.parseInt(request.getParameter("fTipoRol"));
+            		usuarioID = Integer.parseInt(request.getParameter("fusuarioID"));
+            		
+    				refrescarInactivosApsicologo(request, response, usuarioID);
+    				break;
+    			}
+
+                case "refrescarDatosAltaApsicologo":{
+                	//int tiporol = 0;
+            		int usuarioID =0;
+            		
+            		//tiporol = Integer.parseInt(request.getParameter("fTipoRol"));
+            		usuarioID = Integer.parseInt(request.getParameter("fusuarioID"));
+            		
+                    refrescarDadosAltaApsicologo(request, response, usuarioID);
+                    break;
+                }
 		case "transferir":
 			int pacienteId = Integer.parseInt(request.getParameter("fpacienteId"));
 			int psicologoId = Integer.parseInt(request.getParameter("fpsicologoId"));
@@ -395,6 +430,103 @@ public class SlPaciente extends HttpServlet {
 
 	}
 
+	protected void refrescarApsicologo(HttpServletRequest request, HttpServletResponse response, int usuarioID)
+			throws ServletException, IOException {
+
+		//int Tiporol = tiporol;
+		int UsuarioID = usuarioID;
+		
+		try {
+			 DtConsulta dtcon = new DtConsulta();
+			 DtPaciente dtp = new DtPaciente();
+			 DtRespuesta dtres = new DtRespuesta();
+				
+			ResultSet rs = dtp.cargarPacientesAPsicologos(dtcon.obtenerPsicologoID(UsuarioID));
+			
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat fechaM = new SimpleDateFormat("dd/MM/yyyy");
+
+			response.setContentType("text/html; charset=UTF-8");
+			String out = "";
+
+			out += "<thead>";
+			out += "<tr>";
+			out += "<th>Codigo</th>";
+			out += "<th>Nombre</th>";
+			out += "<th>Edad</th>";
+			out += "<th>Acciones</th>";
+			out += "</tr>";
+			out += "</thead>";
+
+			out += "<tbody>";
+			while (rs.next()) {
+				out += "<tr>";
+				out += "<td>" + rs.getString("Expediente") +"</td>";
+				out += "<td>" + rs.getString("Nombre1") + " " + rs.getString("Nombre2") + " " + rs.getString("Apellido1") + " " + rs.getString("Apellido2")+ "</td>";
+				out += "<td>" + rs.getString("Edad") +"</td>";
+				out +="<td>";
+				Date fecha = formatter.parse(rs.getString("Fechanac"));
+				
+				
+				out += "<button id='btnIdVisualizar' value="+rs.getInt("PacienteID")+" class='btn btn-default btn-label-left' "
+						+ "onclick = 'cargarDatosVisualizar(this.value, \""+ rs.getString("Nombre1") + "\", "
+						+ "\""+rs.getString("Nombre2")+"\","
+						+ "\""+rs.getString("Apellido1")+"\","
+						+ "\""+rs.getString("Apellido2")+"\","
+						+ "\""+rs.getInt("Celular")+"\","
+						+ "\""+rs.getString("Edad")+"\","
+						+ "\""+fechaM.format(fecha)+"\","
+						+ "\""+rs.getInt("Sexo")+"\","
+						+ "\""+rs.getInt("Estadocivil")+"\","
+						+ "\""+rs.getString("Escolaridad")+"\","
+						+ "\""+rs.getString("Direccion")+"\","
+						+ "\""+rs.getString("Conquienvive")+"\","
+						+ "\""+rs.getString("Lugartrabajo")+"\","
+						+ "\""+rs.getString("Empleo")+"\","
+						+ "\""+rs.getString("Salario")+"\","
+						+ "\""+rs.getInt("Terapia")+"\","
+						+ "\""+rs.getString("Internado")+"\","
+						+ "\""+rs.getString("Internadoafirmativo")+"\","
+						+ "\""+rs.getInt("EscolaridadID")+"\","
+						+ "\""+rs.getInt("Uca")+"\")'><span><i class='fa fa-eye'></i></span>Ver paciente</button>";
+				
+				out += "<input id='validacionPaciente' name='validacionPaciente' type='hidden' value="+dtres.validarPaciente(rs.getInt("PacienteID"))+"  checked>";
+				
+				out += "<button id='btnRespuestaVista' onClick='redirectII(this.value);' class='btn btn-default btn-label-left' value="+rs.getInt("PacienteID")+" <span> <i class='fa fa-eye'></i></span> Ver ficha</button>";
+							
+				out +="<button id='btnTransferir' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='transferir(this.value);'><span><i class='fa fa-edit'></i></span>Trasladar</button>";
+
+                out +="<button id='btnIdEliminar' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='eliminarAltaApsicologo(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Dar de alta</button>";
+
+				out +="<button id='btnIdEliminar' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='eliminarApsicologothis.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Dar de baja</button>";
+				out +="</td>";
+				out += "</tr>";
+			}
+			
+			out += "</tbody>";
+
+			out += "<tfoot>";
+			out += "<tr>";
+			out += "<th>Codigo</th>";
+			out += "<th>Nombre</th>";
+			out += "<th>Edad</th>";
+			out += "<th>Acciones</th>";
+			out += "</tr>";
+			out += "</tfoot>";
+
+			PrintWriter pw = response.getWriter();
+			pw.write(out);
+			pw.flush();
+			boolean error = pw.checkError();
+			System.out.println("Error: " + error);
+
+		} catch (Exception e) {
+			System.out.println("SL: error en el servlet:" + e.getMessage());
+			e.printStackTrace();
+		}
+
+	}
+	
 	protected void refrescarInactivos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -450,6 +582,95 @@ public class SlPaciente extends HttpServlet {
 						+ "\""+rs.getInt("Uca")+"\")'><span><i class='fa fa-eye'></i></span>Ver paciente</button>";
 
 				out +="<button id='btnIdReActivar' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='reactivar(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Reactivar</button>";
+				out +="</td>";
+				out += "</tr>";
+			}
+			out += "</tbody>";
+
+			out += "<tfoot>";
+			out += "<tr>";
+			out += "<th>Código</th>";
+			out += "<th>Nombre</th>";
+			out += "<th>Edad</th>";
+			out += "<th>Acciones</th>";
+			out += "</tr>";
+			out += "</tfoot>";
+
+			PrintWriter pw = response.getWriter();
+			pw.write(out);
+			pw.flush();
+			boolean error = pw.checkError();
+			System.out.println("Error: " + error);
+
+		} catch (Exception e) {
+			System.out.println("SL: error en el servlet:" + e.getMessage());
+			e.printStackTrace();
+		}
+
+	}
+	
+	protected void refrescarInactivosApsicologo(HttpServletRequest request, HttpServletResponse response, int usuarioID)
+			throws ServletException, IOException {
+
+		//int Tiporol = tiporol;
+		int UsuarioID = usuarioID;
+		
+		try {
+			DtConsulta dtcon = new DtConsulta();
+			 DtPaciente dtp = new DtPaciente();
+			// DtRespuesta dtres = new DtRespuesta();
+				
+			ResultSet rs = dtp.cargarDatosInactivosAPsicologos(dtcon.obtenerPsicologoID(UsuarioID));
+			
+
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat fechaM = new SimpleDateFormat("dd/MM/yyyy");
+
+			response.setContentType("text/html; charset=UTF-8");
+			String out = "";
+
+			out += "<thead>";
+			out += "<tr>";
+			out += "<th>Código</th>";
+			out += "<th>Nombre</th>";
+			out += "<th>Edad</th>";
+			out += "<th>Acciones</th>";
+			out += "</tr>";
+			out += "</thead>";
+
+			out += "<tbody>";
+			while (rs.next()) {
+				out += "<tr>";
+				out += "<td>" + rs.getString("Expediente") +"</td>";
+				out += "<td>" + rs.getString("Nombre1") + " " + rs.getString("Nombre2") + " " + rs.getString("Apellido1") + " " + rs.getString("Apellido2")+ "</td>";
+				out += "<td>" + rs.getString("Edad") +"</td>";
+				out +="<td>";
+				Date fecha = formatter.parse(rs.getString("Fechanac"));
+
+
+				out += "<button id='btnIdVisualizar' value="+rs.getInt("PacienteID")+" class='btn btn-default btn-label-left' "
+						+ "onclick = 'cargarDatosVisualizar(this.value, \""+ rs.getString("Nombre1") + "\", "
+						+ "\""+rs.getString("Nombre2")+"\","
+						+ "\""+rs.getString("Apellido1")+"\","
+						+ "\""+rs.getString("Apellido2")+"\","
+						+ "\""+rs.getInt("Celular")+"\","
+						+ "\""+rs.getString("Edad")+"\","
+						+ "\""+fechaM.format(fecha)+"\","
+						+ "\""+rs.getInt("Sexo")+"\","
+						+ "\""+rs.getInt("Estadocivil")+"\","
+						+ "\""+rs.getString("Escolaridad")+"\","
+						+ "\""+rs.getString("Direccion")+"\","
+						+ "\""+rs.getString("Conquienvive")+"\","
+						+ "\""+rs.getString("Lugartrabajo")+"\","
+						+ "\""+rs.getString("Empleo")+"\","
+						+ "\""+rs.getString("Salario")+"\","
+						+ "\""+rs.getInt("Terapia")+"\","
+						+ "\""+rs.getString("Internado")+"\","
+						+ "\""+rs.getString("Internadoafirmativo")+"\","
+						+ "\""+rs.getInt("EscolaridadID")+"\","
+						+ "\""+rs.getInt("Uca")+"\")'><span><i class='fa fa-eye'></i></span>Ver paciente</button>";
+
+				out +="<button id='btnIdReActivar' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='reactivarApsicologo(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Reactivar</button>";
 				out +="</td>";
 				out += "</tr>";
 			}
@@ -532,6 +753,94 @@ public class SlPaciente extends HttpServlet {
 						+ "\""+rs.getInt("Uca")+"\")'><span><i class='fa fa-eye'></i></span>Ver paciente</button>";
 
 				out +="<button id='btnIdReActivar' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='reactivarDadosAlta("+rs.getInt("PacienteID")+");'><span><i class='fa fa-trash-o txt-danger'></i></span>Reactivar</button>";
+				out +="</td>";
+				out += "</tr>";
+			}
+			out += "</tbody>";
+
+			out += "<tfoot>";
+			out += "<tr>";
+			out += "<th>Código</th>";
+			out += "<th>Nombre</th>";
+			out += "<th>Edad</th>";
+			out += "<th>Acciones</th>";
+			out += "</tr>";
+			out += "</tfoot>";
+
+			PrintWriter pw = response.getWriter();
+			pw.write(out);
+			pw.flush();
+			boolean error = pw.checkError();
+			System.out.println("Error: " + error);
+
+		} catch (Exception e) {
+			System.out.println("SL: error en el servlet:" + e.getMessage());
+			e.printStackTrace();
+		}
+
+	}
+	
+	protected void refrescarDadosAltaApsicologo(HttpServletRequest request, HttpServletResponse response, int usuarioID)
+			throws ServletException, IOException {
+
+		//int Tiporol = tiporol;
+		int UsuarioID = usuarioID;
+		
+		try {
+			DtConsulta dtcon = new DtConsulta();
+			 DtPaciente dtp = new DtPaciente();
+			// DtRespuesta dtres = new DtRespuesta();
+				
+			ResultSet rs = dtp.cargarDatosAltaAPsicologos(dtcon.obtenerPsicologoID(UsuarioID));
+			
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat fechaM = new SimpleDateFormat("dd/MM/yyyy");
+
+			response.setContentType("text/html; charset=UTF-8");
+			String out = "";
+
+			out += "<thead>";
+			out += "<tr>";
+			out += "<th>Código</th>";
+			out += "<th>Nombre</th>";
+			out += "<th>Edad</th>";
+			out += "<th>Acciones</th>";
+			out += "</tr>";
+			out += "</thead>";
+
+			out += "<tbody>";
+			while (rs.next()) {
+				out += "<tr>";
+				out += "<td>" + rs.getString("Expediente") +"</td>";
+				out += "<td>" + rs.getString("Nombre1") + " " + rs.getString("Nombre2") + " " + rs.getString("Apellido1") + " " + rs.getString("Apellido2")+ "</td>";
+				out += "<td>" + rs.getString("Edad") +"</td>";
+				out +="<td>";
+				Date fecha = formatter.parse(rs.getString("Fechanac"));
+
+
+				out += "<button id='btnIdVisualizar' value="+rs.getInt("PacienteID")+" class='btn btn-default btn-label-left' "
+						+ "onclick = 'cargarDatosVisualizar(this.value, \""+ rs.getString("Nombre1") + "\", "
+						+ "\""+rs.getString("Nombre2")+"\","
+						+ "\""+rs.getString("Apellido1")+"\","
+						+ "\""+rs.getString("Apellido2")+"\","
+						+ "\""+rs.getInt("Celular")+"\","
+						+ "\""+rs.getString("Edad")+"\","
+						+ "\""+fechaM.format(fecha)+"\","
+						+ "\""+rs.getInt("Sexo")+"\","
+						+ "\""+rs.getInt("Estadocivil")+"\","
+						+ "\""+rs.getString("Escolaridad")+"\","
+						+ "\""+rs.getString("Direccion")+"\","
+						+ "\""+rs.getString("Conquienvive")+"\","
+						+ "\""+rs.getString("Lugartrabajo")+"\","
+						+ "\""+rs.getString("Empleo")+"\","
+						+ "\""+rs.getString("Salario")+"\","
+						+ "\""+rs.getInt("Terapia")+"\","
+						+ "\""+rs.getString("Internado")+"\","
+						+ "\""+rs.getString("Internadoafirmativo")+"\","
+						+ "\""+rs.getInt("EscolaridadID")+"\""
+						+ "\""+rs.getInt("Uca")+"\")'><span><i class='fa fa-eye'></i></span>Ver paciente</button>";
+
+				out +="<button id='btnIdReActivar' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='reactivarDadosAltaApsicologo("+rs.getInt("PacienteID")+");'><span><i class='fa fa-trash-o txt-danger'></i></span>Reactivar</button>";
 				out +="</td>";
 				out += "</tr>";
 			}

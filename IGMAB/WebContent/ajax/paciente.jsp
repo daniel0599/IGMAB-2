@@ -66,8 +66,486 @@ response.setDateHeader("Expires", -1);
 	DtRespuesta dtres = new DtRespuesta();
 
 %>
+<input id="usuarioID" name="usuarioID" type="hidden" value=<%=us.getUsuarioID()%> checked>
 <input id="TipoRol" name="TipoROl" type="hidden" value=<%=r.getRolId()%>  checked>
+
+<%
+if(r.getRolId() == 3){
+%>						
+<div class="row">
+	<div id="breadcrumb" class="col-md-12">
+		<ol class="breadcrumb">
+			<li><a href="#">Inicio</a></li>
+			<li><a href="#">Gestión paciente</a></li>
+			<li><a href="#">Paciente</a></li>
+		</ol>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12 col-sm-12">
+        <!-- Inicio de formulario para ver paciente -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <div id="frm-visualiza" class="box">
+                    <div class="box-header">
+                        <div class="box-name">
+                            <i class="fa fa-eye"></i> <span>Ver Paciente</span>
+                        </div>
+                        <div class="box-icons">
+                            <a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+                            </a> <a class="expand-link"> <i class="fa fa-expand"></i>
+                        </a> <a class="close-link"> <i class="fa fa-times"></i>
+                        </a>
+                        </div>
+                        <div class="no-move"></div>
+                    </div>
+                    <div class="box-content">
+                        <h4 class="page-header">Formulario de visualización</h4>
+                        <form class="form-horizontal" role ="form" action="javascript:void(0);" onsubmit="imprimir($('#btnImprimir').val());">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Primer nombre</label>
+                                <div class="col-sm-4">
+                                    <input readonly type="text" class="form-control"
+                                           placeholder="Primer nombre" data-toggle="tooltip"
+                                           data-placement="bottom" id="nombre1View" name="nombre1"
+                                           title="El primer nombre es requerido" required />
+                                </div>
+                                <label class="col-sm-2 control-label">Segundo nombre</label>
+                                <div class="col-sm-4">
+                                    <input readonly type="text" class="form-control"
+                                           placeholder="Segundo nombre" data-toggle="tooltip"
+                                           data-placement="bottom" id="nombre2View" name="nombre2"
+                                           title="El segundo nombre no es requerido"  />
+                                </div>
+                                <label class="col-sm-2 control-label">Primer apellido</label>
+                                <div class="col-sm-4">
+                                    <input readonly type="text" class="form-control"
+                                           placeholder="Primer nombre" data-toggle="tooltip"
+                                           data-placement="bottom" id="apellido1View" name="apellido1"
+                                           title="El primer apellido es requerido" required />
+                                </div>
+                                <label class="col-sm-2 control-label">Segundo apellido</label>
+                                <div class="col-sm-4">
+                                    <input readonly type="text" class="form-control"
+                                           placeholder="Segundo apellido" data-toggle="tooltip"
+                                           data-placement="bottom" id="apellido2View" name="apellido2"
+                                           title="El segundo apellido no es requerido" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Celular</label>
+                                <div class="col-sm-4">
+                                    <input readonly type="text" class="form-control"
+                                           placeholder="Número de celular" data-toggle="tooltip"
+                                           data-placement="bottom" id="celularView" name="celular"
+                                           title="El número de celular no es requerido" />
+
+                                </div>
+
+                                <input type="hidden" class="form-control"
+                                       placeholder="Edad" data-toggle="tooltip"
+                                       data-placement="bottom" id="edadView" name="edad"
+                                       title="La edad es requerida" />
+
+
+                                <label class="col-sm-2 control-label">Fecha de
+                                    nacimiento</label>
+                                <div class="col-sm-4">
+                                    <input readonly type="text" class="form-control"
+                                           placeholder="Fecha de nacimiento" data-toggle="tooltip"
+                                           data-placement="bottom" id="fechaNacView" name="fechaNac"
+                                           title="La fecha de nacimiento es requerida" required />
+                                </div>
+                                <label class="col-sm-2 control-label">Sexo</label>
+                                <div class="col-sm-4">
+                                    <select disabled id="sexoView">
+                                        <option>Seleccione</option>
+                                        <option value=1>Hombre</option>
+                                        <option value=0>Mujer</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-2 control-label">Estado civil</label>
+                                <div class="col-sm-4">
+                                    <select disabled id="estadoCivilView">
+                                        <option>Seleccione</option>
+                                        <option value=0>Soltero/a</option>
+                                        <option value=1>Casado/a</option>
+                                        <option value=2>Divorciado/a</option>
+                                        <option value=3>Viudo/a</option>
+                                        <option value=4>En una relación</option>
+                                        <option value=5>Acompañado/a</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Escolaridad</label>
+                                <div class="col-sm-2">
+                                    <select disabled id="escolaridadIdView" required>
+                                        <option value="">Seleccione la escolaridad</option>
+                                        <%
+
+                                        DtPaciente dtpp = new DtPaciente();
+                                        ResultSet res = dtpp.cargarEscolaridades();
+                            
+                                        res.beforeFirst();
+
+                                            while (res.next()) {
+                                        %>
+
+                                        <option value="<%=res.getInt("EscolaridadID")%>"><%=res.getString("Nombre")%></option>
+
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+                                    <div class="checkbox">
+                                        <label>Estudiante UCA
+                                            <input type="checkbox" id="estudianteUCAView">
+                                            <i class="fa fa-square-o small"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <select disabled id="escolaridaddetalleView">
+                                        <option>Seleccione</option>
+                                        <option value="1">1er</option>
+					   					<option value="2">2do</option>
+                                        <option value="3">3er</option>
+                                        <option value="4">4to</option>
+                                        <option value="5">5to</option>
+                                        <option value="6">6to</option>
+                                        <option value="7">7mo</option>
+                                        <option value="8">8vo</option>
+                                        <option value="9">9no</option>
+                                        <option value="10">10mo</option>
+                                        <option value="11">11vo</option>
+                                        <option value="12">Concluida</option> 
+                                        <option value="13">Otro</option>
+                                    </select>
+                                </div>
+
+                                <label class="col-sm-2 control-label">Dirección</label>
+                                <div class="col-sm-4">
+                                    <textarea readonly maxlength="500" class="form-control" rows="5" id="direccionView" lang="es" spellcheck="true"></textarea>
+                                    <small id="expectativasrev_char_count"></small>
+                                </div>
+
+                                <label class="col-sm-2 control-label">Con quién vive</label>
+                                <div class="col-sm-4">
+                                    <select disabled id="conQuienViveView">
+                                        <option>Seleccione</option>
+                                        <option value="Solo/a">Solo/a</option>
+					    <option value="Madre">Madre</option>
+                                        <option value="Padre">Padre</option>
+                                        <option value="AbuelaMaterna">Abuela Materna</option>
+                                        <option value="AbueloMaterno">Abuelo Materno</option>
+                                        <option value="Abuela Paterna">Abuela Paterna</option>
+                                        <option value="AbueloPaterno">Abuelo Paterno</option>
+                                        <option value="Padres">Padres</option>
+                                        <option value="Cónyuge">Cónyuge</option>
+                                        <option value="Familia Nuclear">Familia Nuclear</option>
+                                        <option value="Familia Externa">Familia Externa</option> 
+                                        <option value="Otros">Otros</option>
+                                    </select>
+                                </div>
+
+                                <label class="col-sm-2 control-label">Empleo</label>
+                                <div class="col-sm-4">
+                                    <input disabled type="text" class="form-control"
+                                           placeholder="Empleo/trabajo desempeñado"
+                                           data-toggle="tooltip" data-placement="bottom" id="empleoView"
+                                           name="empleo" title="El empleo no es requerido" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Salario</label>
+                                <div class="col-sm-4">
+                                    <input readonly type="number" class="form-control"
+                                           placeholder="Cantidad ganada en el trabajo desempeñado"
+                                           data-toggle="tooltip" data-placement="bottom" id="salarioView"
+                                           name="salario" title="El salario no es requerido" />
+                                </div>
+                                <label class="col-sm-2 control-label">Lugar de trabajo</label>
+                                <div class="col-sm-4">
+                                    <input readonly type="text" class="form-control"
+                                           placeholder="Lugar donde trabaja" data-toggle="tooltip"
+                                           data-placement="bottom" id="lugarTrabajoView" name="lugarTrabajo"
+                                           title="El lugar de trabajo no es requerido" />
+                                </div>
+                                <label class="col-sm-2 control-label">¿Ha estado en
+                                    terapia o recibido asistencia profesional para
+                                    sus problemas?</label>
+                                <div class="col-sm-4">
+                                    <select disabled id="terapiaView" required>
+                                        <option>Seleccione</option>
+                                        <option value=1>Sí</option>
+                                        <option value=0>No</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-2 control-label">¿Ha estado internado por problemas psicológicos/psiquiátricos?</label>
+                                <div class="col-sm-4">
+                                    <select disabled id="internadoView" required>
+                                        <option>Seleccione</option>
+                                        <option value=1>Sí</option>
+                                        <option value=0>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">En caso
+                                    afirmativo:</label>
+                                <div class="col-sm-4">
+										<textarea readonly  class="form-control"
+                                                  placeholder="¿Cuándo? ¿Dónde? ¿Por qué?"
+                                                  data-toggle="tooltip" data-placement="bottom"
+                                                  id="internadoAfirmativoView" name="internadoAfirmativo"
+                                                  title="No es requerido" lang="es" spellcheck="true" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group">
+                                <div id="cancelar_nuevo_view" class="col-sm-offset-2 col-sm-2">
+                                    <button
+                                            class="ajax-link action btn btn-default btn-label-left"
+                                            type="reset" title="Cancelar">
+                                        <span><i class="fa fa-minus-circle txt-danger"></i></span>
+                                        Cancelar
+                                    </button>
+                                </div>
+                                <div class="col-sm-2">
+                                    <button
+                                            id="btnImprimir"
+                                            class="ajax-link action btn btn-primary btn-label-left"
+                                            onClick="" title="Imprimir">
+                                        <span><i class="fa fa-print "></i></span>Imprimir
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    	<!-- Inicio de formulario para transferir paciente -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+             <div id="frm-transferir" class="box">
+             	<div class="box-header">
+                <div class="box-name">
+                            <i class="fa fa-exchange"></i> <span>Transferir Paciente</span>
+                        </div>
+				<div class="box-icons">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+					</a> <a class="expand-link"> <i class="fa fa-expand"></i>
+					</a> <a class="close-link"> <i class="fa fa-times"></i>
+					</a>
+				</div>
+				<div class="no-move"></div>
+			</div>
+			<div class="box-content no-padding">
+				<h4 class="page-header">Transferencia de Paciente</h4>
+				<form id="agreg" class="form-horizontal" method="post"
+						action="javascript:void(0);" onsubmit="transferirPaciente();">
+					<div class="col-sm-6">
+						<h5 class="page-header">Datos</h5>
+							<label class="col-sm-2 control-label" id="psicoIdLabel">Seleccione
+								un psicólogo</label>
+							<div class="col-sm-5" id="psicoIdGroup">
+								<select class="populate placeholder" id="psicologoId" required>
+
+									<option value="0">Seleccione un psicologo</option>
+
+									<%
+										DTPsicologo dtpi = new DTPsicologo();
+										ResultSet rp = dtpi.cargarDatos();
+										rp.beforeFirst();
+
+										while (rp.next()) {
+									%>
+									<option value="<%=rp.getInt("PsicologoID")%>"><%=rp.getString("Nombre1") + " " + rp.getString("Nombre2") + " " + rp.getString("Apellido1")
+						+ " " + rp.getString("Apellido2")%></option>
+									<%
+										}
+									%>
+								</select>
+							</div>
+
+					</div>
+					<div class="col-sm-6">
+						<h5 class="page-header">Acciones</h5>
+						<div class="form-group">
+							<div id="cancelar_transferir" class="col-sm-6 text-center">
+								<button
+									class="ajax-link action btn btn-default btn-label-left"
+									type="reset" title="Cancelar">
+									<span>
+										<i class="fa fa-minus-circle txt-danger">
+										</i>
+									</span>
+									Cancelar
+								</button>
+							</div>
+							<div class="col-sm-6 text-center">
+								<button
+									id="btnIdTransferir"
+									class="ajax-link action btn btn-primary btn-label-left"
+									onClick="" title="Transferir">
+									<span>
+										<i class="fa fa-check-circle txt-success">
+										</i>
+									</span>
+									Transferir
+								</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			  </div>
+            </div>
+            </div>
+        </div>
+  </div>
+</div>       
+
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-list"></i> <span>Lista de
+						Pacientes</span>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+					</a> <a class="expand-link"> <i class="fa fa-expand"></i>
+					</a> <a class="close-link"> <i class="fa fa-times"></i>
+					</a>
+				</div>
+				<div class="no-move"></div>
+			</div>
+			<div class="box-content no-padding">
+				<div class="row padding-opc">
+					<div class="col-md-12">
+						<div class="col-md-12 col-xs-12 col-sm-12 agregar">
+							<div class="col-md-12 text-center">
+								<button name="button" class="btn btn-primary" id="todas" onclick="refrescarInactivosApsicologo()">Ver dados de baja</button>
+                                <button name="button" class="btn btn-primary" id="dadosAlta" onclick="refrescarDatosAltaApsicologo()">Ver dados de alta</button>
+							<a class="ajax-link pull-right " id="btn-agrega-abrir" href="#"
+								title="Nuevo Registro"> <i class="fa fa-plus-circle fa-2x"></i>
+							</a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<table class="table table-hover table-heading table-datatable"
+					id="datatable-2">
+					<thead>
+						<tr>
+							<th>Código</th>
+							<th>Nombre</th>
+							<th>Edad</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<%
+						DtConsulta dtcon = new DtConsulta();
+							DtPaciente dtp = new DtPaciente();
+							rs = dtp.cargarPacientesAPsicologos(dtcon.obtenerPsicologoID(us.getUsuarioID()));
+							rs.beforeFirst();
+							
+							SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+							SimpleDateFormat fechaM = new SimpleDateFormat("dd/MM/yyyy");
+
+							while (rs.next()) {
+						%>
+
+						<tr>
+							<td><%=rs.getString("Expediente")%></td>
+							<td><%=rs.getString("Nombre1") + " "+ rs.getString("Nombre2") + " " + rs.getString("Apellido1") + " "+ rs.getString("Apellido2")%></td>
+							<td><%=rs.getString("Edad")%></td>
+							
+							 <td>
+								<% Date fecha = formatter.parse(rs.getString("Fechanac")); %>
 								
+								<button id='btnIdVisualizar'
+									class="btn btn-default btn-label-left"
+									OnClick="cargarDatosVisualizar(this.value, '<%=rs.getString("Nombre1")%>',
+										'<%=rs.getString("Nombre2")%>',
+										'<%=rs.getString("Apellido1")%>',
+										'<%=rs.getString("Apellido2")%>',
+										'<%=rs.getInt("Celular")%>',
+										'<%=rs.getString("Edad")%>',
+										'<%=fechaM.format(fecha)%>',
+										'<%=rs.getInt("Sexo")%>',
+										'<%=rs.getInt("Estadocivil")%>',
+										'<%=rs.getString("Escolaridad")%>', 
+										'<%=rs.getString("Direccion")%>',
+										'<%=rs.getString("Conquienvive")%>',
+										'<%=rs.getString("Lugartrabajo")%>',
+										'<%=rs.getString("Empleo")%>',
+										'<%=rs.getString("Salario")%>',
+										'<%=rs.getInt("Terapia")%>',
+										'<%=rs.getInt("Internado")%>',
+										'<%=rs.getString("Internadoafirmativo")%>',
+										'<%=rs.getString("EscolaridadID")%>',
+                                            '<%=rs.getString("Uca")%>');"
+									value=<%=rs.getInt("PacienteID")%> class="btn btn-info">
+									<span><i class="fa fa-eye"></i></span> Ver paciente
+								</button>
+								
+								<input id="validacionPaciente" name="validacionPaciente" type="hidden" value=<%=dtres.validarPaciente(rs.getInt("PacienteID"))%>  checked>
+								
+								<button id="btnRespuestaVista"  onClick="redirectII(this.value);"
+									class="ajax-link action btn btn-default btn-label-left"
+									value=<%=rs.getInt("PacienteID")%>>
+									<span> <i class="fa fa-eye"></i>
+									</span> Ver ficha
+								</button>
+								<button id="btnTransferir"  onClick="transferir(this.value);"
+									class="ajax-link action btn btn-default btn-label-left" 
+									value=<%=rs.getInt("PacienteID")%>>
+									<span> <i class="fa fa-edit"></i>
+									</span> Transferir
+								</button>
+                                <button id="btnIdAltaApsicologo"
+                                        value=<%=rs.getInt("PacienteID")%>
+                                                class='ajax-link action btn btn-default btn-label-left'
+                                onClick='eliminarAltaApsicologo(this.value);'>
+                                <span><i class="fa fa-trash-o txt-danger"></i></span>Dar de alta</button>
+								<button id="btnIdEliminarApsicologo"
+									value=<%=rs.getInt("PacienteID")%>
+									class='ajax-link action btn btn-default btn-label-left' onClick='eliminarApsicologo(this.value);'>
+									<span><i class="fa fa-trash-o txt-danger"></i></span>Dar de baja</button>
+							</td>
+						</tr>
+				          <%
+							} 
+							
+						   %>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Código</th>
+							<th>Nombre</th>
+							<th>Edad</th>
+							<th>Acciones</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<%
+}else{
+%>	
 <div class="row">
 	<div id="breadcrumb" class="col-md-12">
 		<ol class="breadcrumb">
@@ -953,6 +1431,8 @@ response.setDateHeader("Expires", -1);
 					<tbody>
 
 						<%
+							rs.close();
+							rs = null;
 							DtPaciente dtp = new DtPaciente();
 							rs = dtp.cargarDatos();
 							rs.beforeFirst();
@@ -1351,6 +1831,10 @@ response.setDateHeader("Expires", -1);
 		</div>
 	</div>
 </div>
+<%
+}
+%>
+
 <script type="text/javascript">
 	/////////////////////////////FUNCIONES DEL WEBSOCKET/////////////////////////////
 // 	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
@@ -1433,10 +1917,27 @@ response.setDateHeader("Expires", -1);
 		  });
 		
 	}
+	
+	function eliminarApsicologo(idClicked) {
+		confirm(function(){
+			eliminarPacienteApsicologo(idClicked);
+		  }, function(){
+			  infoAlert('Aviso', 'Eliminación cancelada');
+		  });
+		
+	}
 
 	function eliminarAlta(idClicked) {
         confirm(function(){
             eliminarPacienteAlta(idClicked);
+        }, function(){
+            infoAlert('Aviso', 'Eliminación cancelada');
+        });
+    }
+	
+	function eliminarAltaApsicologo(idClicked) {
+        confirm(function(){
+            eliminarPacienteAltaApsicologo(idClicked);
         }, function(){
             infoAlert('Aviso', 'Eliminación cancelada');
         });
@@ -1459,6 +1960,33 @@ response.setDateHeader("Expires", -1);
 				$('#datatable-1').dataTable().fnDestroy();
 				AllTables();
 				$('#datatable-1').addClass(
+						"table table-hover table-heading table-datatable");
+			}
+
+		});
+
+	}
+	
+	function refrescarApsicologo() {
+		var opcion = "";
+		var fusuarioID = 0;
+		
+		fusuarioID = $('#usuarioID').val();
+		opcion = "refrescarApsicologo";
+
+		$.ajax({
+			url : "SlPaciente",
+			type : "post",
+			datatype : 'html',
+			data : {
+				'opcion' : opcion,
+				'fusuarioID' : fusuarioID
+			},
+			success : function(data) {
+				$('#datatable-2').html(data);
+				$('#datatable-2').dataTable().fnDestroy();
+				AllTables();
+				$('#datatable-2').addClass(
 						"table table-hover table-heading table-datatable");
 			}
 
@@ -1488,6 +2016,33 @@ response.setDateHeader("Expires", -1);
 
         });
 	}
+	
+	function refrescarInactivosApsicologo() {
+        var opcion = "";
+        var fusuarioID =0;
+        
+        fusuarioID = $('#usuarioID').val();
+        opcion = "refrescarInactivosApsicologo";
+
+        $.ajax({
+            url : "SlPaciente",
+            type : "post",
+            datatype : 'html',
+            data : {
+                'opcion' : opcion,
+                'fusuarioID' : fusuarioID
+            },
+            success : function(data) {
+                $('#datatable-2').html(data);
+                $('#datatable-2').dataTable().fnDestroy();
+                AllTables();
+                $('#datatable-2').addClass(
+                    "table table-hover table-heading table-datatable");
+                infoAlert('Aviso', 'Pacientes inactivos cargados');
+            }
+
+        });
+	}
 
 	function refrescarDatosAlta() {
         var opcion = "";
@@ -1505,6 +2060,33 @@ response.setDateHeader("Expires", -1);
                 $('#datatable-1').dataTable().fnDestroy();
                 AllTables();
                 $('#datatable-1').addClass(
+                    "table table-hover table-heading table-datatable");
+                infoAlert('Aviso', 'Pacientes dados de alta cargados');
+            }
+
+        });
+    }
+	
+	function refrescarDatosAltaApsicologo() {
+        var opcion = "";
+        var fusuarioID = 0;
+        
+        fusuarioID = $('#usuarioID').val();
+        opcion = "refrescarDatosAltaApsicologo";
+
+        $.ajax({
+            url : "SlPaciente",
+            type : "post",
+            datatype : 'html',
+            data : {
+                'opcion' : opcion,
+                'fusuarioID' : fusuarioID
+            },
+            success : function(data) {
+                $('#datatable-2').html(data);
+                $('#datatable-2').dataTable().fnDestroy();
+                AllTables();
+                $('#datatable-2').addClass(
                     "table table-hover table-heading table-datatable");
                 infoAlert('Aviso', 'Pacientes dados de alta cargados');
             }
@@ -1533,7 +2115,51 @@ response.setDateHeader("Expires", -1);
 
         });
 	}
+	
+	function reactivarApsicologo(idClicked) {
+	    var opcion = "";
+	    var fpacienteId1 = 0;
+	    opcion = "reactivar";
+        fpacienteId1 = idClicked;
 
+        $.ajax({
+            url : "SlPaciente",
+            type : "post",
+            datatype : 'html',
+            data : {
+                'opcion' : opcion,
+				'fpacienteId1' : fpacienteId1
+            },
+            success : function(data) {
+                refrescarApsicologo();
+                successAlert('Listo', 'Reactivado exitosamente');
+            }
+
+        });
+	}
+
+    function reactivarDadosAltaApsicologo(idClicked) {
+        var opcion = "";
+        var fpacienteId2 = 0;
+        opcion = "reactivarDadosAlta";
+        fpacienteId2 = idClicked;
+	console.log("EL id a reactivar es "+fpacienteId2);
+        $.ajax({
+            url : "SlPaciente",
+            type : "post",
+            datatype : 'html',
+            data : {
+                'opcion' : opcion,
+                'fpacienteId2' : fpacienteId2
+            },
+            success : function(data) {
+                refrescarApsicologo();
+                successAlert('Listo', 'Reactivado exitosamente');
+            }
+
+        });
+    }
+    
     function reactivarDadosAlta(idClicked) {
         var opcion = "";
         var fpacienteId2 = 0;
@@ -1689,7 +2315,34 @@ response.setDateHeader("Expires", -1);
 				refrescar();
 				//websocket.send("Eliminar");
 				successAlert('Listo', 'Eliminado exitosamente');
-                $("#edit")[0].reset();
+               // $("#edit")[0].reset();
+
+			}
+
+		});
+
+	}
+	
+	function eliminarPacienteApsicologo(idClicked) {
+		var opcion = "";
+		var fpacienteId = idClicked;
+		
+		//fpacienteId = $("btnIdEliminarApsicologo").val();
+		opcion = "eliminar";
+
+		$.ajax({
+			url : "SlPaciente",
+			type : "post",
+			datatype : 'html',
+			data : {
+				'opcion' : opcion,
+				'fpacienteId' : fpacienteId
+			},
+			success : function(data) {
+				refrescarApsicologo();
+				//websocket.send("Eliminar");
+				successAlert('Listo', 'Eliminado exitosamente');
+               // $("#edit")[0].reset();
 
 			}
 
@@ -1714,7 +2367,34 @@ response.setDateHeader("Expires", -1);
             	refrescar();
             	//websocket.send("Eliminar");
                 successAlert('Listo', 'Eliminado exitosamente');
-                $("#edit")[0].reset();
+               // $("#edit")[0].reset();
+
+            }
+
+        });
+
+    }
+    
+    function eliminarPacienteAltaApsicologo(idClicked) {
+        var opcion = "";
+        var fpacienteId2 = idClicked;
+        
+       // fpacienteId2 = $("btnIdAltaApsicologo").val();
+        opcion = "eliminarAlta";
+
+        $.ajax({
+            url : "SlPaciente",
+            type : "post",
+            datatype : 'html',
+            data : {
+                'opcion' : opcion,
+                'fpacienteId2' : fpacienteId2
+            },
+            success : function(data) {
+            	refrescarApsicologo();
+            	//websocket.send("Eliminar");
+                successAlert('Listo', 'Eliminado exitosamente');
+               // $("#edit")[0].reset();
 
             }
 
