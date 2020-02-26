@@ -683,7 +683,7 @@ if(r.getRolId() == 3){
                                 </div>
                                 
                                 <div class="col-sm-2">
-                                    <select id="escolaridaddetalle">
+                                    <select id="escolaridaddetalle" required>
                                         <option>Seleccione</option>
                                         <option value="1">1er</option>
 					   					<option value="2">2do</option>

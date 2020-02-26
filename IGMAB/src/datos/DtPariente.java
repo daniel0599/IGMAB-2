@@ -25,6 +25,21 @@ public class DtPariente {
 		}
 		return rs;
 	}
+	
+	public ResultSet cargarDatosApsicologo(int psicologoID) {
+		ResultSet rsn = null;
+		PreparedStatement s;
+	
+		try {
+			s = con.prepareStatement("SELECT * FROM igmab.pariente_parentesco par inner Join paciente_pariente parpac on parpac.ParienteID=par.ParienteID Inner Join Paciente pac On parpac.PacienteID=pac.PacienteID INNER JOIN Consulta con ON con.PacienteID=pac.PacienteID  INNER JOIN Psicologo psi ON psi.PsicologoID=con.PsicologoID WHERE psi.PsicologoID = 1 AND pac.Eliminado = 0");
+			s.setInt(1, psicologoID);
+			rsn = s.executeQuery();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error en DtPariente: " + e.getMessage());
+		}
+		return rsn;
+	}
 
 	
 ////////M�todo para guardar/////

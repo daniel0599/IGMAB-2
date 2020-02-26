@@ -66,7 +66,13 @@ response.setDateHeader("Expires", -1);
 	}
 
 %>
+<input id="TipoRol" name="TipoROl" type="hidden" value=<%=r.getRolId()%>  checked>
 
+<input id="usuarioID" name="usuarioID" type="hidden" value=<%=us.getUsuarioID()%> checked>
+
+<%
+if(r.getRolId() == 3){
+%>	
 
 <div class="row">
 	<div id="breadcrumb" class="col-md-12">
@@ -847,14 +853,18 @@ response.setDateHeader("Expires", -1);
 					</thead>
 					<tbody>
 						<%
+						DtConsulta dtcon = new DtConsulta();
 							DtVHistoriaClinicaPaciente dtc = new DtVHistoriaClinicaPaciente();
-							rs = dtc.cargarVista();
+							rs = dtc.cargarVistaApsicologo(dtcon.obtenerPsicologoID(us.getUsuarioID())) ;
 							rs.beforeFirst();
 							while (rs.next()) {
 						%>
 						<tr>
-							<td><%=rs.getString("Nombre1") + " "+ rs.getString("Nombre2") + " " + rs.getString("Apellido1") + " "+ rs.getString("Apellido2")%> </td>
 							
+                            <td><%=rs.getString("Nombre1") + " "+ rs.getString("Nombre2") + " " + rs.getString("Apellido1") + " "+ rs.getString("Apellido2")%> </td>
+														<%
+							if(r.getRolId() == 1){
+							%>
 							<td>
 								<button id="btnIdVisualizar"
 									value=<%=rs.getInt("HistoriaclinicaID")%>
@@ -906,7 +916,158 @@ response.setDateHeader("Expires", -1);
 									<span><i class="fa fa-edit"></i></span> Actualizar
 								</button>
 							</td>
+							<%
+							} 
+							%>
+							<% 
+							if(r.getRolId() == 2){
+							%>
+							<td>
+								<button id="btnIdVisualizar"
+									value=<%=rs.getInt("HistoriaclinicaID")%>
+									class='ajax-link action btn btn-default btn-label-left'
+									onClick="visualizarDatos(this.value, '<%=rs.getString("Motivoconsulta")%>',
+									'<%=rs.getString("Padecimientoactual")%>',
+									'<%=rs.getString("Expectativa")%>',
+									'<%=rs.getString("Padecimientoh_f")%>',
+									'<%=rs.getString("Antecedentespersonalesnp")%>',
+									'<%=rs.getString("Antecedentespatologicosp")%>',
+									'<%=rs.getString("Antecedentespatologicosf")%>',
+									'<%=rs.getString("Relacionnucleof")%>',
+									'<%=rs.getString("Areaescolar")%>',
+									'<%=rs.getString("Desarrollosocial")%>',
+									'<%=rs.getString("Desarrollolaboral")%>',
+									'<%=rs.getString("Desarrollosexual")%>',
+									'<%=rs.getString("Desarrolloconyugal")%>',
+									'<%=rs.getString("Desarrolloespiritual")%>',
+									'<%=rs.getString("Aspectoconductageneral")%>',
+									'<%=rs.getString("Algomasagregar")%>',
+									'<%=rs.getString("Impresiondiagnostica")%>',
+									'<%=rs.getInt("PacienteID")%>');"
+									value=<%=rs.getInt("HistoriaclinicaID")%> class="btn btn-info">
+									<span><i class="fa fa-eye"></i></span>
+									Ver Historia Clinica
+								</button>
 
+								<button id='btnIdActualizar'
+									class="btn btn-primary btn-label-left"
+									onclick="cargarDatos(this.value, '<%=rs.getString("Motivoconsulta")%>',
+										'<%=rs.getString("Padecimientoactual")%>',
+										'<%=rs.getString("Expectativa")%>',
+										'<%=rs.getString("Padecimientoh_f")%>',
+										'<%=rs.getString("Antecedentespersonalesnp")%>',
+										'<%=rs.getString("Antecedentespatologicosp")%>',
+										'<%=rs.getString("Antecedentespatologicosf")%>',
+										'<%=rs.getString("Relacionnucleof")%>',
+										'<%=rs.getString("Areaescolar")%>',
+										'<%=rs.getString("Desarrollosocial")%>',
+										'<%=rs.getString("Desarrollolaboral")%>',
+										'<%=rs.getString("Desarrollosexual")%>',
+										'<%=rs.getString("Desarrolloconyugal")%>',
+										'<%=rs.getString("Desarrolloespiritual")%>',
+										'<%=rs.getString("Aspectoconductageneral")%>',
+										'<%=rs.getString("Algomasagregar")%>',
+										'<%=rs.getString("Impresiondiagnostica")%>',
+										'<%=rs.getInt("PacienteID")%>');"
+									value=<%=rs.getInt("HistoriaclinicaID")%> class="btn btn-info">
+									<span><i class="fa fa-edit"></i></span> Actualizar
+								</button>
+							</td>
+							<% 	
+							} 
+							%>
+							<% 
+							if(r.getRolId() == 3){
+							%>
+							<td>
+								<button id="btnIdVisualizar"
+									value=<%=rs.getInt("HistoriaclinicaID")%>
+									class='ajax-link action btn btn-default btn-label-left'
+									onClick="visualizarDatos(this.value, '<%=rs.getString("Motivoconsulta")%>',
+									'<%=rs.getString("Padecimientoactual")%>',
+									'<%=rs.getString("Expectativa")%>',
+									'<%=rs.getString("Padecimientoh_f")%>',
+									'<%=rs.getString("Antecedentespersonalesnp")%>',
+									'<%=rs.getString("Antecedentespatologicosp")%>',
+									'<%=rs.getString("Antecedentespatologicosf")%>',
+									'<%=rs.getString("Relacionnucleof")%>',
+									'<%=rs.getString("Areaescolar")%>',
+									'<%=rs.getString("Desarrollosocial")%>',
+									'<%=rs.getString("Desarrollolaboral")%>',
+									'<%=rs.getString("Desarrollosexual")%>',
+									'<%=rs.getString("Desarrolloconyugal")%>',
+									'<%=rs.getString("Desarrolloespiritual")%>',
+									'<%=rs.getString("Aspectoconductageneral")%>',
+									'<%=rs.getString("Algomasagregar")%>',
+									'<%=rs.getString("Impresiondiagnostica")%>',
+									'<%=rs.getInt("PacienteID")%>');"
+									value=<%=rs.getInt("HistoriaclinicaID")%> class="btn btn-info">
+									<span><i class="fa fa-eye"></i></span>
+									Ver Historia Clinica
+								</button>
+
+								
+							</td>
+							<% 	
+							}
+							%>
+							<% 
+							if(r.getRolId() == 4){
+							%>
+							<td>
+								<button id="btnIdVisualizar"
+									value=<%=rs.getInt("HistoriaclinicaID")%>
+									class='ajax-link action btn btn-default btn-label-left'
+									onClick="visualizarDatos(this.value, '<%=rs.getString("Motivoconsulta")%>',
+									'<%=rs.getString("Padecimientoactual")%>',
+									'<%=rs.getString("Expectativa")%>',
+									'<%=rs.getString("Padecimientoh_f")%>',
+									'<%=rs.getString("Antecedentespersonalesnp")%>',
+									'<%=rs.getString("Antecedentespatologicosp")%>',
+									'<%=rs.getString("Antecedentespatologicosf")%>',
+									'<%=rs.getString("Relacionnucleof")%>',
+									'<%=rs.getString("Areaescolar")%>',
+									'<%=rs.getString("Desarrollosocial")%>',
+									'<%=rs.getString("Desarrollolaboral")%>',
+									'<%=rs.getString("Desarrollosexual")%>',
+									'<%=rs.getString("Desarrolloconyugal")%>',
+									'<%=rs.getString("Desarrolloespiritual")%>',
+									'<%=rs.getString("Aspectoconductageneral")%>',
+									'<%=rs.getString("Algomasagregar")%>',
+									'<%=rs.getString("Impresiondiagnostica")%>',
+									'<%=rs.getInt("PacienteID")%>');"
+									value=<%=rs.getInt("HistoriaclinicaID")%> class="btn btn-info">
+									<span><i class="fa fa-eye"></i></span>
+									Ver Historia Clinica
+								</button>
+
+								<button id='btnIdActualizar'
+									class="btn btn-primary btn-label-left"
+									onclick="cargarDatos(this.value, '<%=rs.getString("Motivoconsulta")%>',
+										'<%=rs.getString("Padecimientoactual")%>',
+										'<%=rs.getString("Expectativa")%>',
+										'<%=rs.getString("Padecimientoh_f")%>',
+										'<%=rs.getString("Antecedentespersonalesnp")%>',
+										'<%=rs.getString("Antecedentespatologicosp")%>',
+										'<%=rs.getString("Antecedentespatologicosf")%>',
+										'<%=rs.getString("Relacionnucleof")%>',
+										'<%=rs.getString("Areaescolar")%>',
+										'<%=rs.getString("Desarrollosocial")%>',
+										'<%=rs.getString("Desarrollolaboral")%>',
+										'<%=rs.getString("Desarrollosexual")%>',
+										'<%=rs.getString("Desarrolloconyugal")%>',
+										'<%=rs.getString("Desarrolloespiritual")%>',
+										'<%=rs.getString("Aspectoconductageneral")%>',
+										'<%=rs.getString("Algomasagregar")%>',
+										'<%=rs.getString("Impresiondiagnostica")%>',
+										'<%=rs.getInt("PacienteID")%>');"
+									value=<%=rs.getInt("HistoriaclinicaID")%> class="btn btn-info">
+									<span><i class="fa fa-edit"></i></span> Actualizar
+								</button>
+							</td>
+							<%
+							}
+							%>
 						</tr>
 						<%
 							}
@@ -925,6 +1086,1025 @@ response.setDateHeader("Expires", -1);
 </div>
  
 
+<%
+}else{
+%>	
+<div class="row">
+	<div id="breadcrumb" class="col-md-12">
+		<ol class="breadcrumb">
+			<li><a href="index.jsp">Inicio</a></li>
+			<li><a href="#" class="active ajax-link">Gestión paciente</a></li>
+			<li><a href="#">Historia clínica</a></li>
+
+		</ol>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12 col-sm-12">
+		<div id="frm-agrega" class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-address-card-o"></i> <span>Crear Historia Clinica</span>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+					</a> <a class="expand-link"> <i class="fa fa-expand"></i>
+					</a> <a class="close-link"> <i class="fa fa-times"></i>
+					</a>
+				</div>
+				<div class="no-move"></div>
+			</div>
+			<div class="box-content">
+				<h4 class="page-header">Formulario de registro</h4>
+				<form class="form-horizontal" role="form"
+					action="javascript:void(0);" onsubmit="guardar();">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Seleccione paciente</label>
+						<div class="col-sm-5">
+							<select name="country" id="pacienteId">
+								<option value="">-- Selecciona el paciente --</option>
+								<%
+									DtVHistoriaClinicaUnica dtpu = new DtVHistoriaClinicaUnica();
+									ResultSet rpu = dtpu.cargarVista();
+									rpu.beforeFirst();
+
+									while (rpu.next()) {
+								%>
+
+								<option value="<%=rpu.getInt("pacienteID")%>"><%=rpu.getString("nombre1") + " " + rpu.getString("nombre2") + " " + rpu.getString("apellido1")
+						+ " " + rpu.getString("apellido2")%></option>
+
+								<%
+									}
+								%>
+							</select>
+						</div>
+						<div class="clearfix"></div>
+						<div class="clearfix"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Motivo
+								de consulta</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" lang="es" spellcheck="true" class="form-control" rows="5" id="motivoConsulta" required></textarea>
+								<small id="rev_char_count"></small>  
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Historia
+								del padecimiento actual</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5" 
+									id="historiaPadecimiento" placeholder="Desde cuando, frecuencia, intensidad, qué ha hecho para manejar el problema o situación, sintomas, causas, tratamiento o soluciones anteriores, resultados y logro, a qué personas y de que manera afecta el problema? Situaciones ocurridas cercanas en el tiempo que puedan asociarse al origen del problema. Ocurre algo actualmente que pueda estar incidiendo en el problema, algún otro problema o situacion que le llame la atención"></textarea>
+									<small id="historiaPadecimientorev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Expectativas</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5" id="expectativas" lang="es" spellcheck="true" placeholder="Como espera que se le ayude"></textarea>
+								<small id="expectativasrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Antecedentes
+								Heredo-Familiares</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5"
+									id="antecedentesHeredoFamiliares" lang="es" spellcheck="true" placeholder="Enfermedades padecidas, medicamentos que tomo, alcohol u otras drogas, estado de animo, atención psiquiátrica y/o psicológica, suicidios, ideas, hospitalizaciones, caidas"></textarea>
+									<small id="antecedentesHeredoFamiliaresrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Antecedentes
+								personales no patologicos</label>
+							<div class="col-sm-8">
+								<textarea maxlength="500" class="form-control" rows="5"
+									id="antecedentesPersonalesNoPatologicos" lang="es" spellcheck="true" placeholder="Vivienda y condiciones generales, alimentación, sueño, pasatiempos"></textarea>
+									<small id="antecedentesPersonalesNoPatologicosrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Antecedentes
+								patologicos personales</label>
+							<div class="col-sm-8">
+								<textarea maxlength="500" class="form-control" rows="5"
+									id="antecedentesPatologicosPersonales" lang="es" spellcheck="true" placeholder="Enfermedades padecidas, duración-cronocidad, hospitalización, tiempos. accidentes, caídas, crisis convulsivas, estado de salud actual" ></textarea>
+									<small id="antecedentesPatologicosPersonalesrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Antecedentes
+								patologicos familiares</label>
+							<div class="col-sm-8">
+								<textarea maxlength="500" class="form-control" rows="5"
+									id="antecedentesPatologicosFamiliares" lang="es" spellcheck="true" placeholder="Enfermedades padecidas en la familia, fisicas y mentales, uso de drogas u alcohol, hospitalizaciones de la madre u otros cuidadores"></textarea>
+									<small id="antecedentesPatologicosFamiliaresrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Relación
+								con el núcleo familiar</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5"
+									id="relacionConElNucleoFamilar" lang="es" spellcheck="true" placeholder="Como es la relación con ellos, se integra, socializa, se retrae, se aísla, quienes viven con él/ella, describa relación con madre, padre, hermanos, esposo/a, otros, etc"></textarea>
+									<small id="relacionConElNucleoFamilarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Área
+								escolar</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5" id="areaEscolar" lang="es" spellcheck="true" placeholder="Historia escolar, edad de ingreso, adaptación inicial, preescolar; Ha tenido cambios de escuela, repetición de grado, porque? Habitos de estudio: tiempo dedicado, donde y cuando? Cambios de colegio, ultimos estudios"></textarea>
+								<small id="areaEscolarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Desarrollo
+								social</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5" id="desarrolloSocial" lang="es" spellcheck="true" placeholder="Integración a las relaciones sociales con amigos y compañeros de clases, actividades sociales que realiza, frecuencia, intereses de trabajo y actividades libres, tiempo libre"></textarea>
+								<small id="desarrolloSocialrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Desarrollo
+								laboral</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5" id="desarrolloLaboral" lang="es" spellcheck="true" placeholder="Últimos trabajos en orden cronologico, cargos que ocupaba, donde, cuanto tiempo, cuanto ganaba, porque salio"></textarea>
+								<small id="desarrolloLaboralrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Desarrollo
+								sexual</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5" id="desarrolloSexual" lang="es" spellcheck="true" placeholder="Juegos sexuales infantiles, con quien, edad, manipulacion de genitales o masturbación, conocimientos, interés, educación sexual, abusos sexuales, primeras relaciones, menarquia, preparación, edad de inicio, vida sexual, con quien satisfactoria o no, porque? Frecuencia desde que inicio, cuantas parejas ha tenido, enfermedades de transmisión sexual"></textarea>
+								<small id="desarrolloSexualrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Desarrollo
+								conyugal, pareja</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5" id="desarrolloConyugal" lang="es" spellcheck="true" placeholder="Como es la relación de pareja, descripción, numero de hijos, abortos, descripción de comunicación, solución de problemas, satisfacción, comparten planes o actividades en común"></textarea>
+								<small id="desarrolloConyugalrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Desarrollo
+								espiritual</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5"
+									id="desarrolloEspiritual" lang="es" spellcheck="true" placeholder="Actividades de crecimiento personal, religiosas, comunitarias, otras"></textarea>
+									<small id="desarrolloEspiritualrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Aspecto
+								y conducta general</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5"
+									id="aspectoYConductaGeneral" lang="es" spellcheck="true"></textarea>
+									<small id="aspectoYConductaGeneralrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Alguna
+								otra cosa que quiera decir y esté relacionadacon el problema del
+								niño/a</label>
+							<div class="col-sm-8">
+								<textarea maxlength="300" class="form-control" rows="5" id="algoMasAgregar" lang="es" spellcheck="true"></textarea>
+								<small id="algoMasAgregarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Impresión
+								diagnostica</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000"  class="form-control" rows="5"
+									id="impresionDiagnostica" lang="es" spellcheck="true"></textarea>
+									<small id="impresionDiagnosticarev_char_count"></small>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="clearfix"></div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-2">
+							<button id="cancelar_nuevo" type="reset"
+								class="ajax-link action btn btn-default btn-label-left">
+								<span><i class="fa fa-minus-circle txt-danger"></i></span> Cancelar
+							</button>
+						</div>
+						<div class="col-sm-2">
+							<button class="ajax-link action btn btn-primary btn-label-left"
+								onClick="" title="Guardar">
+								<span><i class="fa fa-check-circle txt-success"></i></span> Guardar
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Inicio de formulario para editar una historia clinica -->
+<div class="row">
+	<div class="col-xs-12 col-sm-12">
+		<div id="frm-edita" class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-file-text-o"></i> <span>Actualizar Historia Clinica</span>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+					</a> <a class="expand-link"> <i class="fa fa-expand"></i>
+					</a> <a class="close-link"> <i class="fa fa-times"></i>
+					</a>
+				</div>
+				<div class="no-move"></div>
+			</div>
+			<div class="box-content">
+				<h4 class="page-header">Formulario de actualización</h4>
+				<form class="form-horizontal" class="form-horizontal" role ="form" action="javascript:void(0);" onsubmit="actualizar($('#btnEditar').val());">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Seleccione paciente</label>
+						<div class="col-sm-5">
+							<select name="country" id="pacienteEditar" disabled>
+								<option value="">-- Selecciona el paciente --</option>
+								<%
+								DtPaciente dtp = new DtPaciente();
+								ResultSet rp = dtp.cargarDatos();
+								rp.beforeFirst();
+
+									while (rp.next()) {
+								%>
+
+								<option value="<%=rp.getInt("PacienteID")%>"><%=rp.getString("Nombre1") + " " + rp.getString("Nombre2") + " " + rp.getString("Apellido1")
+						+ " " + rp.getString("Apellido2")%></option>
+
+								<%
+									}
+								%>
+							</select>
+						</div>
+						<div class="clearfix"></div>
+						<div class="clearfix"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Motivo
+								de consulta</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" maxlength="1000"
+									id="motivoConsultaEditar" lang="es" spellcheck="true"></textarea>
+									<small id="Editarrev_char_count"></small>  
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Historia
+								del padecimiento</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" maxlength="1000"
+									id="historiaPadecimientoEditar" lang="es" spellcheck="true"></textarea>
+									<small id="historiaPadecimientoEditarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Expectativas</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" maxlength="1000" rows="5" id="expectativasEditar" lang="es" spellcheck="true"></textarea>
+								<small id="expectativasEditarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Antecedentes
+								Heredo-Familiares</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" maxlength="1000"
+									id="antecedentesHeredoFamiliaresEditar" lang="es" spellcheck="true"></textarea>
+									<small id="antecedentesHeredoFamiliaresEditarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Antecedentes
+								personales no patologicos</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" maxlength="500"
+									id="antecedentesPersonalesNoPatologicosEditar" lang="es" spellcheck="true"></textarea>
+									<small id="antecedentesPersonalesNoPatologicosEditarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Antecedentes
+								patologicos personales</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" maxlength="500"
+									id="antecedentesPatologicosPersonalesEditar" lang="es" spellcheck="true"></textarea>
+									<small id="antecedentesPatologicosPersonalesEditarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Antecedentes
+								patologicos familiares</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" maxlength="500"
+									id="antecedentesPatologicosFamiliaresEditar" lang="es" spellcheck="true"></textarea>
+									<small id="antecedentesPatologicosFamiliaresEditarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Relación
+								con el nucleo familiar</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" maxlength="1000"
+									id="relacionConElNucleoFamilarEditar" lang="es" spellcheck="true"></textarea>
+									<small id="relacionConElNucleoFamilarEditarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Área
+								escolar</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" maxlength="1000" id="areaEscolarEditar" lang="es" spellcheck="true"></textarea>
+								<small id="areaEscolarEditarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Desarrollo
+								social</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" maxlength="1000"
+									id="desarrolloSocialEditar" lang="es" spellcheck="true"></textarea>
+									<small id="desarrolloSocialEditarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Desarrollo
+								laboral</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" maxlength="1000"
+									id="desarrolloLaboralEditar" lang="es" spellcheck="true"></textarea>
+									<small id="desarrolloLaboralEditarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Desarrollo
+								sexual</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" maxlength="1000"
+									id="desarrolloSexualEditar" lang="es" spellcheck="true"></textarea>
+									<small id="desarrolloSexualEditarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Desarrollo
+								conyugal, pareja</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" maxlength="1000"
+									id="desarrolloConyugalEditar" lang="es" spellcheck="true"></textarea>
+									<small id="desarrolloConyugalEditarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Desarrollo
+								espiritual</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" maxlength="1000"
+									id="desarrolloEspiritualEditar" lang="es" spellcheck="true"></textarea>
+									<small id="desarrolloEspiritualEditarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Aspecto
+								y conducta general</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" maxlength="1000"
+									id="aspectoYConductaGeneralEditar" lang="es" spellcheck="true"></textarea>
+									<small id="aspectoYConductaGeneralEditarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Alguna
+								otra cosa que quiera decir y este relacionadacon el problema del
+								niño/a</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" maxlength="300"
+									id="algoMasAgregarEditar" lang="es" spellcheck="true"></textarea>
+									<small id="algoMasAgregarEditarrev_char_count"></small>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Impresion
+								diagnostica</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" maxlength="1000"
+									id="impresionDiagnosticaEditar" lang="es" spellcheck="true"></textarea>
+									<small id="impresionDiagnosticaEditarrev_char_count"></small>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="clearfix"></div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-2">
+							<button id="cancelar_nuevo_editar"
+								class="ajax-link action btn btn-default btn-label-left"
+								type="reset" title="Cancelar">
+								<span><i class="fa fa-minus-circle txt-danger"></i></span> Cancelar
+							</button>
+						</div>
+						<div class="col-sm-2">
+							<button id="btnEditar"
+								class="ajax-link btn btn-primary btn-label-left" onClick=""
+								title="Editar">
+								<span><i class="fa fa-check-circle txt-success"></i></span> Editar
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- fin formulario -->
+
+
+<!-- Formulario para visualizar -->
+<div class="row">
+	<div class="col-xs-12 col-sm-12">
+		<div id="frm-visualizar" class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-eye"></i> <span>Visualizar Historia Clinica</span>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+					</a> <a class="expand-link"> <i class="fa fa-expand"></i>
+					</a> <a class="close-link"> <i class="fa fa-times"></i>
+					</a>
+				</div>
+				<div class="no-move"></div>
+			</div>
+			<div class="box-content">
+				<h4 class="page-header">Formulario de registro</h4>
+				<form class="form-horizontal" method="post"
+						action="javascript:void(0);" onsubmit="imprimir($('#btnImprimir').val());">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Seleccione paciente</label>
+						<div class="col-sm-5">
+							<select name="country" id="pacienteIdVi" disabled>
+								<option value="">-- Selecciona el paciente --</option>
+								<%
+									rp.beforeFirst();
+
+									while (rp.next()) {
+								%>
+
+								<option value="<%=rp.getInt("PacienteID")%>"><%=rp.getString("Nombre1") + " " + rp.getString("Nombre2") + " " + rp.getString("Apellido1")
+						+ " " + rp.getString("Apellido2")%></option>
+
+								<%
+									}
+								%>
+							</select>
+						</div>
+						<div class="clearfix"></div>
+						<div class="clearfix"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Motivo
+								de consulta</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" id="motivoConsultaVi" disabled></textarea>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Historia
+								del padecimiento</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5"
+									id="historiaPadecimientoVi" disabled></textarea>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Expectativas</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" id="expectativasVi" disabled></textarea>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Antecedentes
+								Heredo-Familiares</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5"
+									id="antecedentesHeredoFamiliaresVi" disabled></textarea>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Antecedentes
+								personales no patologicos</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5"
+									id="antecedentesPersonalesNoPatologicosVi" disabled></textarea>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Antecedentes
+								patologicos personales</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5"
+									id="antecedentesPatologicosPersonalesVi" disabled></textarea>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Antecedentes
+								patologicos familiares</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5"
+									id="antecedentesPatologicosFamiliaresVi" disabled></textarea>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Relación
+								con el nucleo familiar</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5"
+									id="relacionConElNucleoFamilarVi" disabled></textarea>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Área
+								escolar</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" id="areaEscolarVi" disabled></textarea>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Desarrollo
+								social</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" id="desarrolloSocialVi" disabled></textarea>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Desarrollo
+								laboral</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" id="desarrolloLaboralVi" disabled></textarea>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Desarrollo
+								sexual</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" id="desarrolloSexualVi" disabled></textarea>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Desarrollo
+								conyugal, pareja</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5"
+									id="desarrolloConyugalVi" disabled></textarea>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Desarrollo
+								espiritual</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5"
+									id="desarrolloEspiritualVi" disabled></textarea>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Aspecto
+								y conducta general</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5"
+									id="aspectoYConductaGeneralVi" disabled></textarea>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Alguna
+								otra cosa que quiera decir y esté relacionadacon el problema del
+								niño/a</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5" id="algoMasAgregarVi" disabled></textarea>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Impresión
+								diagnostica</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" rows="5"
+									id="impresionDiagnosticaVi" disabled></textarea>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="clearfix"></div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-2">
+							<button id="cerrar_visualizar" type="reset"
+								class="ajax-link action btn btn-default btn-label-left">
+								<span><i class="fa fa-check txt-success"></i></span> Cerrar
+							</button>
+						</div>
+						
+						<div class="col-sm-2">
+										<button
+											id="btnImprimir"
+											class="ajax-link action btn btn-primary btn-label-left"
+											onClick="" title="Imprimir">
+											<span><i class="fa fa-print"></i></span>Imprimir
+										</button>
+									</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- fin -->
+
+
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-list"></i> <span>Lista de
+						pacientes</span>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+					</a> <a class="expand-link"> <i class="fa fa-expand"></i>
+					</a> <a class="close-link"> <i class="fa fa-times"></i>
+					</a>
+				</div>
+				<div class="no move"></div>
+			</div>
+			<div class="box-content no-padding">
+				<div class="row padding-opc">
+					<div class="col-md-12">
+						<div class="col-md-12 col-xs-12 col-sm-12 agregar">
+							<a class="ajax-link pull-right " id="btn-agrega-abrir" href="#"
+								title="Nuevo Registro"> <i class="fa fa-plus-circle fa-2x"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<table
+					class="table table-bordered table-striped table-hover table-heading table-datatable"
+					id="datatable-1">
+					<thead>
+						<tr>
+							<th>Paciente</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<%
+							rs.close();
+							rs=null;
+						    
+						    DtVHistoriaClinicaPaciente dtc = new DtVHistoriaClinicaPaciente();
+							rs = dtc.cargarVista();
+							rs.beforeFirst();
+							while (rs.next()) {
+						%>
+						<tr>
+							<td><%=rs.getString("Nombre1") + " "+ rs.getString("Nombre2") + " " + rs.getString("Apellido1") + " "+ rs.getString("Apellido2")%> </td>
+							<%
+							if(r.getRolId() == 1){
+							%>
+							<td>
+								<button id="btnIdVisualizar"
+									value=<%=rs.getInt("HistoriaclinicaID")%>
+									class='ajax-link action btn btn-default btn-label-left'
+									onClick="visualizarDatos(this.value, '<%=rs.getString("Motivoconsulta")%>',
+									'<%=rs.getString("Padecimientoactual")%>',
+									'<%=rs.getString("Expectativa")%>',
+									'<%=rs.getString("Padecimientoh_f")%>',
+									'<%=rs.getString("Antecedentespersonalesnp")%>',
+									'<%=rs.getString("Antecedentespatologicosp")%>',
+									'<%=rs.getString("Antecedentespatologicosf")%>',
+									'<%=rs.getString("Relacionnucleof")%>',
+									'<%=rs.getString("Areaescolar")%>',
+									'<%=rs.getString("Desarrollosocial")%>',
+									'<%=rs.getString("Desarrollolaboral")%>',
+									'<%=rs.getString("Desarrollosexual")%>',
+									'<%=rs.getString("Desarrolloconyugal")%>',
+									'<%=rs.getString("Desarrolloespiritual")%>',
+									'<%=rs.getString("Aspectoconductageneral")%>',
+									'<%=rs.getString("Algomasagregar")%>',
+									'<%=rs.getString("Impresiondiagnostica")%>',
+									'<%=rs.getInt("PacienteID")%>');"
+									value=<%=rs.getInt("HistoriaclinicaID")%> class="btn btn-info">
+									<span><i class="fa fa-eye"></i></span>
+									Ver Historia Clinica
+								</button>
+
+								<button id='btnIdActualizar'
+									class="btn btn-primary btn-label-left"
+									onclick="cargarDatos(this.value, '<%=rs.getString("Motivoconsulta")%>',
+										'<%=rs.getString("Padecimientoactual")%>',
+										'<%=rs.getString("Expectativa")%>',
+										'<%=rs.getString("Padecimientoh_f")%>',
+										'<%=rs.getString("Antecedentespersonalesnp")%>',
+										'<%=rs.getString("Antecedentespatologicosp")%>',
+										'<%=rs.getString("Antecedentespatologicosf")%>',
+										'<%=rs.getString("Relacionnucleof")%>',
+										'<%=rs.getString("Areaescolar")%>',
+										'<%=rs.getString("Desarrollosocial")%>',
+										'<%=rs.getString("Desarrollolaboral")%>',
+										'<%=rs.getString("Desarrollosexual")%>',
+										'<%=rs.getString("Desarrolloconyugal")%>',
+										'<%=rs.getString("Desarrolloespiritual")%>',
+										'<%=rs.getString("Aspectoconductageneral")%>',
+										'<%=rs.getString("Algomasagregar")%>',
+										'<%=rs.getString("Impresiondiagnostica")%>',
+										'<%=rs.getInt("PacienteID")%>');"
+									value=<%=rs.getInt("HistoriaclinicaID")%> class="btn btn-info">
+									<span><i class="fa fa-edit"></i></span> Actualizar
+								</button>
+							</td>
+							<%
+							} 
+							%>
+							<% 
+							if(r.getRolId() == 2){
+							%>
+							<td>
+								<button id="btnIdVisualizar"
+									value=<%=rs.getInt("HistoriaclinicaID")%>
+									class='ajax-link action btn btn-default btn-label-left'
+									onClick="visualizarDatos(this.value, '<%=rs.getString("Motivoconsulta")%>',
+									'<%=rs.getString("Padecimientoactual")%>',
+									'<%=rs.getString("Expectativa")%>',
+									'<%=rs.getString("Padecimientoh_f")%>',
+									'<%=rs.getString("Antecedentespersonalesnp")%>',
+									'<%=rs.getString("Antecedentespatologicosp")%>',
+									'<%=rs.getString("Antecedentespatologicosf")%>',
+									'<%=rs.getString("Relacionnucleof")%>',
+									'<%=rs.getString("Areaescolar")%>',
+									'<%=rs.getString("Desarrollosocial")%>',
+									'<%=rs.getString("Desarrollolaboral")%>',
+									'<%=rs.getString("Desarrollosexual")%>',
+									'<%=rs.getString("Desarrolloconyugal")%>',
+									'<%=rs.getString("Desarrolloespiritual")%>',
+									'<%=rs.getString("Aspectoconductageneral")%>',
+									'<%=rs.getString("Algomasagregar")%>',
+									'<%=rs.getString("Impresiondiagnostica")%>',
+									'<%=rs.getInt("PacienteID")%>');"
+									value=<%=rs.getInt("HistoriaclinicaID")%> class="btn btn-info">
+									<span><i class="fa fa-eye"></i></span>
+									Ver Historia Clinica
+								</button>
+
+								<button id='btnIdActualizar'
+									class="btn btn-primary btn-label-left"
+									onclick="cargarDatos(this.value, '<%=rs.getString("Motivoconsulta")%>',
+										'<%=rs.getString("Padecimientoactual")%>',
+										'<%=rs.getString("Expectativa")%>',
+										'<%=rs.getString("Padecimientoh_f")%>',
+										'<%=rs.getString("Antecedentespersonalesnp")%>',
+										'<%=rs.getString("Antecedentespatologicosp")%>',
+										'<%=rs.getString("Antecedentespatologicosf")%>',
+										'<%=rs.getString("Relacionnucleof")%>',
+										'<%=rs.getString("Areaescolar")%>',
+										'<%=rs.getString("Desarrollosocial")%>',
+										'<%=rs.getString("Desarrollolaboral")%>',
+										'<%=rs.getString("Desarrollosexual")%>',
+										'<%=rs.getString("Desarrolloconyugal")%>',
+										'<%=rs.getString("Desarrolloespiritual")%>',
+										'<%=rs.getString("Aspectoconductageneral")%>',
+										'<%=rs.getString("Algomasagregar")%>',
+										'<%=rs.getString("Impresiondiagnostica")%>',
+										'<%=rs.getInt("PacienteID")%>');"
+									value=<%=rs.getInt("HistoriaclinicaID")%> class="btn btn-info">
+									<span><i class="fa fa-edit"></i></span> Actualizar
+								</button>
+							</td>
+							<% 	
+							} 
+							%>
+							<% 
+							if(r.getRolId() == 3){
+							%>
+							<td>
+								<button id="btnIdVisualizar"
+									value=<%=rs.getInt("HistoriaclinicaID")%>
+									class='ajax-link action btn btn-default btn-label-left'
+									onClick="visualizarDatos(this.value, '<%=rs.getString("Motivoconsulta")%>',
+									'<%=rs.getString("Padecimientoactual")%>',
+									'<%=rs.getString("Expectativa")%>',
+									'<%=rs.getString("Padecimientoh_f")%>',
+									'<%=rs.getString("Antecedentespersonalesnp")%>',
+									'<%=rs.getString("Antecedentespatologicosp")%>',
+									'<%=rs.getString("Antecedentespatologicosf")%>',
+									'<%=rs.getString("Relacionnucleof")%>',
+									'<%=rs.getString("Areaescolar")%>',
+									'<%=rs.getString("Desarrollosocial")%>',
+									'<%=rs.getString("Desarrollolaboral")%>',
+									'<%=rs.getString("Desarrollosexual")%>',
+									'<%=rs.getString("Desarrolloconyugal")%>',
+									'<%=rs.getString("Desarrolloespiritual")%>',
+									'<%=rs.getString("Aspectoconductageneral")%>',
+									'<%=rs.getString("Algomasagregar")%>',
+									'<%=rs.getString("Impresiondiagnostica")%>',
+									'<%=rs.getInt("PacienteID")%>');"
+									value=<%=rs.getInt("HistoriaclinicaID")%> class="btn btn-info">
+									<span><i class="fa fa-eye"></i></span>
+									Ver Historia Clinica
+								</button>
+
+								
+							</td>
+							<% 	
+							}
+							%>
+							<% 
+							if(r.getRolId() == 4){
+							%>
+							<td>
+								<button id="btnIdVisualizar"
+									value=<%=rs.getInt("HistoriaclinicaID")%>
+									class='ajax-link action btn btn-default btn-label-left'
+									onClick="visualizarDatos(this.value, '<%=rs.getString("Motivoconsulta")%>',
+									'<%=rs.getString("Padecimientoactual")%>',
+									'<%=rs.getString("Expectativa")%>',
+									'<%=rs.getString("Padecimientoh_f")%>',
+									'<%=rs.getString("Antecedentespersonalesnp")%>',
+									'<%=rs.getString("Antecedentespatologicosp")%>',
+									'<%=rs.getString("Antecedentespatologicosf")%>',
+									'<%=rs.getString("Relacionnucleof")%>',
+									'<%=rs.getString("Areaescolar")%>',
+									'<%=rs.getString("Desarrollosocial")%>',
+									'<%=rs.getString("Desarrollolaboral")%>',
+									'<%=rs.getString("Desarrollosexual")%>',
+									'<%=rs.getString("Desarrolloconyugal")%>',
+									'<%=rs.getString("Desarrolloespiritual")%>',
+									'<%=rs.getString("Aspectoconductageneral")%>',
+									'<%=rs.getString("Algomasagregar")%>',
+									'<%=rs.getString("Impresiondiagnostica")%>',
+									'<%=rs.getInt("PacienteID")%>');"
+									value=<%=rs.getInt("HistoriaclinicaID")%> class="btn btn-info">
+									<span><i class="fa fa-eye"></i></span>
+									Ver Historia Clinica
+								</button>
+
+								<button id='btnIdActualizar'
+									class="btn btn-primary btn-label-left"
+									onclick="cargarDatos(this.value, '<%=rs.getString("Motivoconsulta")%>',
+										'<%=rs.getString("Padecimientoactual")%>',
+										'<%=rs.getString("Expectativa")%>',
+										'<%=rs.getString("Padecimientoh_f")%>',
+										'<%=rs.getString("Antecedentespersonalesnp")%>',
+										'<%=rs.getString("Antecedentespatologicosp")%>',
+										'<%=rs.getString("Antecedentespatologicosf")%>',
+										'<%=rs.getString("Relacionnucleof")%>',
+										'<%=rs.getString("Areaescolar")%>',
+										'<%=rs.getString("Desarrollosocial")%>',
+										'<%=rs.getString("Desarrollolaboral")%>',
+										'<%=rs.getString("Desarrollosexual")%>',
+										'<%=rs.getString("Desarrolloconyugal")%>',
+										'<%=rs.getString("Desarrolloespiritual")%>',
+										'<%=rs.getString("Aspectoconductageneral")%>',
+										'<%=rs.getString("Algomasagregar")%>',
+										'<%=rs.getString("Impresiondiagnostica")%>',
+										'<%=rs.getInt("PacienteID")%>');"
+									value=<%=rs.getInt("HistoriaclinicaID")%> class="btn btn-info">
+									<span><i class="fa fa-edit"></i></span> Actualizar
+								</button>
+							</td>
+							<%
+							}
+							%>
+						</tr>
+						<%
+							}
+						%>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Paciente</th>
+							<th>Acciones</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+ 
+
+<%
+}
+%>
 
 <script type="text/javascript">
 // 	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
@@ -1555,9 +2735,15 @@ response.setDateHeader("Expires", -1);
 
 		/////////////////////////////CONTROLAR EL FORMULARIO AGREGAR Y CERRAR FORMULARIO EDITAR/////////////////////////////
 		$('#btn-agrega-abrir').click(function() {
-			$('#frm-agrega').fadeIn();
-			$('#frm-edita').fadeOut();
-			$('frm-visualizar').fadeOut();
+			var TipoRol = "";
+			TipoRol = $("#TipoRol").val();
+			if(TipoRol != 3){
+				$('#frm-agrega').fadeIn();
+				$('#frm-edita').fadeOut()
+				$('frm-visualizar').fadeOut();
+			}
+		
+			
 		});
 		$('#cancelar_nuevo').click(function() {
 			$('#frm-agrega').fadeOut();

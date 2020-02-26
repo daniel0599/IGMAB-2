@@ -316,9 +316,10 @@
 							<td><button id='btnIdActualizar' disabled
 									onClick="cargarDatos('<%=rsvv.getInt("ParPacID")%>', '<%=rsvv.getInt("PacienteID")%>', '<%=rsvv.getInt("ParienteID")%>');"
 									value=<%=rsvv.getInt("ParPacID")%>
-									class="btn btn-primary btn-label-left">  
+									class="btn btn-primary btn-label-left">
 									<span><i class="fa fa-edit"></i></span> Actualizar
 								</button>
+								
 							</td>
 							<% 	
 							}

@@ -62,7 +62,11 @@ response.setDateHeader("Expires", -1);
 	}
 
 %>
+<input id="usuarioID" name="usuarioID" type="hidden" value=<%=us.getUsuarioID()%> checked>
+
 <input id="TipoRol" name="TipoROl" type="hidden" value=<%=r.getRolId()%>  checked>
+
+
 
 <div class="row">
 	<div id="breadcrumb" class="col-md-12">
@@ -173,10 +177,28 @@ response.setDateHeader("Expires", -1);
                                 %>
                             </select>
                         </div>
-						<div class="col-sm-2">
-							<input type="text" class="form-control" placeholder="Detalle escolaridad"data-toggle="tooltip" data-placement="bottom" title="Escolaridad" id="escolaridad"
-									name="escolaridad" required>
-						</div>
+                        <div class="col-sm-2">
+                                    <select id="escolaridaddetalle" required>
+                                        <option>Seleccione</option>
+                                        <option value="1">1er</option>
+					   					<option value="2">2do</option>
+                                        <option value="3">3er</option>
+                                        <option value="4">4to</option>
+                                        <option value="5">5to</option>
+                                        <option value="6">6to</option>
+                                        <option value="7">7mo</option>
+                                        <option value="8">8vo</option>
+                                        <option value="9">9no</option>
+                                        <option value="10">10mo</option>
+                                        <option value="11">11vo</option>
+                                         <option value="12">Concluida</option>  
+                                        <option value="13">Otro</option>
+                                    </select>
+                                </div>
+<!-- 						<div class="col-sm-2"> -->
+<!-- 							<input type="text" class="form-control" placeholder="Detalle escolaridad"data-toggle="tooltip" data-placement="bottom" title="Escolaridad" id="escolaridad" -->
+<!-- 									name="escolaridad" required> -->
+<!-- 						</div> -->
 
 						
 						
@@ -362,10 +384,28 @@ response.setDateHeader("Expires", -1);
                                 %>
                             </select>
                         </div>
-						<div class="col-sm-2">
-							<input type="text" class="form-control" placeholder="Escolaridad"data-toggle="tooltip" data-placement="bottom" title="Escolaridad" id="escolaridadEditar"
-									name="escolaridad">
-						</div>
+                        <div class="col-sm-2">
+                                    <select id="escolaridaddetalleedit">
+                                        <option>Seleccione</option>
+                                        <option value="1">1er</option>
+					   					<option value="2">2do</option>
+                                        <option value="3">3er</option>
+                                        <option value="4">4to</option>
+                                        <option value="5">5to</option>
+                                        <option value="6">6to</option>
+                                        <option value="7">7mo</option>
+                                        <option value="8">8vo</option>
+                                        <option value="9">9no</option>
+                                        <option value="10">10mo</option>
+                                        <option value="11">11vo</option> 
+                                         <option value="12">Concluida</option> 
+                                        <option value="13">Otro</option>
+                                    </select>
+                                </div>
+<!-- 						<div class="col-sm-2"> -->
+<!-- 							<input type="text" class="form-control" placeholder="Escolaridad"data-toggle="tooltip" data-placement="bottom" title="Escolaridad" id="escolaridadEditar" -->
+<!-- 									name="escolaridad"> -->
+<!-- 						</div> -->
 						
 						
 					</div>
@@ -540,9 +580,27 @@ response.setDateHeader("Expires", -1);
                             </select>
                         </div>
                         <div class="col-sm-2">
-                            <input disabled type="text" class="form-control" placeholder="Detalle escolaridad"data-toggle="tooltip" data-placement="bottom" title="Escolaridad" id="escolaridadVi"
-                                   name="escolaridad" required>
-                        </div>
+                                    <select disabled id="escolaridaddetalleView">
+                                        <option>Seleccione</option>
+                                        <option value="1">1er</option>
+					   					<option value="2">2do</option>
+                                        <option value="3">3er</option>
+                                        <option value="4">4to</option>
+                                        <option value="5">5to</option>
+                                        <option value="6">6to</option>
+                                        <option value="7">7mo</option>
+                                        <option value="8">8vo</option>
+                                        <option value="9">9no</option>
+                                        <option value="10">10mo</option>
+                                        <option value="11">11vo</option>
+                                        <option value="12">Concluida</option> 
+                                        <option value="13">Otro</option>
+                                    </select>
+                                </div>
+<!--                         <div class="col-sm-2"> -->
+<!--                             <input disabled type="text" class="form-control" placeholder="Detalle escolaridad"data-toggle="tooltip" data-placement="bottom" title="Escolaridad" id="escolaridadVi" -->
+<!--                                    name="escolaridad" required> -->
+<!--                         </div> -->
 
 
 
@@ -847,34 +905,8 @@ response.setDateHeader("Expires", -1);
 								Ver Pariente
 								</button>
 
-								<button id='btnIdActualizar'
-									class="btn btn-primary btn-label-left" disabled
-									OnClick="cargarDatos(this.value, '<%=rp.getString("Nombre1")%>',
-										'<%=rp.getString("Nombre2")%>',
-										'<%=rp.getString("Apellido1")%>',
-										'<%=rp.getString("Apellido2")%>',
-                                            '<%=rp.getString("Ocupacion")%>',
-                                            '<%=rp.getString("Lugartrabajo")%>',
-                                            '<%=rp.getString("Cargo")%>',
-                                            '<%=rp.getString("Salariomensual")%>',
-                                            '<%=rp.getString("Edad")%>',
-<%--                                             '<%=fechaM.format(fecha)%>', --%>
-                                            '<%=rp.getInt("EscolaridadID")%>',
-                                            '<%=rp.getString("Escolaridad")%>',
-										'<%=rp.getInt("Estadovida")%>',
-										'<%=rp.getString("Causamuerte")%>',
-                                            '<%=rp.getInt("ParentescoID")%>',
-										'<%=rp.getInt("Tutor")%>');"
-									value=<%=rp.getInt("ParienteID")%> class="btn btn-info">
-									<span><i class="fa fa-edit"></i></span> Actualizar
-								</button>
-
-								<button id="btnIdEliminar" value=<%=rp.getInt("ParienteID")%>
-										class='ajax-link action btn btn-default btn-label-left' disabled
-								onClick='eliminar(this.value);'>
-								<span><i class="fa fa-trash-o txt-danger"></i></span> Eliminar
-								</button>
-
+								
+								
 
 							</td>
 							<%
@@ -1063,7 +1095,7 @@ response.setDateHeader("Expires", -1);
 		festadoVida = $("#estadoVida").val();
 		fcausaMuerte = $("#causaMuerte").val();
 		fescolaridadId = $("#escolaridadId").val();
-		fescolaridad = $("#escolaridad").val();
+		fescolaridad = $('#escolaridaddetalle').val();
         fedad = $('#edad').val();
 		focupacion = $("#ocupacion").val();
 		flugarTrabajo = $("#lugarTrabajo").val();
@@ -1171,7 +1203,7 @@ response.setDateHeader("Expires", -1);
 		fcausaMuerteEditar = $("#causaMuerteEditar").val();
         fedadEditar = $('#edadEditar').val();
         fescolaridadIdEditar=$("#escolaridadIdEditar").val();
-		fescolaridadEditar = $("#escolaridadEditar").val();
+		fescolaridadEditar = $('#escolaridaddetalleedit').val();
 		focupacionEditar = $("#ocupacionEditar").val();
 		flugarTrabajoEditar = $("#lugarTrabajoEditar").val();
 		fcargoEditar = $("#cargoEditar").val();
@@ -1260,7 +1292,7 @@ response.setDateHeader("Expires", -1);
         $("#edadEditar").val(fedad);
      //   $('#fechaNacEdit').val(ffechaNac);
         $('#escolaridadIdEditar').val(fescolaridadId).change();
-        $("#escolaridadEditar").val(fescolaridad);
+        $('#escolaridaddetalleedit').val(fescolaridad).change();
 		$("#estadoVidaEditar").val(festadoVida).change();
 		$("#causaMuerteEditar").val(fcausaMuerte);
         $("#parentescoidEditar").val(fparentescoid).change();
@@ -1304,7 +1336,7 @@ response.setDateHeader("Expires", -1);
         $("#edadVi").val(fedad);
       //  $('#fechaNacVi').val(ffechaNac);
         $("#escolaridadIdVi").val(fescolaridadId).change();
-        $("#escolaridadVi").val(fescolaridad);
+        $('#escolaridaddetalleView').val(fescolaridad).change();
         $("#estadoVidaVi").val(festadoVida).change();
         $("#causaMuerteVi").val(fcausaMuerte);
         $("#parentescoidVi").val(fparentescoid).change();
