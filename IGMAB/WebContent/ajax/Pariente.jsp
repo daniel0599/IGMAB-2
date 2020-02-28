@@ -63,11 +63,350 @@ response.setDateHeader("Expires", -1);
 
 %>
 <input id="usuarioID" name="usuarioID" type="hidden" value=<%=us.getUsuarioID()%> checked>
-
 <input id="TipoRol" name="TipoROl" type="hidden" value=<%=r.getRolId()%>  checked>
+<%
+if(r.getRolId() == 3){
+%>
+<div class="row">
+	<div id="breadcrumb" class="col-md-12">
+		<ol class="breadcrumb">
+			<li><a href="index.jsp">Inicio</a></li>
+			<li><a href="#" class="active ajax-link">Gestión paciente</a>
+			<li><a href="#">Pariente</a>
+		</ol>
+	</div>
+</div>
+
+<!-- inicio de formulario para editar un pariente -->
+
+<div class="row">
+	<div class="col-xs-12 col-sm-12">
+
+<!-- Formulario visualizar -->
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <!-- Inicio de formulario -->
+        <div id="frm-visualizar" class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-eye"></i> <span>Ver Pariente</span>
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+                    </a> <a class="expand-link"> <i class="fa fa-expand"></i>
+                </a> <a class="close-link"> <i class="fa fa-times"></i>
+                </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
 
 
+            <div class="box-content">
+                <h4 class="page-header">Ver registro</h4>
+                <form class="form-horizontal" role ="form" action="javascript:void(0);" onsubmit="guardar();">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Primer nombre</label>
+                        <div class="col-sm-4">
+                            <input disabled type="text" class="form-control" placeholder="Primer nombre"data-toggle="tooltip" data-placement="bottom" title="Primer nombre" id="primerNombreVi" name="primerNombre" required>
+                        </div>
+                        <label class="col-sm-2 control-label">Segundo nombre</label>
+                        <div class="col-sm-4">
+                            <input disabled type="text" class="form-control" placeholder="Segundo nombre"data-toggle="tooltip" data-placement="bottom" title="Segundo nombre" id="segundoNombreVi" name="segundoNombre">
+                        </div>
+                        <label class="col-sm-2 control-label">Primer apellido</label>
+                        <div class="col-sm-4">
+                            <input disabled type="text" class="form-control" placeholder="Primer apellido"data-toggle="tooltip" data-placement="bottom" title="Primer apellido" id="primerApellidoVi"
+                                   name="primerApellido" required>
+                        </div>
+                        <label class="col-sm-2 control-label">Segundo apellido</label>
+                        <div class="col-sm-4">
+                            <input readonly type="text" class="form-control" placeholder="Segundo apellido"data-toggle="tooltip" data-placement="bottom" title="Segundo apellido" id="segundoApellidoVi"
+                                   name="segundoApellido">
+                        </div>
+                    </div>
 
+                    <div class="form-group has-success has-feedback">
+                        <label class="col-sm-2 control-label">Ocupacion</label>
+                        <div class="col-sm-4">
+                            <input disabled type="text" class="form-control" placeholder="Ocupacion" id="ocupacionVi" name="ocupacion">
+                        </div>
+                        <label class="col-sm-2 control-label">Lugar de trabajo</label>
+                        <div class="col-sm-4">
+                            <input disabled type="text" class="form-control" placeholder="Lugar de trabajo" id="lugarTrabajoVi"
+                                   name="lugarTrabajo">
+                        </div>
+                        <label class="col-sm-2 control-label">Cargo</label>
+                        <div class="col-sm-4">
+                            <input disabled type="text" class="form-control" placeholder="Cargo" id="cargoVi" name="cargo">
+                            <span class="fa fa-check-square-o txt-success form-control-feedback"></span>
+                        </div>
+                        <label class="col-sm-2 control-label">Salario</label>
+                        <div class="col-sm-4">
+                            <input disabled type="number" class="form-control" placeholder="Salario" id="salarioVi" name="salario">
+                        </div>
+                    </div>
+
+                    <div class="form-group has-warning has-feedback">
+                        <label class="col-sm-2 control-label">Edad</label>
+                        <div class="col-sm-4">
+                        <input disabled type="text" class="form-control" placeholder="Edad"
+                               id="edadVi" name="edad" required>
+                        <span class="fa fa-calendar txt-danger form-control-feedback"></span>
+                        </div>
+
+                        <label class="col-sm-2 control-label">Escolaridad</label>
+                        <div class="col-sm-2">
+                            <select disabled id="escolaridadIdVi" required>
+                                <option value="">Escolaridad</option>
+                                <%
+                                DtPaciente dtpp = new DtPaciente();
+                                ResultSet res1 = dtpp.cargarEscolaridades();
+                                
+                                    res1.beforeFirst();
+
+                                    while (res1.next()) {
+                                %>
+
+                                <option value="<%=res1.getInt("EscolaridadID")%>"><%=res1.getString("Nombre")%></option>
+
+                                <%
+                                    }
+                                %>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                                    <select disabled id="escolaridaddetalleView">
+                                        <option>Seleccione</option>
+                                        <option value="1">1er</option>
+					   					<option value="2">2do</option>
+                                        <option value="3">3er</option>
+                                        <option value="4">4to</option>
+                                        <option value="5">5to</option>
+                                        <option value="6">6to</option>
+                                        <option value="7">7mo</option>
+                                        <option value="8">8vo</option>
+                                        <option value="9">9no</option>
+                                        <option value="10">10mo</option>
+                                        <option value="11">11vo</option>
+                                        <option value="12">Concluida</option> 
+                                        <option value="13">Otro</option>
+                                    </select>
+                                </div>
+                    </div>
+
+                    <div class="form-group has-error has-feedback">
+                        <label class="col-sm-2 control-label">Estado de vida</label>
+                        <div class="col-sm-4">
+                            <select disabled id="estadoVidaVi">
+                                <option value=2>Seleccione</option>
+                                <option value=1>Vivo(a)</option>
+                                <option value=0>Fallecido(a)</option>
+                            </select>
+                        </div>
+                        <div id="causaMuerteDivVi">
+                            <label class="col-sm-2 control-label">Causa de muerte</label>
+                            <div class="col-sm-4" >
+                                <input disabled type="text" class="form-control"
+                                       placeholder="Causa de muerte" data-toggle="tooltip"
+                                       data-placement="bottom" title="Causa de muerte"
+                                       id="causaMuerteVi" name="causaMuerte">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Parentesco</label>
+                        <div class="col-sm-4">
+                            <select disabled name="parentesco" id="parentescoidVi">
+                                <option>Seleccione</option>
+
+                                <%
+                                rs.close();
+								rs = null;
+								DtParentesco dtpar = new DtParentesco();
+								rs = dtpar.cargarDatos();
+                                    rs.beforeFirst();
+
+                                    while (rs.next()) {
+                                %>
+                                <option value="<%=rs.getInt("ParentescoID")%>"><%=rs.getString("Parentesco")%></option>
+
+                                <%
+                                    }
+                                %>
+                            </select>
+                        </div>
+                        <label class="col-sm-2 control-label">¿Este pariente es
+                            tutor?</label>
+                        <div class="col-sm-4">
+                            <select disabled id="tutorVi">
+                                <option>Seleccione</option>
+                                <option value=1>Si</option>
+                                <option value=0>No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-2">
+                            <button id="cerrar_visualizar" type="reset"
+                                    class="ajax-link action btn btn-default btn-label-left">
+                                <span><i class="fa fa-check txt-success"></i></span> Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-list"></i> <span>Lista de
+						parientes</span>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+					</a> <a class="expand-link"> <i class="fa fa-expand"></i>
+					</a> <a class="close-link"> <i class="fa fa-times"></i>
+					</a>
+				</div>
+				<div class="no move"></div>
+			</div>
+			<div class="box-content no-padding">
+				<div class="row padding-opc">
+					<div class="col-md-12">
+						<div class="col-md-12 col-xs-12 col-sm-12 agregar">
+							<a class="ajax-link pull-right " id="btn-agrega-abrir" href="#"
+								title="Nuevo Registro"> <i class="fa fa-plus-circle fa-2x"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<table class="table table-bordered table-striped table-hover table-heading table-datatable"
+					id="datatable-1">
+					<thead>
+						<tr>
+							<th>Nombre completo</th>
+							<th>Estado de vida</th>
+							<th>Edad</th>
+							<th>Tutor</th>
+							<th>Parentesco</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<%
+						DtConsulta dtcon = new DtConsulta();
+							DtPariente dtpari = new DtPariente();
+							ResultSet rp = dtpari.cargarDatosApsicologo(dtcon.obtenerPsicologoID(us.getUsuarioID()));
+                          //  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                            //SimpleDateFormat fechaM = new SimpleDateFormat("dd/MM/yyyy");
+							rp.beforeFirst();
+							while (rp.next()) {
+						%>
+						<tr>
+
+							<td><%=rp.getString("Nombre1par") + " " + rp.getString("Nombre2par") + " " + rp.getString("Apellido1par")
+						+ " " + rp.getString("Apellido2par")%></td>
+							<%
+								if (rp.getInt("Estadovidapar") == 1) {
+							%>
+							<td>Vivo</td>
+							<%
+								}
+							%>
+							<%
+								if (rp.getInt("Estadovidapar") == 0) {
+							%>
+							<td>Fallecido</td>
+							<%
+								}
+							%>
+							<td><%=rp.getString("Edadpar")%></td>
+							<%
+								if (rp.getInt("Tutorpar") == 1) {
+							%>
+							<td>Si</td>
+							<%
+								}
+							%>
+							<%
+								if (rp.getInt("Tutorpar") == 0) {
+							%>
+							<td>No</td>
+							<%
+								}
+							%>
+							<td><%=rp.getString("Parentescopar")%></td>
+							<%
+                            if(r.getRolId() == 3){
+                            %>
+                            <td> 
+<%--                                 <% Date fecha = formatter.parse(rp.getString("Fechanac")); %> --%>
+
+								<button id="btnIdVisualizar"
+								onClick="visualizarDatos(this.value, '<%=rp.getString("Nombre1par")%>',
+								'<%=rp.getString("Nombre2par")%>',
+								'<%=rp.getString("Apellido1par")%>',
+								'<%=rp.getString("Apellido2par")%>',
+								'<%=rp.getString("Ocupacionpar")%>',
+								'<%=rp.getString("Lugartrabajopar")%>',
+								'<%=rp.getString("Cargopar")%>',
+								'<%=rp.getString("Salariomensualpar")%>',
+								'<%=rp.getString("Edadpar")%>',
+<%-- 								'<%=fechaM.format(fecha)%>', --%>
+								'<%=rp.getInt("EscolaridadIDpar")%>',
+								'<%=rp.getString("Escolaridadpar")%>',
+								'<%=rp.getInt("Estadovidapar")%>',
+								'<%=rp.getString("Causamuertepar")%>',
+								'<%=rp.getInt("ParentescoIDpar")%>',
+								'<%=rp.getInt("Tutorpar")%>');"
+								value=<%=rp.getInt("ParienteIDpar")%> class="btn btn-info">
+								<span><i class="fa fa-eye"></i></span>
+								Ver Pariente
+								</button>
+
+								
+								
+
+							</td>
+							<%
+							}
+							%>
+							
+						</tr>
+						<%
+							}
+						%>
+
+					</tbody>
+					<tfoot>
+						<tr>
+                            <th>Nombre completo</th>
+                            <th>Estado de vida</th>
+                            <th>Edad</th>
+                            <th>Tutor</th>
+                            <th>Parentesco</th>
+                            <th>Acciones</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<%
+}else{
+%>
 <div class="row">
 	<div id="breadcrumb" class="col-md-12">
 		<ol class="breadcrumb">
@@ -148,16 +487,6 @@ response.setDateHeader("Expires", -1);
 									id="edad" name="edad" required>
 							<span class="fa fa-calendar txt-danger form-control-feedback"></span>
 						</div>
-
-<!--                         <label class="col-sm-2 control-label">Fecha de -->
-<!--                             nacimiento</label> -->
-<!--                         <div class="col-sm-4"> -->
-<!--                             <input type="text" class="form-control" -->
-<!--                                    placeholder="Fecha de nacimiento" data-toggle="tooltip" -->
-<!--                                    data-placement="bottom" id="fechaNac" name="fechaNac" -->
-<!--                                    title="La fecha de nacimiento es requerida" required /> -->
-<!--                         </div> -->
-
 						<label class="col-sm-2 control-label">Escolaridad</label>
                         <div class="col-sm-2">
                             <select id="escolaridadId" required>
@@ -194,14 +523,7 @@ response.setDateHeader("Expires", -1);
                                          <option value="12">Concluida</option>  
                                         <option value="13">Otro</option>
                                     </select>
-                                </div>
-<!-- 						<div class="col-sm-2"> -->
-<!-- 							<input type="text" class="form-control" placeholder="Detalle escolaridad"data-toggle="tooltip" data-placement="bottom" title="Escolaridad" id="escolaridad" -->
-<!-- 									name="escolaridad" required> -->
-<!-- 						</div> -->
-
-						
-						
+                                </div>		
 					</div>
 
                     <div class="form-group">
@@ -231,6 +553,8 @@ response.setDateHeader("Expires", -1);
 									<option>Seleccione</option>
 									
 									<%
+										rs.close();
+										rs = null;
 										DtParentesco dtpar = new DtParentesco();
 										rs = dtpar.cargarDatos();
 										rs.beforeFirst();
@@ -275,13 +599,6 @@ response.setDateHeader("Expires", -1);
 		</div>
 	</div>
 </div>
-
-<!-- 	</div> -->
-
-<!-- </div> -->
-
-
-
 
 <!-- inicio de formulario para editar un pariente -->
 
@@ -356,17 +673,7 @@ response.setDateHeader("Expires", -1);
 									id="edadEditar" name="edad">
 							<span class="fa fa-calendar txt-danger form-control-feedback"></span>
 						</div>
-
-<!--                         <label class="col-sm-2 control-label">Fecha de -->
-<!--                             nacimiento</label> -->
-<!--                         <div class="col-sm-4"> -->
-<!--                             <input type="text" class="form-control" -->
-<!--                                    placeholder="Fecha de nacimiento" data-toggle="tooltip" -->
-<!--                                    data-placement="bottom" id="fechaNacEdit" name="fechaNac" -->
-<!--                                    title="La fecha de nacimiento es requerida" required /> -->
-<!--                         </div> -->
-
-						<label class="col-sm-2 control-label">Escolaridad</label>
+					<label class="col-sm-2 control-label">Escolaridad</label>
                         <div class="col-sm-2">
                             <select id="escolaridadIdEditar" required>
                                 <option value="">Escolaridad</option>
@@ -402,12 +709,6 @@ response.setDateHeader("Expires", -1);
                                         <option value="13">Otro</option>
                                     </select>
                                 </div>
-<!-- 						<div class="col-sm-2"> -->
-<!-- 							<input type="text" class="form-control" placeholder="Escolaridad"data-toggle="tooltip" data-placement="bottom" title="Escolaridad" id="escolaridadEditar" -->
-<!-- 									name="escolaridad"> -->
-<!-- 						</div> -->
-						
-						
 					</div>
 
                     <div class="form-group has-error has-feedback">
@@ -552,14 +853,6 @@ response.setDateHeader("Expires", -1);
                         <span class="fa fa-calendar txt-danger form-control-feedback"></span>
                         </div>
 
-<!--                         <label class="col-sm-2 control-label">Fecha de -->
-<!--                             nacimiento</label> -->
-<!--                         <div class="col-sm-4"> -->
-<!--                             <input disabled type="text" class="form-control" -->
-<!--                                    placeholder="Fecha de nacimiento" data-toggle="tooltip" -->
-<!--                                    data-placement="bottom" id="fechaNacVi" name="fechaNac" -->
-<!--                                    title="La fecha de nacimiento es requerida" required /> -->
-<!--                         </div> -->
 
                         <label class="col-sm-2 control-label">Escolaridad</label>
                         <div class="col-sm-2">
@@ -597,13 +890,6 @@ response.setDateHeader("Expires", -1);
                                         <option value="13">Otro</option>
                                     </select>
                                 </div>
-<!--                         <div class="col-sm-2"> -->
-<!--                             <input disabled type="text" class="form-control" placeholder="Detalle escolaridad"data-toggle="tooltip" data-placement="bottom" title="Escolaridad" id="escolaridadVi" -->
-<!--                                    name="escolaridad" required> -->
-<!--                         </div> -->
-
-
-
                     </div>
 
                     <div class="form-group has-error has-feedback">
@@ -671,7 +957,6 @@ response.setDateHeader("Expires", -1);
     </div>
 </div>
 
-
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">
@@ -714,6 +999,8 @@ response.setDateHeader("Expires", -1);
 
 					<tbody>
 						<%
+							rs.close();
+							rs = null;
 							DtVParienteParentesco dtparen = new DtVParienteParentesco();
 							ResultSet rp = dtparen.cargarVista();
                           //  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -996,6 +1283,9 @@ response.setDateHeader("Expires", -1);
 </div>
 
 
+<%
+}
+%>
 
 <script type="text/javascript">
 // 	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";

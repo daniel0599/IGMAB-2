@@ -31,7 +31,7 @@ public class DtPariente {
 		PreparedStatement s;
 	
 		try {
-			s = con.prepareStatement("SELECT * FROM igmab.pariente_parentesco par inner Join paciente_pariente parpac on parpac.ParienteID=par.ParienteID Inner Join Paciente pac On parpac.PacienteID=pac.PacienteID INNER JOIN Consulta con ON con.PacienteID=pac.PacienteID  INNER JOIN Psicologo psi ON psi.PsicologoID=con.PsicologoID WHERE psi.PsicologoID = 1 AND pac.Eliminado = 0");
+			s = con.prepareStatement("SELECT par.Nombre1 As Nombre1par, par.Nombre2 As Nombre2par, par.Apellido1 As Apellido1par, par.Apellido2 As Apellido2par, par.Estadovida As Estadovidapar, par.Edad As Edadpar, par.Tutor As Tutorpar, par.Parentesco As Parentescopar, par.Ocupacion As Ocupacionpar, par.Lugartrabajo As Lugartrabajopar, par.Cargo As Cargopar, par.Salariomensual As Salariomensualpar, par.EscolaridadID As EscolaridadIDpar, par.Escolaridad As Escolaridadpar, par.Causamuerte As Causamuertepar, par.ParentescoID As ParentescoIDpar, par.ParienteID As ParienteIDpar FROM igmab.pariente_parentesco par inner Join paciente_pariente parpac on parpac.ParienteID=par.ParienteID Inner Join Paciente pac On parpac.PacienteID=pac.PacienteID INNER JOIN Consulta con ON con.PacienteID=pac.PacienteID INNER JOIN Psicologo psi ON psi.PsicologoID=con.PsicologoID WHERE psi.PsicologoID = ? AND pac.Eliminado = 0");
 			s.setInt(1, psicologoID);
 			rsn = s.executeQuery();
 		} catch (Exception e) {
