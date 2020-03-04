@@ -283,7 +283,7 @@ input[type=checkbox] {
 			            </div>
 			        <label class="col-sm-2 ">¿Por qué? </label>
 			            <div class="col-sm-4">
-				             <input name ="respcatdesc<%=rsrevi.getInt(8)%><%=rsrevi.getInt(9)%><%=rsrevi.getInt(7)%>" type="text" class="form-control" readonly placeholder="<%=rsrevi.getString("Descripcion").trim() %>">
+				             <input name ="respcatdesc<%=rsrevi.getInt(8)%><%=rsrevi.getInt(9)%><%=rsrevi.getInt(7)%>" type="text" class="form-control" readonly size="80" maxlength="100" placeholder="<%=rsrevi.getString("Descripcion").trim() %>">
 			            </div>
 		           </div>
 	          </div>
@@ -303,7 +303,7 @@ input[type=checkbox] {
 			            </div>
 			        <label class="col-sm-2 ">¿Por qué? </label>
 			            <div class="col-sm-4">
-				             <input name ="respcatdesc<%=rsrevi.getInt(8)%><%=rsrevi.getInt(9)%><%=rsrevi.getInt(7)%>" type="text" class="form-control" readonly placeholder="<%=rsrevi.getString("Descripcion").trim() %>">
+				             <input name ="respcatdesc<%=rsrevi.getInt(8)%><%=rsrevi.getInt(9)%><%=rsrevi.getInt(7)%>" type="text" class="form-control" readonly size="80" maxlength="100" placeholder="<%=rsrevi.getString("Descripcion").trim() %>">
 			            </div>
 		           </div>
 	          </div>

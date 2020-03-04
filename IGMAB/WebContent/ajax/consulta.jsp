@@ -94,10 +94,16 @@
 								<option value="0">Seleccione un paciente</option>
 
 								<%
+									DtConsulta dtcon = new DtConsulta();
 									DtPaciente dtpa = new DtPaciente();
-									rs = dtpa.cargarDatos();
+								    if(r.getRolId() == 3){
+								    	rs = dtpa.cargarPacientesAPsicologosConsulta(dtcon.obtenerPsicologoID(us.getUsuarioID()));
+								    }else{
+								    	rs = dtpa.cargarDatos();
+								    }
+								     
+									
 									rs.beforeFirst();
-
 									while (rs.next()) {
 								%>
 								<option value="<%=rs.getInt("PacienteID")%>"><%=rs.getString("Nombre1") + " " + rs.getString("Nombre2") + " " + rs.getString("Apellido1")
@@ -136,7 +142,7 @@
 							<div class="form-group">
 								<label class="col-sm-2 control-label">Fecha </label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="fecha" name="fecha"
+									<input type="text" class="form-control" id="fecha" name="fecha" autocomplete="on"
 										placeholder="Fecha" title="Campo requerido" disabled>
 									<span class="form-control-feedback"></span>
 								</div>
@@ -234,8 +240,15 @@
 								<option value="0">Seleccione un paciente</option>
 
 								<%
-									DtPaciente dtpaa = new DtPaciente();
-									rs = dtpaa.cargarDatos();
+									
+									if(r.getRolId() == 3){
+								    	rs = dtpa.cargarPacientesAPsicologosConsulta(dtcon.obtenerPsicologoID(us.getUsuarioID()));
+								    }else{
+								    	rs = dtpa.cargarDatos();
+								    }
+								     
+									
+								
 									rs.beforeFirst();
 
 									while (rs.next()) {
@@ -353,7 +366,15 @@
 								<option value="">-- Seleccione un paciente --</option>
 
 								<%
-									rs.beforeFirst();
+									
+								if(r.getRolId() == 3){
+							    	rs = dtpa.cargarPacientesAPsicologosConsulta(dtcon.obtenerPsicologoID(us.getUsuarioID()));
+							    }else{
+							    	rs = dtpa.cargarDatos();
+							    }
+							     
+								
+								rs.beforeFirst();
 
 									while (rs.next()) {
 								%>
@@ -490,13 +511,15 @@
 					</thead>
 					<tbody>
 						<%
-							DtConsulta dtcon = new DtConsulta();
+							//DtConsulta dtcon = new DtConsulta();
 							DtVconsulta dtvc = new DtVconsulta();
 							ResultSet resultset = null;
-							if (r.getRolId() == 1 || r.getRolId() == 4) { //Carga TODOS los registros para Administrador y Directora
-								resultset = dtvc.cargarVista();
-							} else if (r.getRolId() == 3) { //Carga únicamente los registros relacionados un psicólogo
+							if (r.getRolId() == 3) { //Carga TODOS los registros para Administrador y Directora
 								resultset = dtvc.cargarVistaSoloPsicologo(dtcon.obtenerPsicologoID(us.getUsuarioID()));
+								
+							} else  { //Carga únicamente los registros relacionados un psicólogo
+								resultset = dtvc.cargarVista();
+							
 							}
 							resultset.beforeFirst();
 							
@@ -939,10 +962,19 @@
 						$('#frm-edita').hide();
 						$('#frm-visualizar').hide();
 						// Initialize datepicker
-						var today = new Date();
+						
+						
+// 						$(function () {
+//                        $.datepicker.setDefaults($.datepicker.regional["es"]);
+//                        $("#fecha").datepicker({
+//                        dateFormat: 'dd/mm/yy',
+//                        firstDay: 1
+//                        }).datepicker("setDate", new Date());
+//                        });
+ 						var today = new Date();
 						$('#fecha').datepicker({
 							dateFormat : "dd-mm-yy"
-						}).datepicker("setDate", "0");
+						}).datepicker("setDate", new Date());
 						//$('#fechaEditar').datepicker({dateFormat : "dd-mm-yy"}).datepicker("setDate", "0");
 						// Load Timepicker plugin
 						// 		LoadTimePickerScript(TimePicker);

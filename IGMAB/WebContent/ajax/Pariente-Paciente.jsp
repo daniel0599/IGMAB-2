@@ -45,7 +45,103 @@
 	}
 %>
 <input id="TipoRol" name="TipoROl" type="hidden" value=<%=r.getRolId()%>  checked>
+<%
+if(r.getRolId() == 3){
+%>	
+<div class="row">
+	<div id="breadcrumb" class="col-md-12">
+		<ol class="breadcrumb">
+			<li><a href="#">Inicio</a></li>
+			<li><a href="#">Gestión paciente</a></li>
+			<li><a href="#">Asignar pariente a paciente</a></li>
+		</ol>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-list"></i> <span>Lista de
+						Parientes de un paciente</span>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+					</a> <a class="expand-link"> <i class="fa fa-expand"></i>
+					</a> <a class="close-link"> <i class="fa fa-times"></i>
+					</a>
+				</div>
+				<div class="no-move"></div>
+			</div>
+			<div class="box-content no-padding">
+				<div class="row padding-opc">
+					<div class="col-md-12">
+						<div class="col-md-12 col-xs-12 col-sm-12 agregar">
+							<a class="ajax-link pull-right " id="btn-agrega-abrir" href="#"
+								title="Nuevo Registro"> <i class="fa fa-plus-circle fa-2x"></i>
+							</a>
+						</div>
 
+					</div>
+				</div>
+				<table class="table table-hover table-heading table-datatable"
+					id="datatable-1">
+					<thead>
+						<tr>
+							<th>Nombre Pariente</th>
+							<th>Nombre Paciente</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<%
+						DtConsulta dtcon = new DtConsulta();
+							
+						DTVParientePaciente dtvpp = new DTVParientePaciente();
+							ResultSet rsvv = dtvpp.cargarVistaApsicologo(dtcon.obtenerPsicologoID(us.getUsuarioID()));
+							rsvv.beforeFirst();
+							while (rsvv.next()) {
+						%>
+						<tr>
+							<td><%=rsvv.getString("Nombre1par") + " "
+						+ rsvv.getString("Apellido1par") + " " + rsvv.getString("Apellido2par")%></td>
+							<td><%=rsvv.getString("Nombre1pac") + " "
+						+ rsvv.getString("Apellido1pac") + " " + rsvv.getString("Apellido2pac")%></td>
+							<%
+							if(r.getRolId() == 3){
+							%>
+							<td><button id='btnIdActualizar' disabled
+									onClick="cargarDatos('<%=rsvv.getInt("ParPacID")%>', '<%=rsvv.getInt("PacienteIDpac")%>', '<%=rsvv.getInt("ParienteIDpar")%>');"
+									value=<%=rsvv.getInt("ParPacID")%>
+									class="btn btn-primary btn-label-left">
+									<span><i class="fa fa-edit"></i></span> Actualizar
+								</button>	
+							</td>
+							<% 	
+							}
+							%>
+						</tr>
+						<%
+							}
+						%>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Nombre Pariente</th>
+							<th>Nombre Paciente</th>
+							<th>Acciones</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%
+}else{
+%>	
 <div class="row">
 	<div id="breadcrumb" class="col-md-12">
 		<ol class="breadcrumb">
@@ -86,7 +182,9 @@
 								<select name="pariente" id="pariente" required>
 									<option value="">Seleccione</option>
 									<%
-										DtPariente dtpar = new DtPariente();
+										rs.close();
+									rs = null;
+									    DtPariente dtpar = new DtPariente();
 										rs = dtpar.cargarDatos();
 										rs.beforeFirst();
 										while (rs.next()) {
@@ -105,7 +203,8 @@
 								<select name="paciente" id="paciente" required>
 									<option value="">Seleccione</option>
 									<%
-										DtPaciente dtpac = new DtPaciente();
+										
+									DtPaciente dtpac = new DtPaciente();
 										ResultSet rsp = dtpac.cargarDatos();
 										rsp.beforeFirst();
 										while (rsp.next()) {
@@ -143,7 +242,6 @@
 		</div>
 	</div>
 </div>
-
 <!-- FIN DE FORMULARIO PARA GUARDAR UN PSICOLGO-->
 <div class="row">
 	<div class="col-xs-12 col-sm-12">
@@ -234,7 +332,6 @@
 </div>
 </div>
 </div>
-
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">
@@ -355,6 +452,11 @@
 		</div>
 	</div>
 </div>
+
+
+<%
+}
+%>
 <script type="text/javascript">
 	/////////////////////////////FUNCIONES DEL WEBSOCKET/////////////////////////////
 // 	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";

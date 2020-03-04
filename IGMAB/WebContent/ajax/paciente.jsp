@@ -2622,6 +2622,9 @@ if(r.getRolId() == 3){
 	}
 	
 	function transferirPaciente(){
+		var TipoRol = "";
+		TipoRol = $("#TipoRol").val();
+		if(TipoRol != 3){
 		var opcion = "";
 		var fpsicologoId = $('#psicologoId').val();
 		var fpacienteId = $('#btnIdTransferir').val();
@@ -2639,9 +2642,35 @@ if(r.getRolId() == 3){
 			success : function(data) {
 				successAlert('Listo', 'Transferencia exitosa');
 				$('#frm-transferir').fadeOut();
+				refrescar();
 			}
 
 		});
+		}else{
+			var opcion = "";
+			var fpsicologoId = $('#psicologoId').val();
+			var fpacienteId = $('#btnIdTransferir').val();
+			opcion = "transferir";
+
+			$.ajax({
+				url : "SlPaciente",
+				type : "post",
+				datatype : 'html',
+				data : {
+					'opcion' : opcion,
+					'fpsicologoId' : fpsicologoId,
+					'fpacienteId' : fpacienteId
+				},
+				success : function(data) {
+					successAlert('Listo', 'Transferencia exitosa');
+					$('#frm-transferir').fadeOut();
+					refrescarApsicologo();
+				}
+
+			});
+			
+			
+		}
 	}
 	
 

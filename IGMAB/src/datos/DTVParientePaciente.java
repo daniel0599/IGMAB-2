@@ -1,6 +1,7 @@
 package datos;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import entidades.VParientePaciente;
@@ -24,6 +25,23 @@ public class DTVParientePaciente {
 			System.out.println("Error en DTVParientePaciente : " + e.getMessage());
 		}
 		return rs;
+		
+	}
+	
+	public ResultSet cargarVistaApsicologo(int psicologoID){
+		ResultSet rsn = null;
+		PreparedStatement s;
+		
+		try {
+			s = con.prepareStatement("SELECT parpac.Nombre1par, parpac.Nombre2par, parpac.Apellido1par, parpac.Apellido2par, parpac.ParienteID As ParienteIDpar, parpac.Nombre1 As Nombre1pac, parpac.Nombre2 As Nombre2pac, parpac.Apellido1 As Apellido1pac, parpac.Apellido2 As Apellido2pac, parpac.PacienteID As PacienteIDpac, parpac.ParPacID FROM igmab.pariente_paciente parpac inner Join pariente_parentesco par on parpac.ParienteID=par.ParienteID Inner Join Paciente pac On parpac.PacienteID=pac.PacienteID INNER JOIN Consulta con ON con.PacienteID=pac.PacienteID INNER JOIN Psicologo psi ON psi.PsicologoID=con.PsicologoID WHERE psi.PsicologoID = ? AND pac.Eliminado = 0 ");
+			s.setInt(1, psicologoID);
+			rsn = s.executeQuery();
+			}
+		catch (Exception e){
+			e.printStackTrace();
+			System.out.println("Error en DTVParientePaciente : " + e.getMessage());
+		}
+		return rsn;
 		
 	}
 

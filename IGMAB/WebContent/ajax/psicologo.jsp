@@ -545,7 +545,7 @@ function guardarPsicologo() {
 			refrescar();
 			// websocket.send("Guardar");
 			  successAlert('Listo', 'Guardado exitosamente');
-				
+			  $('#frm-agrega').fadeOut();	
 			}
 			//alert("Guardado");
 	

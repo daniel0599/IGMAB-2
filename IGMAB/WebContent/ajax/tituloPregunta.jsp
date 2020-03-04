@@ -359,6 +359,7 @@
 			},
 			success : function(data) {
 				$("#descripcion").val(null);
+				$('#frm-agrega').fadeOut();
 				refrescar();
 				//websocket.send("Guardar");
 				successAlert('Listo', 'Guardado exitosamente');

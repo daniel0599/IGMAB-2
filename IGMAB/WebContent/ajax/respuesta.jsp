@@ -255,7 +255,7 @@ input[type=checkbox] {
 			</div>
 			<label class="col-sm-2 ">¿Por qué? </label>
 			<div class="col-sm-4">
-				<input name ="respcatdesc<%=rsre.getInt(4)%><%=rsre.getInt(5)%><%=rsre.getInt(3)%>" type="text" class="form-control">
+				<input name ="respcatdesc<%=rsre.getInt(4)%><%=rsre.getInt(5)%><%=rsre.getInt(3)%>" type="text" class="form-control" size="80" maxlength="100">
 			</div>
 		</div>
 	</div>

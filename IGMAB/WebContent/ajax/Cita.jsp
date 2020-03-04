@@ -435,6 +435,7 @@
 				refrescar();
 				//websocket.send("Guardar");
 				successAlert('Listo', 'Guardado exitosamente');
+				$('#frm-agrega').fadeOut();
 			}
 
 		});
@@ -477,6 +478,7 @@
 				refrescar();
 				//websocket.send("Modificar");
 				successAlert('Listo', 'Actualizado exitosamente');
+		
 			}
 
 		});

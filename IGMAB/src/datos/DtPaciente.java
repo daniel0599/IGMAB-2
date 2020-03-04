@@ -109,6 +109,20 @@ public class DtPaciente {
 		return rsn;
 	}
 
+	public ResultSet cargarPacientesAPsicologosConsulta(int psicologoID) {
+		ResultSet rsn = null;
+		PreparedStatement s;
+		try {
+			s = con.prepareStatement("SELECT  pac.PacienteID, pac.Nombre1, pac.Nombre2, pac.Apellido1, pac.Apellido2  FROM igmab.Paciente pac left JOIN Consulta con ON pac.PacienteID=con.PacienteID left JOIN Psicologo psi ON con.PsicologoID=psi.PsicologoID wHERE psi.PsicologoID = ? or isnull(psi.PsicologoID) AND pac.Eliminado =0");
+			s.setInt(1, psicologoID);
+			rsn = s.executeQuery();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error en obtenerPsicologoID() de DtConsulta: " + e.getMessage());
+		}
+		return rsn;
+	}
 	
 	public ResultSet cargarEscolaridades() {
 		Statement s;
