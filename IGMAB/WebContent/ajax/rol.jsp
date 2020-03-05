@@ -371,6 +371,7 @@ response.setDateHeader("Expires", -1);
 					refrescar();
 					//websocket.send("Guardar");
 					successAlert('Listo', 'Guardado exitosamente');
+					 $('#frm-agrega').fadeOut();
 				}
 			}
 

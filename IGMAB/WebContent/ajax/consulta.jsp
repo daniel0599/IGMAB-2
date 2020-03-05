@@ -99,6 +99,8 @@
 								    if(r.getRolId() == 3){
 								    	rs = dtpa.cargarPacientesAPsicologosConsulta(dtcon.obtenerPsicologoID(us.getUsuarioID()));
 								    }else{
+								    	rs.close();
+								    	rs = null;
 								    	rs = dtpa.cargarDatos();
 								    }
 								     
@@ -244,6 +246,8 @@
 									if(r.getRolId() == 3){
 								    	rs = dtpa.cargarPacientesAPsicologosConsulta(dtcon.obtenerPsicologoID(us.getUsuarioID()));
 								    }else{
+								    	rs.close();
+								    	rs = null;
 								    	rs = dtpa.cargarDatos();
 								    }
 								     
@@ -370,6 +374,8 @@
 								if(r.getRolId() == 3){
 							    	rs = dtpa.cargarPacientesAPsicologosConsulta(dtcon.obtenerPsicologoID(us.getUsuarioID()));
 							    }else{
+							    	rs.close();
+							    	rs = null;
 							    	rs = dtpa.cargarDatos();
 							    }
 							     
@@ -1024,11 +1030,19 @@
 						//WinMove();
 
 						/////////////////////////////CONTROLAR EL FORMULARIO AGREGAR Y CERRAR FORMULARIO EDITAR/////////////////////////////
+						
 						$('#btn-agrega-abrir').click(function() {
-							$('#frm-agrega').fadeIn();
-							$('#frm-edita').fadeOut();
-							$('#frm-visualizar').fadeOut();
+							var TipoRol = "";
+							TipoRol = $("#TipoRol").val();
+							if(TipoRol != 2){
+								$('#frm-agrega').fadeIn();
+								$('#frm-edita').fadeOut();
+								$('#frm-visualizar').fadeOut();
+								
+							}
+							
 						});
+						
 						$('#cancelar_nuevo').click(function() {
 							$('#frm-agrega').fadeOut();
 						});

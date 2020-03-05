@@ -2762,7 +2762,7 @@ if(r.getRolId() == 3){
 			TipoRol = $("#TipoRol").val();
 			if(TipoRol != 3){
 				$('#frm-agrega').fadeIn();
-				$('#frm-edita').fadeOut()
+				$('#frm-edita').fadeOut();
 				
 			}
 			

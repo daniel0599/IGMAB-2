@@ -309,9 +309,11 @@
 				AllTables();
 				$('#datatable-1').addClass(
 						"table table-hover table-heading table-datatable");
-				refrescar();
-				//websocket.send("Guardar");
-				successAlert('Listo', 'Asignada exitosamente');
+				
+				successAlert('Listo', 'Guardado exitosamente');
+				 $('#frm-agrega').fadeOut();
+				 refrescar();
+				
 			}
 			
 			
