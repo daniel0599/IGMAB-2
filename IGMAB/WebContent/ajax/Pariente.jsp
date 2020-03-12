@@ -147,7 +147,7 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 						<div class="col-sm-4">
 							<input type="text" class="form-control" placeholder="Edad"
 									id="edad" name="edad" required>
-							<span class="fa fa-calendar txt-danger form-control-feedback"></span>
+							
 						</div>
 						<label class="col-sm-2 control-label">Escolaridad</label>
                         <div class="col-sm-2">
@@ -333,7 +333,7 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 						<div class="col-sm-4">
 							<input type="text" class="form-control" placeholder="Edad"
 									id="edadEditar" name="edad">
-							<span class="fa fa-calendar txt-danger form-control-feedback"></span>
+							
 						</div>
 					<label class="col-sm-2 control-label">Escolaridad</label>
                         <div class="col-sm-2">

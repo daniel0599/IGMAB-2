@@ -59,8 +59,8 @@ public class SLParientePaciente extends HttpServlet {
 		case "guardar":
 			try {
 				
-				pacienteID = Integer.parseInt(request.getParameter("fParienteID"));
-				parienteID = Integer.parseInt(request.getParameter("fPacienteID"));
+				pacienteID = Integer.parseInt(request.getParameter("fPacienteID"));
+				parienteID = Integer.parseInt(request.getParameter("fParienteID"));
 				
 				int usuarioID =0;
         		
@@ -116,6 +116,16 @@ public class SLParientePaciente extends HttpServlet {
 			refrescar(request, response);
 			break;
 		}
+		 case "refrescarApsicologo":{
+         	//  int tiporol = 0;
+     		int usuarioID =0;
+     		
+     		//tiporol = Integer.parseInt(request.getParameter("fTipoRol"));
+     		usuarioID = Integer.parseInt(request.getParameter("fusuarioID"));
+     		
+         	refrescarApsicologo(request, response, usuarioID);
+         	break;
+         }
 
 		default: {
 			System.out.println("NOthing to show. BABY");
@@ -177,6 +187,63 @@ public class SLParientePaciente extends HttpServlet {
 			System.out.println("SL error en el servlet:" + e.getMessage());
 			e.printStackTrace();
 		}
+	}
+	
+	
+	protected void refrescarApsicologo(HttpServletRequest request, HttpServletResponse response, int usuarioID)
+			throws ServletException, IOException {
+		
+		try {
+
+			int UsuarioID = usuarioID; 
+			DTVParientePaciente dtvpp = new DTVParientePaciente();
+			ResultSet rs = dtvpp.cargarVistaApsicologo(UsuarioID);
+
+			response.setContentType("text/html; charset=UTF-8");
+			String out = "";
+
+			out += "<thead>";
+			out += "<tr>";
+			out += "<th>Nombre Pariente</th>";
+			out += "<th>Nombre Paciente</th>";
+			out += "<th>Acciones</th>";
+			out += "</tr>";
+			out += "</thead>";
+
+			out += "<tbody>";
+			while (rs.next()) {
+				out += "<tr>";
+				out += "<td>" + rs.getString("Nombre1par") +" "+rs.getString("Apellido1par")+" "+rs.getString("Apellido2par")+"</td>";
+				out += "<td>" + rs.getString("Nombre1pac") +" "+ rs.getString("Apellido1pac") +" "+ rs.getString("Apellido2pac")+"</td>";
+ 				out +="<td>";                                                                                                
+				out += "<button id='btnIdActualizar' value="+rs.getInt("ParPacID")+ " class='btn btn-info' "
+				+ "onclick = 'cargarDatos(\""+ rs.getInt("ParPacID") +"\", \""+ rs.getInt("PacienteIDpac")+"\", \""+rs.getInt("ParienteIDpar")+"\");'><span><i class='fa fa-edit'></i></span>Actualizar</button>";
+				out +="</td>";
+				out += "</tr>";
+			}
+			out += "</tbody>";
+
+			out += "<tfoot>";
+			out += "<tr>";
+			out += "<th>Nombre Pariente</th>";
+			out += "<th>Nombre Paciente</th>";
+			out += "<th>Acciones</th>";
+			out += "</tr>";
+			out += "</tfoot>";
+
+			PrintWriter pw = response.getWriter();
+			pw.write(out);
+			//JOptionPane.showMessageDialog(null, "ya paso por el servlet al refrescar");
+			pw.flush();
+			boolean error = pw.checkError();
+			 System.out.println("Error en el servlet : "+error);
+
+		} catch (Exception e) {
+			System.out.println("SL error en el servlet:" + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 }

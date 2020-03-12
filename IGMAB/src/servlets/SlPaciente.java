@@ -89,9 +89,9 @@ public class SlPaciente extends HttpServlet {
 				escolaridadId = Integer.parseInt(request.getParameter("fescolaridadId"));
 				estudianteUCA = Integer.parseInt(request.getParameter("festudianteUCA"));
 		
-				religion= request.getParameter("freligion");;
-				motivoconsulta= request.getParameter("fmotivoconsulta");;
-				crianzaAnios =request.getParameter("fcrianzaAnios"); ;
+				religion= request.getParameter("freligion");
+				motivoconsulta= request.getParameter("fmotivoconsulta");
+				crianzaAnios =request.getParameter("fcrianzaAnios");
 				relacionProgenitores =request.getParameter("frelacionProgenitores"); 
 				
 				int usuarioID =0;
@@ -167,10 +167,10 @@ public class SlPaciente extends HttpServlet {
 				escolaridadId = Integer.parseInt(request.getParameter("fescolaridadId"));
 				estudianteUCA = Integer.parseInt(request.getParameter("festudianteUCA"));
 				
-				religion= request.getParameter("freligion");;
-				motivoconsulta= request.getParameter("fmotivoconsulta");;
-				crianzaAnios =request.getParameter("fcrianzaAnios"); ;
-				relacionProgenitores =request.getParameter("frelacionProgenitores"); 
+				religion= request.getParameter("freligionedit");
+				motivoconsulta= request.getParameter("fmotivoconsultaedit");
+				crianzaAnios =request.getParameter("fcrianzaAniosedit");
+				relacionProgenitores =request.getParameter("frelacionProgenitoresedit"); 
 				
 				
 				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -354,6 +354,7 @@ public class SlPaciente extends HttpServlet {
 
 		try {
 			DtPaciente dtp = new DtPaciente();
+			DtRespuesta dtres = new DtRespuesta();
 			ResultSet rs = dtp.cargarDatos();
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -427,6 +428,8 @@ public class SlPaciente extends HttpServlet {
 						+ "\""+rs.getString("crianzaAnios")+"\", "
 						+ "\""+rs.getString("relacionProgenitores")+"\", "
 						+ "\""+rs.getInt("Uca")+"\")'><span><i class='fa fa-edit'></i></span>Actualizar</button>";
+				
+				out += "<input id='validacionPaciente' name='validacionPaciente' type='hidden' value="+dtres.validarPaciente(rs.getInt("PacienteID"))+"  checked>";
 				
 				out +="<button id='btnRespuesta' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='redirect(this.value);'><span><i class='fa fa-edit'></i></span>Ficha</button>";
 				
@@ -524,6 +527,35 @@ public class SlPaciente extends HttpServlet {
 						+ "\""+rs.getString("Internadoafirmativo")+"\","
 						+ "\""+rs.getInt("EscolaridadID")+"\","
 						+ "\""+rs.getInt("Uca")+"\")'><span><i class='fa fa-eye'></i></span>Ver paciente</button>";
+				
+				out += "<button id='btnIdActualizar' value="+rs.getInt("PacienteID")+" class='btn btn-primary btn-label-left btn-info' "
+						+ "onclick = 'cargarDatos(this.value, \""+ rs.getString("Nombre1") + "\", "
+						+ "\""+rs.getString("Nombre2")+"\","
+						+ "\""+rs.getString("Apellido1")+"\","
+						+ "\""+rs.getString("Apellido2")+"\","
+						+ "\""+rs.getInt("Celular")+"\","
+						+ "\""+rs.getString("Edad")+"\","
+						+ "\""+fechaM.format(fecha)+"\","
+						+ "\""+rs.getInt("Sexo")+"\","
+						+ "\""+rs.getInt("Estadocivil")+"\","
+						+ "\""+rs.getString("Escolaridad")+"\","
+						+ "\""+rs.getString("Direccion")+"\","
+						+ "\""+rs.getString("Conquienvive")+"\","
+						+ "\""+rs.getString("Lugartrabajo")+"\","
+						+ "\""+rs.getString("Empleo")+"\","
+						+ "\""+rs.getString("Salario")+"\","
+						+ "\""+rs.getInt("Terapia")+"\","
+						+ "\""+rs.getString("Internado")+"\","
+						+ "\""+rs.getString("Internadoafirmativo")+"\","
+						+ "\""+rs.getInt("EscolaridadID")+"\", "
+						+ "\""+rs.getString("religion")+"\", "
+						+ "\""+rs.getString("motivoconsulta")+"\", "
+						+ "\""+rs.getString("crianzaAnios")+"\", "
+						+ "\""+rs.getString("relacionProgenitores")+"\", "
+						+ "\""+rs.getInt("Uca")+"\")'><span><i class='fa fa-edit'></i></span>Actualizar</button>";
+				
+				out +="<button id='btnRespuesta' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='redirect(this.value);'><span><i class='fa fa-edit'></i></span>Ficha</button>";
+				
 				
 				out += "<input id='validacionPaciente' name='validacionPaciente' type='hidden' value="+dtres.validarPaciente(rs.getInt("PacienteID"))+"  checked>";
 				
@@ -822,7 +854,7 @@ public class SlPaciente extends HttpServlet {
 		int UsuarioID = usuarioID;
 		
 		try {
-			DtConsulta dtcon = new DtConsulta();
+			//DtConsulta dtcon = new DtConsulta();
 			 DtPaciente dtp = new DtPaciente();
 			// DtRespuesta dtres = new DtRespuesta();
 				

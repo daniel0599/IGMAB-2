@@ -47,7 +47,7 @@
 <input id="usuarioID" name="usuarioID" type="hidden" value=<%=us.getUsuarioID()%> checked>
 <input id="TipoRol" name="TipoROl" type="hidden" value=<%=r.getRolId()%>  checked>
 <%
-if(r.getRolId() == 3 || r.getRolId() == 5 ){
+if(r.getRolId() == 3 || r.getRolId() == 5){
 %>	
 <div class="row">
 	<div id="breadcrumb" class="col-md-12">
@@ -58,7 +58,6 @@ if(r.getRolId() == 3 || r.getRolId() == 5 ){
 		</ol>
 	</div>
 </div>
-
 <div class="row">
 	<div class="col-xs-12 col-sm-12">
 
@@ -90,15 +89,14 @@ if(r.getRolId() == 3 || r.getRolId() == 5 ){
 								<select name="pariente" id="pariente" required>
 									<option value="">Seleccione</option>
 									<%
-										rs.close();
-									rs = null;
+										ResultSet rspsi;
 									    DtPariente dtpar = new DtPariente();
-										rs = dtpar.cargarDatos();
-										rs.beforeFirst();
-										while (rs.next()) {
+										rspsi = dtpar.cargarDatosApsicologo(us.getUsuarioID());
+										rspsi.beforeFirst();
+										while (rspsi.next()) {
 									%>
-									<option value="<%=rs.getInt("ParienteID")%>"><%=rs.getString("Nombre1")%>
-										<%=rs.getString("Apellido1")%></option>
+									<option value="<%=rspsi.getInt("ParienteIDpar")%>"><%=rspsi.getString("Nombre1par")%>
+										<%=rspsi.getString("Apellido1par")%></option>
 									<%
 										}
 									%>
@@ -111,14 +109,14 @@ if(r.getRolId() == 3 || r.getRolId() == 5 ){
 								<select name="paciente" id="paciente" required>
 									<option value="">Seleccione</option>
 									<%
-										
+									ResultSet rspso;
 									DtPaciente dtpac = new DtPaciente();
-										ResultSet rsp = dtpac.cargarDatos();
-										rsp.beforeFirst();
-										while (rsp.next()) {
+										rspso = dtpac.cargarPacientesAPsicologos(us.getUsuarioID());
+										rspso.beforeFirst();
+										while (rspso.next()) {
 									%>
-									<option value="<%=rsp.getInt("PacienteID")%>"><%=rsp.getString("Nombre1")%>
-										<%=rsp.getString("Apellido1")%></option>
+									<option value="<%=rspso.getInt("PacienteID")%>"><%=rspso.getString("Nombre1")%>
+										<%=rspso.getString("Apellido1")%></option>
 									<%
 										}
 									%>
@@ -150,71 +148,73 @@ if(r.getRolId() == 3 || r.getRolId() == 5 ){
 		</div>
 	</div>
 </div>
-<!-- FIN DE FORMULARIO PARA GUARDAR UN PSICOLGO-->
+
 <div class="row">
 	<div class="col-xs-12 col-sm-12">
-	
-<!--INICIO DE FORMULARIO PARA EDITAR  UN PSICOLOGO -->
-<div id="frm-edita" class="box">
-	<div class="box-header">
-		<div class="box-name">
-			<i class="fa fa-exchange"></i> <span>Editar Pariente a
-				Paciente</span>
-		</div>
-		<div class="box-icons">
-			<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
-			</a> <a class="expand-link"> <i class="fa fa-expand"></i>
-			</a> <a class="close-link"> <i class="fa fa-times"></i>
-			</a>
-		</div>
-		<div class="no-move"></div>
-	</div>
-	<div class="box-content">
-		<div class="row">
-			  <h4 class="page-header">Editar Pariente a Paciente</h4>
-			 <form id="edit" class="form-horizontal" role= "form" method="post" action="javascript:void(0);" onsubmit="actualizar($('#btnEditar').val());">
-			<div class="col-sm-6">
-				<h5 class="page-header">Datos</h5>
+<!--  INCICIO DE FORMULARIO PARA AGREGAR UN PSICOLOGO -->
 
-				<div class="form-group">
-					<label class="col-sm-2 control-label">Pariente</label>
-					<div class="col-sm-5">
-						<select name="ParienteEditar" id="ParienteEditar" required>
-							<option value="">Seleccione</option>
-							<%
-								DtPariente dtpare = new DtPariente();
-								ResultSet rse = dtpare.cargarDatos();
-								rse.beforeFirst();
-								while (rse.next()) {
-							%>
-							<option value="<%=rse.getInt("ParienteID")%>"><%=rse.getString("Nombre1")%><%=rse.getString("Apellido1")%></option>
-							<%
-								}
-							%>
-						</select>
-					</div>
+		<div id="frm-edita" class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-address-card-o"></i> <span>Actualizar Pariente
+						a paciente</span>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label">Paciente</label>
-					<div class="col-sm-5">
-						<select name="PacienteEditar" id="PacienteEditar" required>
-							<option value="">Seleccione</option>
-							<%
-								DtPaciente dtpace = new DtPaciente();
-								ResultSet rspe = dtpace.cargarDatos();
-								rspe.beforeFirst();
-								while (rspe.next()) {
-							%>
-							<option value="<%=rspe.getInt("PacienteID")%>"><%=rspe.getString("Nombre1")%><%=rspe.getString("Apellido1")%></option>
-							<%
-								}
-							%>
-						</select>
-					</div>
+				<div class="box-icons">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+					</a> <a class="expand-link"> <i class="fa fa-expand"></i>
+					</a> <a class="close-link"> <i class="fa fa-times"></i>
+					</a>
 				</div>
-
+				<div class="no-move"></div>
 			</div>
-			<div class="col-sm-6">
+			<div class="box-content">
+				<div class="row">
+					<h4 class="page-header">Modificar pariente a paciente</h4>
+                      <form id="agregar" class="form-horizontal" role="form" action="javascript:void(0);" onsubmit="actualizar($('#btnEditar').val());">
+					<div class="col-sm-6">
+						<h5 class="page-header">Datos</h5>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Pariente</label>
+							<div class="col-sm-5">
+								<select name="pariente" id="ParienteEditar" required>
+									<option value="">Seleccione</option>
+									<%
+										ResultSet rspsie;
+									 
+										rspsie = dtpar.cargarDatosApsicologo(us.getUsuarioID());
+										rspsie.beforeFirst();
+										while (rspsie.next()) {
+									%>
+									<option value="<%=rspsie.getInt("ParienteIDpar")%>"><%=rspsie.getString("Nombre1par")%>
+										<%=rspsie.getString("Apellido1par")%></option>
+									<%
+										}
+									%>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Paciente</label>
+							<div class="col-sm-5">
+								<select name="paciente" id="PacienteEditar" required>
+									<option value="">Seleccione</option>
+									<%
+									ResultSet rspsoe;
+								
+										rspsoe = dtpac.cargarPacientesAPsicologos(us.getUsuarioID());
+										rspsoe.beforeFirst();
+										while (rspsoe.next()) {
+									%>
+									<option value="<%=rspsoe.getInt("PacienteID")%>"><%=rspsoe.getString("Nombre1")%>
+										<%=rspsoe.getString("Apellido1")%></option>
+									<%
+										}
+									%>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
 				<h5 class="page-header">Acciones</h5>
 				<div class="form-group">
 					<div id="cancelar_nuevo_editar" class="col-sm-6 text-center">
@@ -234,12 +234,18 @@ if(r.getRolId() == 3 || r.getRolId() == 5 ){
 					</div>
 				</div>
 			 </div>
-          </form>   
+    				</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
-</div>
-</div>
+
+
+
+
+
+
 
 <div class="row">
 	<div class="col-xs-12">
@@ -278,29 +284,27 @@ if(r.getRolId() == 3 || r.getRolId() == 5 ){
 						</tr>
 					</thead>
 					<tbody>
-
+						
 						<%
-						DtConsulta dtcon = new DtConsulta();
-							
-						DTVParientePaciente dtvpp = new DTVParientePaciente();
-							ResultSet rsvv = dtvpp.cargarVistaApsicologo(us.getUsuarioID());
-							rsvv.beforeFirst();
-							while (rsvv.next()) {
+							DTVParientePaciente dtvpp = new DTVParientePaciente();
+						ResultSet rsvv1 = dtvpp.cargarVistaApsicologo(us.getUsuarioID());
+							rsvv1.beforeFirst();
+							while (rsvv1.next()) {
 						%>
 						<tr>
-							<td><%=rsvv.getString("Nombre1par") + " "
-						+ rsvv.getString("Apellido1par") + " " + rsvv.getString("Apellido2par")%></td>
-							<td><%=rsvv.getString("Nombre1pac") + " "
-						+ rsvv.getString("Apellido1pac") + " " + rsvv.getString("Apellido2pac")%></td>
+							<td><%=rsvv1.getString("Nombre1par") + " "
+						+ rsvv1.getString("Apellido1par") + " " + rsvv1.getString("Apellido2par")%></td>
+							<td><%=rsvv1.getString("Nombre1pac") + " "
+						+ rsvv1.getString("Apellido1pac") + " " + rsvv1.getString("Apellido2pac")%></td>
 							
-							<td><button id='btnIdActualizar' 
-									onClick="cargarDatos('<%=rsvv.getInt("ParPacID")%>', '<%=rsvv.getInt("PacienteIDpac")%>', '<%=rsvv.getInt("ParienteIDpar")%>');"
-									value=<%=rsvv.getInt("ParPacID")%>
+							<td><button id='btnIdActualizar'
+									onClick="cargarDatos('<%=rsvv1.getInt("ParPacID")%>', '<%=rsvv1.getInt("PacienteIDpac")%>', '<%=rsvv1.getInt("ParienteIDpar")%>');"
+									value=<%=rsvv1.getInt("ParPacID")%>
 									class="btn btn-primary btn-label-left">
 									<span><i class="fa fa-edit"></i></span> Actualizar
-								</button>	
+								</button>
 							</td>
-						
+							
 						</tr>
 						<%
 							}
@@ -362,15 +366,14 @@ if(r.getRolId() == 3 || r.getRolId() == 5 ){
 								<select name="pariente" id="pariente" required>
 									<option value="">Seleccione</option>
 									<%
-										rs.close();
-									rs = null;
+										ResultSet rs5;
 									    DtPariente dtpar = new DtPariente();
-										rs = dtpar.cargarDatos();
-										rs.beforeFirst();
-										while (rs.next()) {
+										rs5 = dtpar.cargarDatos();
+										rs5.beforeFirst();
+										while (rs5.next()) {
 									%>
-									<option value="<%=rs.getInt("ParienteID")%>"><%=rs.getString("Nombre1")%>
-										<%=rs.getString("Apellido1")%></option>
+									<option value="<%=rs5.getInt("ParienteID")%>"><%=rs5.getString("Nombre1")%>
+										<%=rs5.getString("Apellido1")%></option>
 									<%
 										}
 									%>
@@ -383,14 +386,14 @@ if(r.getRolId() == 3 || r.getRolId() == 5 ){
 								<select name="paciente" id="paciente" required>
 									<option value="">Seleccione</option>
 									<%
-										
+									ResultSet rs6;
 									DtPaciente dtpac = new DtPaciente();
-										ResultSet rsp = dtpac.cargarDatos();
-										rsp.beforeFirst();
-										while (rsp.next()) {
+										rs6 = dtpac.cargarDatos();
+										rs6.beforeFirst();
+										while (rs6.next()) {
 									%>
-									<option value="<%=rsp.getInt("PacienteID")%>"><%=rsp.getString("Nombre1")%>
-										<%=rsp.getString("Apellido1")%></option>
+									<option value="<%=rs6.getInt("PacienteID")%>"><%=rs6.getString("Nombre1")%>
+										<%=rs6.getString("Apellido1")%></option>
 									<%
 										}
 									%>
@@ -454,12 +457,13 @@ if(r.getRolId() == 3 || r.getRolId() == 5 ){
 						<select name="ParienteEditar" id="ParienteEditar" required>
 							<option value="">Seleccione</option>
 							<%
-								DtPariente dtpare = new DtPariente();
-								ResultSet rse = dtpare.cargarDatos();
-								rse.beforeFirst();
-								while (rse.next()) {
+							ResultSet rs7;	
+							DtPariente dtpare = new DtPariente();
+								rs7 = dtpare.cargarDatos();
+								rs7.beforeFirst();
+								while (rs7.next()) {
 							%>
-							<option value="<%=rse.getInt("ParienteID")%>"><%=rse.getString("Nombre1")%><%=rse.getString("Apellido1")%></option>
+							<option value="<%=rs7.getInt("ParienteID")%>"><%=rs7.getString("Nombre1")%><%=rs7.getString("Apellido1")%></option>
 							<%
 								}
 							%>
@@ -472,12 +476,13 @@ if(r.getRolId() == 3 || r.getRolId() == 5 ){
 						<select name="PacienteEditar" id="PacienteEditar" required>
 							<option value="">Seleccione</option>
 							<%
-								DtPaciente dtpace = new DtPaciente();
-								ResultSet rspe = dtpace.cargarDatos();
-								rspe.beforeFirst();
-								while (rspe.next()) {
+							ResultSet rs8;	
+							DtPaciente dtpace = new DtPaciente();
+								rs8 = dtpace.cargarDatos();
+								rs8.beforeFirst();
+								while (rs8.next()) {
 							%>
-							<option value="<%=rspe.getInt("PacienteID")%>"><%=rspe.getString("Nombre1")%><%=rspe.getString("Apellido1")%></option>
+							<option value="<%=rs8.getInt("PacienteID")%>"><%=rs8.getString("Nombre1")%><%=rs8.getString("Apellido1")%></option>
 							<%
 								}
 							%>
@@ -512,6 +517,8 @@ if(r.getRolId() == 3 || r.getRolId() == 5 ){
 </div>
 </div>
 </div>
+
+
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">
@@ -552,69 +559,24 @@ if(r.getRolId() == 3 || r.getRolId() == 5 ){
 
 						<%
 							DTVParientePaciente dtvpp = new DTVParientePaciente();
-							ResultSet rsvv = dtvpp.cargarVista();
-							rsvv.beforeFirst();
-							while (rsvv.next()) {
+							ResultSet rsvv2 = dtvpp.cargarVista();
+							rsvv2.beforeFirst();
+							while (rsvv2.next()) {
 						%>
 						<tr>
-							<td><%=rsvv.getString("Nombre1par") + " "
-						+ rsvv.getString("Apellido1par") + " " + rsvv.getString("Apellido2par")%></td>
-							<td><%=rsvv.getString("Nombre1") + " "
-						+ rsvv.getString("Apellido1") + " " + rsvv.getString("Apellido2")%></td>
-							<%
-							if(r.getRolId() == 1){
-							%>
+							<td><%=rsvv2.getString("Nombre1par") + " "
+						+ rsvv2.getString("Apellido1par") + " " + rsvv2.getString("Apellido2par")%></td>
+							<td><%=rsvv2.getString("Nombre1") + " "
+						+ rsvv2.getString("Apellido1") + " " + rsvv2.getString("Apellido2")%></td>
+							
 							<td><button id='btnIdActualizar'
-									onClick="cargarDatos('<%=rsvv.getInt("ParPacID")%>', '<%=rsvv.getInt("PacienteID")%>', '<%=rsvv.getInt("ParienteID")%>');"
-									value=<%=rsvv.getInt("ParPacID")%>
+									onClick="cargarDatos('<%=rsvv2.getInt("ParPacID")%>', '<%=rsvv2.getInt("PacienteID")%>', '<%=rsvv2.getInt("ParienteID")%>');"
+									value=<%=rsvv2.getInt("ParPacID")%>
 									class="btn btn-primary btn-label-left">
 									<span><i class="fa fa-edit"></i></span> Actualizar
 								</button>
 							</td>
-							<% 	
-							}
-							%>
-							<%
-							if(r.getRolId() == 2){
-							%>
-							<td><button id='btnIdActualizar'
-									onClick="cargarDatos('<%=rsvv.getInt("ParPacID")%>', '<%=rsvv.getInt("PacienteID")%>', '<%=rsvv.getInt("ParienteID")%>');"
-									value=<%=rsvv.getInt("ParPacID")%>
-									class="btn btn-primary btn-label-left">
-									<span><i class="fa fa-edit"></i></span> Actualizar
-								</button>
-							</td>
-							<% 	
-							}
-							%>
-							<%
-							if(r.getRolId() == 3){
-							%>
-							<td><button id='btnIdActualizar' disabled
-									onClick="cargarDatos('<%=rsvv.getInt("ParPacID")%>', '<%=rsvv.getInt("PacienteID")%>', '<%=rsvv.getInt("ParienteID")%>');"
-									value=<%=rsvv.getInt("ParPacID")%>
-									class="btn btn-primary btn-label-left">
-									<span><i class="fa fa-edit"></i></span> Actualizar
-								</button>
-								
-							</td>
-							<% 	
-							}
-							%>
-							<%
-							if(r.getRolId() == 4){
-							%>
-							<td><button id='btnIdActualizar'
-									onClick="cargarDatos('<%=rsvv.getInt("ParPacID")%>', '<%=rsvv.getInt("PacienteID")%>', '<%=rsvv.getInt("ParienteID")%>');"
-									value=<%=rsvv.getInt("ParPacID")%>
-									class="btn btn-primary btn-label-left">
-									<span><i class="fa fa-edit"></i></span> Actualizar
-								</button>
-								
-							</td>
-							<% 	
-							}
-							%>
+							
 						</tr>
 						<%
 							}
@@ -632,11 +594,7 @@ if(r.getRolId() == 3 || r.getRolId() == 5 ){
 		</div>
 	</div>
 </div>
-
-
-<%
-}
-%>
+<%}%>
 <script type="text/javascript">
 	/////////////////////////////FUNCIONES DEL WEBSOCKET/////////////////////////////
 // 	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
@@ -666,8 +624,43 @@ if(r.getRolId() == 3 || r.getRolId() == 5 ){
 		actualizarParientePaciente(id);
 	}
 	
+	function refrescarApsicologo(){
+		console.log("adentro del refrescar de psicologo");
+		var fusuarioID = "";
+		fusuarioID = $('usuarioID').val();
+		var opcion = "";
+		opcion = "refrescarApsicologo";
+		//var table = $('#datatable-1').DataTable();
+		$.ajax({
+			url : "SLParientePaciente",
+			type : "post",
+			datatype : 'html',
+			data : {
+				'fusuarioID' : fusuarioID,
+				'opcion' : opcion
+			},
+			success : function(data) {
+				console.log("Se fue al servlet a armar la datatable");
+				$('#datatable-1').html(data);
+				$('#datatable-1').dataTable().fnDestroy();
+				AllTables();
+				$('#datatable-1').addClass(
+						"table table-hover table-heading table-datatable");
+			}
+		});
+		
+		console.log("Saliendo del refrescar de psicologo");
+		
+		
+		
+		
+	}
 	//METODO PARA REFRESCAR EL DATATABLE A TRAVËS DEL SERVLET
 	function refrescar() {
+// 		var tiporol = 0;
+// 		tiporol = $('TipoRol').val();
+// 		
+		
 		console.log("adentro del refrescar");
 		var opcion = "";
 		opcion = "refrescar";
@@ -690,7 +683,9 @@ if(r.getRolId() == 3 || r.getRolId() == 5 ){
 		});
 		
 		console.log("Saliendo del refrescar");
+		
 	}
+		
 	//Método para guardar el psicologo a través del servlet
 	function guardarParientePaciente() {
 		var opcion ="";
@@ -716,12 +711,36 @@ if(r.getRolId() == 3 || r.getRolId() == 5 ){
 			},
 			success : function(data) {
 				//websocket.send("Guardar");
-				refrescar();
-				successAlert('Listo', 'Guardado exitosamente');
-				$('#pariente').val(null);
-				$('#paciente').val(null);
-				$("#agregar")[0].reset();
-				$('#frm-agrega').fadeOut();
+				var tiporol =  0;
+				tiporol = $('TipoRol').val();
+				switch(tiporol){
+				case 3 : {
+					refrescarAPsicologo();
+					successAlert('Listo', 'Guardado exitosamente');
+					$('#pariente').val(null);
+					$('#paciente').val(null);
+					$("#agregar")[0].reset();
+					$('#frm-agrega').fadeOut();
+					break;
+				}
+				case 5 : {
+					refrescarAPsicologo();
+					successAlert('Listo', 'Guardado exitosamente');
+					$('#pariente').val(null);
+					$('#paciente').val(null);
+					$("#agregar")[0].reset();
+					$('#frm-agrega').fadeOut();
+					break;
+				}
+				default :{
+					successAlert('Listo', 'Guardado exitosamente');
+					$('#pariente').val(null);
+					$('#paciente').val(null);
+					$("#agregar")[0].reset();
+					$('#frm-agrega').fadeOut();
+					refrescar();
+				}}
+				
 			}
 		});
 	}
@@ -749,11 +768,30 @@ function actualizarParientePaciente(idClicked) {
 				'opcion' : opcion
 			},
 			success : function(data) {
-				$("#edit")[0].reset();
-				$('#frm-edita').fadeOut();
-				refrescar();
-				//websocket.send("Modificar");
-				successAlert('Listo', 'Actualizado exitosamente');
+				var tiporol =  0;
+				tiporol = $('TipoRol').val();
+				switch(tiporol){
+				case 3 : {
+					refrescarAPsicologo();
+					$("#edit")[0].reset();
+					$('#frm-edita').fadeOut();
+					successAlert('Listo', 'Actualizado exitosamente');
+					break;
+				}
+				case 5 : {
+					refrescarAPsicologo();
+					$("#edit")[0].reset();
+					$('#frm-edita').fadeOut();
+					successAlert('Listo', 'Actualizado exitosamente');
+					break;
+				}
+				default :{
+					refrescar();
+					$("#edit")[0].reset();
+					$('#frm-edita').fadeOut();
+					successAlert('Listo', 'Actualizado exitosamente');
+				}}
+			
 
 			},
 			error: function(errorThrown){

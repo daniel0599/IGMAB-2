@@ -33,7 +33,7 @@ public class DTVParientePaciente {
 		PreparedStatement s;
 		
 		try {
-			s = con.prepareStatement("SELECT parpac.Nombre1par, parpac.Nombre2par, parpac.Apellido1par, parpac.Apellido2par, parpac.ParienteID As ParienteIDpar, parpac.Nombre1 As Nombre1pac, parpac.Nombre2 As Nombre2pac,parpac.Apellido1 As Apellido1pac, parpac.Apellido2 As Apellido2pac, parpac.PacienteID As PacienteIDpac, parpac.ParPacID FROM igmab.pariente_paciente parpac inner Join paciente_pariente par on parpac.ParienteID=par.ParienteID Inner Join Paciente pac On parpac.PacienteID=pac.PacienteID WHERE par.Usuariocreacion = ? AND pac.Eliminado = 0;");
+			s = con.prepareStatement("SELECT parpac.Nombre1par, parpac.Nombre2par, parpac.Apellido1par, parpac.Apellido2par, parpac.ParienteID As ParienteIDpar, parpac.Nombre1 As Nombre1pac, parpac.Nombre2 As Nombre2pac, parpac.Apellido1 As Apellido1pac, parpac.Apellido2 As Apellido2pac, parpac.PacienteID As PacienteIDpac, parpac.ParPacID FROM igmab.pariente_paciente parpac inner Join paciente_pariente par on parpac.ParienteID=par.ParienteID Inner Join Paciente pac On parpac.PacienteID=pac.PacienteID WHERE par.Usuariocreacion = ? AND pac.Eliminado = 0");
 			s.setInt(1, psicologoID);
 			rsn = s.executeQuery();
 			}

@@ -313,11 +313,11 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
                                                   title="No es requerido" lang="es" spellcheck="true" rows="5"></textarea>
                                 </div>
                             </div>
-                            <div class="clearfix"></div>
+                            <div class="clearfix">
 <!--                             LOs nuevos -->
-                            <div class="form-group">
+                          
                              <div class="form-group">
-                            <label class="col-sm-2 control-label">Religion</label>
+                            <label class="col-sm-2 control-label" for="form-styles">Religion</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control"
                                            placeholder="Religion" data-toggle="tooltip"
@@ -553,7 +553,7 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Salario</label>
+                    <label class="col-sm-2 control-label">Salario / Otros Ingresos (CS)</label>
                     <div class="col-sm-4">
                         <input type="number" class="form-control"
                                placeholder="Cantidad ganada en el trabajo desempeñado"
@@ -597,11 +597,11 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
                                                   title="No es requerido" lang="es" spellcheck="true" rows="5"></textarea>
                     </div>
                 </div>
-                <div class="clearfix"></div>
+                <div class="clearfix">
 <!--                      LOs nuevos --> 
-                            <div class="form-group">
+                         <div class="box-content">
                              <div class="form-group">
-                            <label class="col-sm-2 control-label">Religion</label>
+                            <label class="col-sm-2 control-label" for="form-styles">Religion</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control"
                                            placeholder="Religion" data-toggle="tooltip"
@@ -636,7 +636,7 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 							</div>
 							</div>
                             
-                            
+                          </div>  
                      </div>
                 
                 <div class="form-group">
@@ -1026,7 +1026,7 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 						</div>
 				</div>
 				<table class="table table-hover table-heading table-datatable"
-					id="datatable-2">
+					id="datatable-1">
 					<thead>
 						<tr>
 							<th>Código</th>
@@ -2699,10 +2699,10 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 				'fusuarioID' : fusuarioID
 			},
 			success : function(data) {
-				$('#datatable-2').html(data);
-				$('#datatable-2').dataTable().fnDestroy();
+				$('#datatable-1').html(data);
+				$('#datatable-1').dataTable().fnDestroy();
 				AllTables();
-				$('#datatable-2').addClass(
+				$('#datatable-1').addClass(
 						"table table-hover table-heading table-datatable");
 			}
 
@@ -2749,10 +2749,10 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
                 'fusuarioID' : fusuarioID
             },
             success : function(data) {
-                $('#datatable-2').html(data);
-                $('#datatable-2').dataTable().fnDestroy();
+                $('#datatable-1').html(data);
+                $('#datatable-1').dataTable().fnDestroy();
                 AllTables();
-                $('#datatable-2').addClass(
+                $('#datatable-1').addClass(
                     "table table-hover table-heading table-datatable");
                 infoAlert('Aviso', 'Pacientes inactivos cargados');
             }
@@ -2799,10 +2799,10 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
                 'fusuarioID' : fusuarioID
             },
             success : function(data) {
-                $('#datatable-2').html(data);
-                $('#datatable-2').dataTable().fnDestroy();
+                $('#datatable-1').html(data);
+                $('#datatable-1').dataTable().fnDestroy();
                 AllTables();
-                $('#datatable-2').addClass(
+                $('#datatable-1').addClass(
                     "table table-hover table-heading table-datatable");
                 infoAlert('Aviso', 'Pacientes dados de alta cargados');
             }
@@ -2979,7 +2979,7 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 		fmotivoconsulta = $('#motivoconsulta').val();
 		fcrianzaAnios = $('#crianzaAnios').val();
 		frelacionProgenitores = $('#relacionProgenitores').val();
-		
+		console.log("Religion"+freligion);
 		//alert(fexpediente);
 
 		$.ajax({
@@ -3160,10 +3160,10 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 		var fescolaridadId;
 		var festudianteUCA = 0;
 		
-		var freligion = "";
-		var fmotivoconsulta = "";
-		var fcrianzaAnios = "";
-		var frelacionProgenitores = "";
+		var freligionedit = "";
+		var fmotivoconsultaedit = "";
+		var fcrianzaAniosedit = "";
+		var frelacionProgenitoresedit = "";
 
 		opcion = "actualizar";
 		fnombre1 = $("#nombre1Edit").val();
@@ -3187,10 +3187,10 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 		finternadoAfirmativo = $('#internadoAfirmativoEdit').val();
 		fescolaridadId = $('#escolaridadIdEdit').val();
 		
-		freligion = $('#religionedit').val();
-		fmotivoconsulta = $('#motivoconsultaedit').val();
-		fcrianzaAnios = $('#crianzaAniosedit').val();
-		frelacionProgenitores = $('#relacionProgenitoresedit').val();
+		freligionedit = $('#religionedit').val();
+		fmotivoconsultaedit = $('#motivoconsultaedit').val();
+		fcrianzaAniosedit = $('#crianzaAniosedit').val();
+		frelacionProgenitoresedit = $('#relacionProgenitoresedit').val();
 
         if($('#estudianteUCAEdit').is(":checked")) {
             festudianteUCA = 1;
@@ -3231,10 +3231,10 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 				'finternadoAfirmativo' : finternadoAfirmativo,
 				'fescolaridadId' : fescolaridadId,
                 'festudianteUCA' : festudianteUCA,
-                'freligion' : freligion,
-                'fmotivoconsulta' : fmotivoconsulta,
-                'fcrianzaAnios' : fcrianzaAnios,
-                'frelacionProgenitores' : frelacionProgenitores,
+                'freligionedit' : freligionedit,
+                'fmotivoconsultaedit' : fmotivoconsultaedit,
+                'fcrianzaAniosedit' : fcrianzaAniosedit,
+                'frelacionProgenitoresedit' : frelacionProgenitoresedit,
 				'opcion' : opcion
 			},
 			success : function(data) {
@@ -3304,10 +3304,10 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
             $('#estudianteUCAEdit').prop('checked', false).change();
         }
 		
-		$('#religion').val(freligion);
-		$('#motivoconsulta').val(fmotivoconsulta);
-		$('#crianzaAnios').val(fcrianzaAnios);
-		$('#relacionProgenitores').val(frelacionProgenitores);
+		$('#religionedit').val(freligion);
+		$('#motivoconsultaedit').val(fmotivoconsulta);
+		$('#crianzaAniosedit').val(fcrianzaAnios);
+		$('#relacionProgenitoresedit').val(frelacionProgenitores);
 		
 		$('#frm-edita').fadeIn();
 		$('#frm-agrega').fadeOut();
