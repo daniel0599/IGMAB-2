@@ -165,6 +165,8 @@ response.setDateHeader("Expires", -1);
 </header>
 <!--End Header-->
 <!--Start Container-->
+
+<%if(r.getRolId() == 1 || r.getRolId() == 2 || r.getRolId() == 4) {%>
 <div id="main" class="container-fluid">
 	<div class="row">
 		<div id="sidebar-left" class="col-xs-2 col-sm-2">
@@ -185,7 +187,7 @@ response.setDateHeader("Expires", -1);
                         <li><a class="ajax-link" href="ajax/paciente.jsp">Paciente</a></li>
 						<li><a class="ajax-link" href="ajax/Pariente.jsp">Pariente</a></li>
 						<li><a class="ajax-link" href="ajax/Pariente-Paciente.jsp">Asignar parientes</a></li>
-						<li><a class="ajax-link" href="ajax/HistoriaClinica.jsp">Historia clínica</a></li>
+						<li><a class="ajax-link" href="ajax/HistoriaClinica.jsp">Historia clínica Adulto</a></li>
 					</ul>
 				</li>
 
@@ -203,7 +205,10 @@ response.setDateHeader("Expires", -1);
                     </a>
                 </li>
 
-                <li class="dropdown">
+
+				
+				
+				<li class="dropdown">
                     <a href="#" class="dropdown-toggle">
                         <i class="fa fa-file-text"></i>
                         <span class="hidden-xs">Reportes</span>
@@ -248,6 +253,63 @@ response.setDateHeader("Expires", -1);
 						</li>
                     </ul>
                 </li>
+                
+				
+				
+            
+            </ul>
+         <!--     </li>-->
+          <!--    </ul> -->
+		</div>
+		<!--Start Content-->
+		<div id="content" class="col-xs-12 col-sm-10">
+			<div class="preloader">
+				<img src="img/devoops_getdata.gif" class="devoops-getdata" alt="preloader"/>
+			</div>
+			<div id="ajax-content"></div>
+		</div>
+		<!--End Content-->
+	</div>
+</div>
+<%} else{ %>
+<div id="main" class="container-fluid">
+	<div class="row">
+		<div id="sidebar-left" class="col-xs-2 col-sm-2">
+			<ul class="nav main-menu">
+				<li>
+					<a href="ajax/dashboard.html" class="active ajax-link">
+						<i class="fa fa-dashboard"></i>
+						<span class="hidden-xs">Inicio</span>
+					</a>
+				</li>
+
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle">
+						<i class="fa fa-heart"></i>
+						<span class="hidden-xs">Gestión Paciente</span>
+					</a>
+					<ul class="dropdown-menu">
+                        <li><a class="ajax-link" href="ajax/paciente.jsp">Paciente</a></li>
+						<li><a class="ajax-link" href="ajax/Pariente.jsp">Pariente</a></li>
+						<li><a class="ajax-link" href="ajax/Pariente-Paciente.jsp">Asignar parientes</a></li>
+						<li><a class="ajax-link" href="ajax/HistoriaClinica.jsp">Historia clínica Adulto</a></li>
+					</ul>
+				</li>
+
+               
+
+                <li>
+                    <a class="ajax-link" href="ajax/consulta.jsp">
+                    <i class="fa fa-pencil"></i>
+                    <span class="hidden-xs">Gestión consulta</span>
+                    </a>
+                </li>
+
+
+		
+				
+				
+            
             </ul>
          <!--     </li>-->
           <!--    </ul> -->
@@ -263,6 +325,7 @@ response.setDateHeader("Expires", -1);
 	</div>
 </div>
 
+<%} %>
 
 <!--End Container-->
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

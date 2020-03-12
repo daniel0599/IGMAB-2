@@ -185,7 +185,8 @@ input[type=checkbox] {
 		Integer c = 3;  //Respuesta cerrada con descripcion
 		Integer d = 4;  //Respuesta con Grado. 
 		Integer e = 5;  //Sellecion Multiple con Descripcion
-		
+		Integer f = 6;  //Respuesta con Grado. 
+		Integer g = 7;
 		
 		int n=dtrespvi.numeroderespuestas(pacienteId); // Variable 	que almacena el numero de respuesta que contesto el usuario
     	System.out.println("el numero de Rs son: "+n);
@@ -610,7 +611,7 @@ input[type=checkbox] {
 
 	<%
 		} else if(Integer.parseInt(String.valueOf(rsrevi.getInt("ClasificacionID"))) == (e)){
-			 System.out.println("SI ES DE CLASIFICACION 5, OTRO");
+			 //System.out.println("SI ES DE CLASIFICACION 5, OTRO");
 		
 	%>
 	  <ol class="columns">

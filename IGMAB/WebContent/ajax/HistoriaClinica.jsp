@@ -2735,13 +2735,11 @@ if(r.getRolId() == 3){
 
 		/////////////////////////////CONTROLAR EL FORMULARIO AGREGAR Y CERRAR FORMULARIO EDITAR/////////////////////////////
 		$('#btn-agrega-abrir').click(function() {
-			var TipoRol = "";
-			TipoRol = $("#TipoRol").val();
-			if(TipoRol != 3){
+		
 				$('#frm-agrega').fadeIn();
 				$('#frm-edita').fadeOut()
 				$('frm-visualizar').fadeOut();
-			}
+			
 		
 			
 		});

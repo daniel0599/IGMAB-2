@@ -62,15 +62,15 @@ public class SlRespuesta extends HttpServlet {
 			//Capturamos el ID del paciente que viene desde el jsp 
 			this.pacienteID = Integer.valueOf(request.getParameter("pacienteId"));
 			
-			System.out.println("Hay "+dta.calcularTitulos()+"Titulos");
-			System.out.println("Hay "+dtcrc.calcularClasificaciones()+"Clasificaciones");
-			System.out.println("Hay"+dtrescat.calcularRespuestasCatalogo()+"Respuestas");
+			//System.out.println("Hay "+dta.calcularTitulos()+"Titulos");
+			//System.out.println("Hay "+dtcrc.calcularClasificaciones()+"Clasificaciones");
+			//System.out.println("Hay"+dtrescat.calcularRespuestasCatalogo()+"Respuestas");
 			
 			for(int i= 1;i<=dta.calcularTitulos();i++){
 				for(int j= 1;j<=dtcrc.calcularClasificaciones();j++){
 					for(int k= 1;k<=dtrescat.calcularRespuestasCatalogo();k++){
 						String a = "respcat"+String.valueOf(i)+String.valueOf(j)+String.valueOf(k);
-						System.out.println("LA RESPCAT es :"+a);
+						//System.out.println("LA RESPCAT es :"+a);
 						
 						//Obtengo el valor de cada input 
 						String opcion = request.getParameter(a);
@@ -78,11 +78,11 @@ public class SlRespuesta extends HttpServlet {
 						
 						//Variable que obtiene el ID de la respuesta y sirve para comprobar su clasificacion
 						int auxcla = Integer.parseInt(a.substring(9, a.length()));
-						System.out.println("El ID de la respuesta es:"+auxcla);
-						System.out.println("El ID de la respuesta: "+auxcla+" tine la clasificacion "+dtrescat.returnIdClasificacion(auxcla));
+						//System.out.println("El ID de la respuesta es:"+auxcla);
+						//System.out.println("El ID de la respuesta: "+auxcla+" tine la clasificacion "+dtrescat.returnIdClasificacion(auxcla));
 						
 						if(j==1 && dtrescat.returnIdClasificacion(auxcla)==j && dtrescat.returnIdTitulo(auxcla)==i){
-							System.out.println("Esta es una respuesta de seleccion multiple ");
+							//System.out.println("Esta es una respuesta de seleccion multiple ");
 							if(opcion!=null &&  opcion.equals("on")){
 							
 							seleccion = 1;
@@ -93,11 +93,11 @@ public class SlRespuesta extends HttpServlet {
 							
 						
 							
-							System.out.println("Seleccion es : "+seleccion);
-							System.out.println("PAcienteID es : "+this.pacienteID);
-							System.out.println("ClasificacionID es : "+j);
-							System.out.println("respuestaCatalogoID: "+k);
-							System.out.println("TitulopreguntaID: "+i);
+							//System.out.println("Seleccion es : "+seleccion);
+							//System.out.println("PAcienteID es : "+this.pacienteID);
+							//System.out.println("ClasificacionID es : "+j);
+							//System.out.println("respuestaCatalogoID: "+k);
+							//System.out.println("TitulopreguntaID: "+i);
 							
 							re.setSeleccion(seleccion);
 							re.setPacienteId(pacienteID);
@@ -109,12 +109,12 @@ public class SlRespuesta extends HttpServlet {
 							
 							}else{
 						       
-								System.out.println("CHECKBOX NO MARCADO NO SE GUARDO");
+								//System.out.println("CHECKBOX NO MARCADO NO SE GUARDO");
 
 						    }
 							
 						}else if(j==2 && dtrescat.returnIdClasificacion(auxcla)==j && dtrescat.returnIdTitulo(auxcla)==i){
-							System.out.println("Esta es una respuesta cerrada ");
+							//System.out.println("Esta es una respuesta cerrada ");
 							if(opcion!=null &&  opcion.equals("1")){
 								
 							seleccion = 1;
@@ -125,11 +125,11 @@ public class SlRespuesta extends HttpServlet {
 						
 							
 							
-							System.out.println("Seleccion es : "+seleccion);
-							System.out.println("PAcienteID es : "+this.pacienteID);
-							System.out.println("ClasificacionID es : "+j);
-							System.out.println("respuestaCatalogoID: "+k);
-							System.out.println("TitulopreguntaID: "+i);
+//							System.out.println("Seleccion es : "+seleccion);
+//							System.out.println("PAcienteID es : "+this.pacienteID);
+//							System.out.println("ClasificacionID es : "+j);
+//							System.out.println("respuestaCatalogoID: "+k);
+//							System.out.println("TitulopreguntaID: "+i);
 							
 							re.setSeleccion(seleccion);
 							re.setPacienteId(pacienteID);
@@ -148,11 +148,11 @@ public class SlRespuesta extends HttpServlet {
 							
 								
 								
-								System.out.println("Seleccion es : "+seleccion);
-								System.out.println("PAcienteID es : "+this.pacienteID);
-								System.out.println("ClasificacionID es : "+j);
-								System.out.println("respuestaCatalogoID: "+k);
-								System.out.println("TitulopreguntaID: "+i);
+//								System.out.println("Seleccion es : "+seleccion);
+//								System.out.println("PAcienteID es : "+this.pacienteID);
+//								System.out.println("ClasificacionID es : "+j);
+//								System.out.println("respuestaCatalogoID: "+k);
+//								System.out.println("TitulopreguntaID: "+i);
 								
 								re.setSeleccion(seleccion);
 								re.setPacienteId(pacienteID);
@@ -162,27 +162,27 @@ public class SlRespuesta extends HttpServlet {
 								
 								dtres.guardarRespuesta(re);
 								
-								System.out.println("RADIO BUTTON CON SI NO MARCADO aun asi SE GUARDO");
+								//System.out.println("RADIO BUTTON CON SI NO MARCADO aun asi SE GUARDO");
 
 						    }							
 						}else if(j==3 && dtrescat.returnIdClasificacion(auxcla)==j && dtrescat.returnIdTitulo(auxcla)==i){
-							System.out.println("Esta es una respuesta cerrada pero con descripcion");
+							//System.out.println("Esta es una respuesta cerrada pero con descripcion");
 							if(opcion!=null &&  opcion.equals("1")){
-								System.out.println("RADIO BUTTON CON SI MARCADO");
+							//	System.out.println("RADIO BUTTON CON SI MARCADO");
 							seleccion = 1;
-							descripcion = request.getParameter("respacat"+i+""+j+""+k);
+							descripcion = request.getParameter("respcatdesc"+i+""+j+""+k);
 							pacienteID = this.pacienteID;
 							clasificacionID = j;
 							respuestaCatalogoID = k;
 							titulopreguntaid = i;
 							
-							System.out.println("Seleccion es : "+seleccion);
-							System.out.println("PAcienteID es : "+this.pacienteID);
-							System.out.println("ClasificacionID es : "+j);
-							System.out.println("respuestaCatalogoID: "+k);
-							System.out.println("La descripcion o por que es: "+descripcion);
-							System.out.println("TitulopreguntaID: "+i);
-							
+//							System.out.println("Seleccion es : "+seleccion);
+//							System.out.println("PAcienteID es : "+this.pacienteID);
+//							System.out.println("ClasificacionID es : "+j);
+//							System.out.println("respuestaCatalogoID: "+k);
+//							System.out.println("La descripcion o por que es: "+descripcion);
+//							System.out.println("TitulopreguntaID: "+i);
+//							
 							
 							re.setSeleccion(seleccion);
 							re.setPacienteId(pacienteID);
@@ -207,12 +207,12 @@ public class SlRespuesta extends HttpServlet {
 								respuestaCatalogoID = k;
 								titulopreguntaid = i;
 								
-								System.out.println("Seleccion es : "+seleccion);
-								System.out.println("PAcienteID es : "+this.pacienteID);
-								System.out.println("ClasificacionID es : "+j);
-								System.out.println("respuestaCatalogoID: "+k);
-								System.out.println("La descripcion o por que es: "+descripcion);
-								System.out.println("TitulopreguntaID: "+i);
+//								System.out.println("Seleccion es : "+seleccion);
+//								System.out.println("PAcienteID es : "+this.pacienteID);
+//								System.out.println("ClasificacionID es : "+j);
+//								System.out.println("respuestaCatalogoID: "+k);
+//								System.out.println("La descripcion o por que es: "+descripcion);
+//								System.out.println("TitulopreguntaID: "+i);
 								
 								re.setSeleccion(seleccion);
 								re.setPacienteId(pacienteID);
@@ -240,11 +240,11 @@ public class SlRespuesta extends HttpServlet {
 							respuestaCatalogoID = k;
 							titulopreguntaid = i;
 							
-							System.out.println("Grado es : "+grado);
-							System.out.println("PAcienteID es : "+this.pacienteID);
-							System.out.println("ClasificacionID es : "+j);
-							System.out.println("respuestaCatalogoID: "+k);
-							System.out.println("TitulopreguntaID: "+i);
+//							System.out.println("Grado es : "+grado);
+//							System.out.println("PAcienteID es : "+this.pacienteID);
+//							System.out.println("ClasificacionID es : "+j);
+//							System.out.println("respuestaCatalogoID: "+k);
+//							System.out.println("TitulopreguntaID: "+i);
 							
 							re.setGrado(grado);
 							re.setPacienteId(pacienteID);
@@ -261,11 +261,11 @@ public class SlRespuesta extends HttpServlet {
 								respuestaCatalogoID = k;
 								titulopreguntaid = i;
 								
-								System.out.println("Grado es : "+grado);
-								System.out.println("PAcienteID es : "+this.pacienteID);
-								System.out.println("ClasificacionID es : "+j);
-								System.out.println("respuestaCatalogoID: "+k);
-								System.out.println("TitulopreguntaID: "+i);
+//								System.out.println("Grado es : "+grado);
+//								System.out.println("PAcienteID es : "+this.pacienteID);
+//								System.out.println("ClasificacionID es : "+j);
+//								System.out.println("respuestaCatalogoID: "+k);
+//								System.out.println("TitulopreguntaID: "+i);
 								
 								re.setGrado(grado);
 								re.setPacienteId(pacienteID);
@@ -282,11 +282,11 @@ public class SlRespuesta extends HttpServlet {
 								respuestaCatalogoID = k;
 								titulopreguntaid = i;
 								
-								System.out.println("Grado es : "+grado);
-								System.out.println("PAcienteID es : "+this.pacienteID);
-								System.out.println("ClasificacionID es : "+j);
-								System.out.println("respuestaCatalogoID: "+k);
-								System.out.println("TitulopreguntaID: "+i);
+//								System.out.println("Grado es : "+grado);
+//								System.out.println("PAcienteID es : "+this.pacienteID);
+//								System.out.println("ClasificacionID es : "+j);
+//								System.out.println("respuestaCatalogoID: "+k);
+//								System.out.println("TitulopreguntaID: "+i);
 								
 								re.setGrado(grado);
 								re.setPacienteId(pacienteID);
@@ -303,11 +303,11 @@ public class SlRespuesta extends HttpServlet {
 								respuestaCatalogoID = k;
 								titulopreguntaid = i;
 								
-								System.out.println("Grado es : "+grado);
-								System.out.println("PAcienteID es : "+this.pacienteID);
-								System.out.println("ClasificacionID es : "+j);
-								System.out.println("respuestaCatalogoID: "+k);
-								System.out.println("TitulopreguntaID: "+i);
+//								System.out.println("Grado es : "+grado);
+//								System.out.println("PAcienteID es : "+this.pacienteID);
+//								System.out.println("ClasificacionID es : "+j);
+//								System.out.println("respuestaCatalogoID: "+k);
+//								System.out.println("TitulopreguntaID: "+i);
 								
 								re.setGrado(grado);
 								re.setPacienteId(pacienteID);
@@ -324,11 +324,11 @@ public class SlRespuesta extends HttpServlet {
 								respuestaCatalogoID = k;
 								titulopreguntaid = i;
 								
-								System.out.println("Grado es : "+grado);
-								System.out.println("PAcienteID es : "+this.pacienteID);
-								System.out.println("ClasificacionID es : "+j);
-								System.out.println("respuestaCatalogoID: "+k);
-								System.out.println("TitulopreguntaID: "+i);
+//								System.out.println("Grado es : "+grado);
+//								System.out.println("PAcienteID es : "+this.pacienteID);
+//								System.out.println("ClasificacionID es : "+j);
+//								System.out.println("respuestaCatalogoID: "+k);
+//								System.out.println("TitulopreguntaID: "+i);
 								
 								re.setGrado(grado);
 								re.setPacienteId(pacienteID);
@@ -345,11 +345,11 @@ public class SlRespuesta extends HttpServlet {
 								respuestaCatalogoID = k;
 								titulopreguntaid = i;
 								
-								System.out.println("Grado es : "+grado);
-								System.out.println("PAcienteID es : "+this.pacienteID);
-								System.out.println("ClasificacionID es : "+j);
-								System.out.println("respuestaCatalogoID: "+k);
-								System.out.println("TitulopreguntaID: "+i);
+//								System.out.println("Grado es : "+grado);
+//								System.out.println("PAcienteID es : "+this.pacienteID);
+//								System.out.println("ClasificacionID es : "+j);
+//								System.out.println("respuestaCatalogoID: "+k);
+//								System.out.println("TitulopreguntaID: "+i);
 								
 								re.setGrado(grado);
 								re.setPacienteId(pacienteID);
@@ -366,11 +366,11 @@ public class SlRespuesta extends HttpServlet {
 								respuestaCatalogoID = k;
 								titulopreguntaid = i;
 								
-								System.out.println("Grado es : "+grado);
-								System.out.println("PAcienteID es : "+this.pacienteID);
-								System.out.println("ClasificacionID es : "+j);
-								System.out.println("respuestaCatalogoID: "+k);
-								System.out.println("TitulopreguntaID: "+i);
+//								System.out.println("Grado es : "+grado);
+//								System.out.println("PAcienteID es : "+this.pacienteID);
+//								System.out.println("ClasificacionID es : "+j);
+//								System.out.println("respuestaCatalogoID: "+k);
+//								System.out.println("TitulopreguntaID: "+i);
 								
 								re.setGrado(grado);
 								re.setPacienteId(pacienteID);
@@ -395,12 +395,12 @@ public class SlRespuesta extends HttpServlet {
 							descripcion = request.getParameter("respcatdesc"+i+""+j+""+k);
 							titulopreguntaid = i;
 							
-							System.out.println("Seleccion es : "+seleccion);
-							System.out.println("PAcienteID es : "+this.pacienteID);
-							System.out.println("ClasificacionID es : "+j);
-							System.out.println("respuestaCatalogoID: "+k);
-							System.out.println("Descripcion: "+descripcion);
-							System.out.println("TitulopreguntaID: "+i);
+//							System.out.println("Seleccion es : "+seleccion);
+//							System.out.println("PAcienteID es : "+this.pacienteID);
+//							System.out.println("ClasificacionID es : "+j);
+//							System.out.println("respuestaCatalogoID: "+k);
+//							System.out.println("Descripcion: "+descripcion);
+//							System.out.println("TitulopreguntaID: "+i);
 							
 							re.setSeleccion(seleccion);
 							re.setPacienteId(pacienteID);
@@ -423,6 +423,74 @@ public class SlRespuesta extends HttpServlet {
 
                        							
 							
+						}else if(j==6 && dtrescat.returnIdClasificacion(auxcla)==j && dtrescat.returnIdTitulo(auxcla)==i){
+							//System.out.println("Esta es una respuesta cerrada pero con descripcion");
+							//if(opcion!=null ){
+							//	System.out.println("RADIO BUTTON CON SI MARCADO");
+							//seleccion = 1;
+							descripcion = request.getParameter("respcatdesc"+i+""+j+""+k);
+							pacienteID = this.pacienteID;
+							clasificacionID = j;
+							respuestaCatalogoID = k;
+							titulopreguntaid = i;
+							
+//							System.out.println("Seleccion es : "+seleccion);
+//							System.out.println("PAcienteID es : "+this.pacienteID);
+//							System.out.println("ClasificacionID es : "+j);
+//							System.out.println("respuestaCatalogoID: "+k);
+//							System.out.println("La descripcion o por que es: "+descripcion);
+//							System.out.println("TitulopreguntaID: "+i);
+							
+							
+							//re.setSeleccion(seleccion);
+							re.setPacienteId(pacienteID);
+							re.setClasificacionID(clasificacionID);
+							re.setRespuestaCatalogoID(respuestaCatalogoID);
+							if(descripcion.equals(null)){
+								re.setDescripcion(" ");
+							}else{
+								re.setDescripcion(descripcion);
+									
+							}
+							re.setTituloPreguntaId(titulopreguntaid);
+							
+							dtres.guardarRespuesta(re);
+							
+						  //  }
+						}else if(j==7 && dtrescat.returnIdClasificacion(auxcla)==j && dtrescat.returnIdTitulo(auxcla)==i){
+							//System.out.println("Esta es una respuesta cerrada pero con descripcion");
+							//if(opcion!=null ){
+							//	System.out.println("RADIO BUTTON CON SI MARCADO");
+							//seleccion = 1;
+							descripcion = request.getParameter("respcatdesc"+i+""+j+""+k);
+							pacienteID = this.pacienteID;
+							clasificacionID = j;
+							respuestaCatalogoID = k;
+							titulopreguntaid = i;
+							
+//							System.out.println("Seleccion es : "+seleccion);
+//							System.out.println("PAcienteID es : "+this.pacienteID);
+//							System.out.println("ClasificacionID es : "+j);
+//							System.out.println("respuestaCatalogoID: "+k);
+//							System.out.println("La descripcion o por que es: "+descripcion);
+//							System.out.println("TitulopreguntaID: "+i);
+							
+							
+							//re.setSeleccion(seleccion);
+							re.setPacienteId(pacienteID);
+							re.setClasificacionID(clasificacionID);
+							re.setRespuestaCatalogoID(respuestaCatalogoID);
+							if(descripcion.equals(null)){
+								re.setDescripcion(" ");
+							}else{
+								re.setDescripcion(descripcion);
+									
+							}
+							re.setTituloPreguntaId(titulopreguntaid);
+							
+							dtres.guardarRespuesta(re);
+							
+						  //  }
 						}
 						
 					}

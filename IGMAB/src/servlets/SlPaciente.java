@@ -55,7 +55,7 @@ public class SlPaciente extends HttpServlet {
 		///////////////////////////// LOS DATOS DE LA INTERFAZ DE
 		///////////////////////////// USUARIO////////////////////////////////
 		String opcion = request.getParameter("opcion").trim();
-		String expediente, nombre1, nombre2, apellido1, apellido2, celular, edad, fechaNac, escolaridad, direccion, conQuienVive, empleo, lugarTrabajo, salario, internadoAfirmativo;
+		String religion, motivoconsulta, crianzaAnios, relacionProgenitores, expediente, nombre1, nombre2, apellido1, apellido2, celular, edad, fechaNac, escolaridad, direccion, conQuienVive, empleo, lugarTrabajo, salario, internadoAfirmativo;
 		int sexo, estadoCivil, internado, terapia, escolaridadId, estudianteUCA;
 		DtPaciente dtp = new DtPaciente();
 		Paciente pac = new Paciente();
@@ -88,7 +88,11 @@ public class SlPaciente extends HttpServlet {
 				terapia = Integer.parseInt(request.getParameter("fterapia"));
 				escolaridadId = Integer.parseInt(request.getParameter("fescolaridadId"));
 				estudianteUCA = Integer.parseInt(request.getParameter("festudianteUCA"));
-				
+		
+				religion= request.getParameter("freligion");;
+				motivoconsulta= request.getParameter("fmotivoconsulta");;
+				crianzaAnios =request.getParameter("fcrianzaAnios"); ;
+				relacionProgenitores =request.getParameter("frelacionProgenitores"); 
 				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 				Date fecha = formatter.parse(fechaNac);
 				
@@ -113,6 +117,12 @@ public class SlPaciente extends HttpServlet {
 				pac.setTerapia(terapia);
 				pac.setEscolaridadID(escolaridadId);
 				pac.setEstudianteUCA(estudianteUCA);
+				
+				
+				pac.setReligion(religion);
+				pac.setMotivoconsulta(motivoconsulta);
+				pac.setCrianzaAnios(crianzaAnios);
+				pac.setRelacionProgenitores(relacionProgenitores);
 
 				if (dtp.guardarPaciente(pac)) {
 					System.out.println("Guardado exitosamente");
@@ -149,6 +159,16 @@ public class SlPaciente extends HttpServlet {
 				escolaridadId = Integer.parseInt(request.getParameter("fescolaridadId"));
 				estudianteUCA = Integer.parseInt(request.getParameter("festudianteUCA"));
 				
+				religion= request.getParameter("freligion");;
+				motivoconsulta= request.getParameter("fmotivoconsulta");;
+				crianzaAnios =request.getParameter("fcrianzaAnios"); ;
+				relacionProgenitores =request.getParameter("frelacionProgenitores"); 
+				
+				int usuarioID =0;
+        		
+        		//tiporol = Integer.parseInt(request.getParameter("fTipoRol"));
+        		usuarioID = Integer.parseInt(request.getParameter("fusuarioID"));
+				
 				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 				Date fecha = formatter.parse(fechaNac);
 				
@@ -174,6 +194,13 @@ public class SlPaciente extends HttpServlet {
 				pac.setEscolaridadID(escolaridadId);
 				pac.setEstudianteUCA(estudianteUCA);
 
+				pac.setReligion(religion);
+				pac.setMotivoconsulta(motivoconsulta);
+				pac.setCrianzaAnios(crianzaAnios);
+				pac.setRelacionProgenitores(relacionProgenitores);
+				
+				pac.setUsuarioCreacion(usuarioID);
+				
 				if (dtp.actualizarPaciente(pac)) {
 					System.out.println("Actualizado exitosamente");
 				}

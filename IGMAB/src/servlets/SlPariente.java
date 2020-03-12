@@ -73,17 +73,28 @@ public class SlPariente extends HttpServlet {
 				segundoNombre = request.getParameter("fsegundoNombre");
 				primerApellido = request.getParameter("fprimerApellido");
 				segundoApellido = request.getParameter("fsegundoApellido");
-				estadoVida = Integer.parseInt(request.getParameter("festadoVida"));
+				if(request.getParameter("festadoVida") == null)
+					estadoVida = Integer.parseInt(request.getParameter("festadoVida"));
+				else
+					estadoVida = 1;
+				
 				edad = request.getParameter("fedad");
             //    fechaNac = request.getParameter("ffechaNac");
 				causaMuerte = request.getParameter("fcausaMuerte");
 				escolaridadId = Integer.parseInt(request.getParameter("fescolaridadId"));
-				escolaridad = request.getParameter("fescolaridad");
+				if(request.getParameter("fescolaridad") == "Seleccione")
+					escolaridad = request.getParameter("fescolaridad");
+				else
+					escolaridad = null;
+				
 				ocupacion = request.getParameter("focupacion");
 				lugarTrabajo = request.getParameter("flugarTrabajo");
 				cargo = request.getParameter("fcargo");
 				salarioMensual =request.getParameter("fsalarioMensual");
-				tutor = Integer.parseInt(request.getParameter("ftutor"));
+				if(request.getParameter("ftutor") == null)
+					tutor = Integer.parseInt(request.getParameter("ftutor"));
+				else
+					tutor = 0;
 
              //   SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             //    Date fecha = formatter.parse(fechaNac);
@@ -225,7 +236,7 @@ public class SlPariente extends HttpServlet {
 				}
 				out += "<td>" + rs.getString("Edad") + "</td>";
 				if(rs.getInt("Tutor")==1){
-					out +="<td>"+"Sí"+"</td>";
+					out +="<td>"+"Si"+"</td>";
 				}
 				if(rs.getInt("Tutor")==0){
 					out +="<td>"+"No"+"</td>";

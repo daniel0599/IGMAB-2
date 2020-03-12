@@ -96,7 +96,7 @@
 								<%
 									DtConsulta dtcon = new DtConsulta();
 									DtPaciente dtpa = new DtPaciente();
-								    if(r.getRolId() == 3){
+								    if(r.getRolId() == 3 || r.getRolId() == 5){
 								    	rs = dtpa.cargarPacientesAPsicologosConsulta(dtcon.obtenerPsicologoID(us.getUsuarioID()));
 								    }else{
 								    	rs.close();

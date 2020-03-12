@@ -70,7 +70,7 @@ response.setDateHeader("Expires", -1);
 <input id="TipoRol" name="TipoROl" type="hidden" value=<%=r.getRolId()%>  checked>
 
 <%
-if(r.getRolId() == 3){
+if(r.getRolId() == 3 || r.getRolId() == 5){
 %>						
 <div class="row">
 	<div id="breadcrumb" class="col-md-12">
@@ -81,6 +81,587 @@ if(r.getRolId() == 3){
 		</ol>
 	</div>
 </div>
+
+<div class="row">
+	<div class="col-xs-12 col-sm-12">
+		<!-- Inicio de formulario para agregar paciente -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <div id="frm-agrega" class="box">
+                    <div class="box-header">
+                        <div class="box-name">
+                            <i class="fa fa-address-card-o"></i> <span>Registro de Paciente</span>
+                        </div>
+                        <div class="box-icons">
+                            <a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+                            </a> <a class="expand-link"> <i class="fa fa-expand"></i>
+                        </a> <a class="close-link"> <i class="fa fa-times"></i>
+                        </a>
+                        </div>
+                        <div class="no-move"></div>
+                    </div>
+
+                    <div class="box-content">
+                        <h4 class="page-header">Formulario de registro</h4>
+                        <form id="agregar" class="form-horizontal" role ="form" action="javascript:void(0);" onsubmit="guardar();">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Primer nombre</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control"
+                                           placeholder="Primer nombre" data-toggle="tooltip"
+                                           data-placement="bottom" id="nombre1" name="nombre1"
+                                           title="El primer nombre es requerido" required />
+                                </div>
+                                <label class="col-sm-2 control-label">Segundo nombre</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control"
+                                           placeholder="Segundo nombre" data-toggle="tooltip"
+                                           data-placement="bottom" id="nombre2" name="nombre2"
+                                           title="El segundo nombre no es requerido"  />
+                                </div>
+                                <label class="col-sm-2 control-label">Primer apellido</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control"
+                                           placeholder="Primer apellido" data-toggle="tooltip"
+                                           data-placement="bottom" id="apellido1" name="apellido1"
+                                           title="El primer apellido es requerido" required />
+                                </div>
+                                <label class="col-sm-2 control-label">Segundo apellido</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control"
+                                           placeholder="Segundo apellido" data-toggle="tooltip"
+                                           data-placement="bottom" id="apellido2" name="apellido2"
+                                           title="El segundo apellido no es requerido" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Celular</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control"
+                                           placeholder="Número de celular" data-toggle="tooltip"
+                                           data-placement="bottom" id="celular" name="celular"
+                                           title="El número de celular no es requerido" />
+                                </div>
+                                <input type="hidden" class="form-control"
+                                       placeholder="Edad" data-toggle="tooltip"
+                                       data-placement="bottom" id="edad" name="edad"
+                                       title="La edad es requerida" />
+
+
+                                <label class="col-sm-2 control-label">Fecha de
+                                    nacimiento</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control"
+                                            placeholder="Fecha de nacimiento" data-toggle="tooltip"
+                                            data-placement="bottom" id="fechaNac" name="fechaNac"
+                                            title="La fecha de nacimiento es requerida" required />
+                                </div>
+                                <label class="col-sm-2 control-label">Sexo</label>
+                                <div class="col-sm-4">
+                                    <select id="sexo">
+                                        <option>Seleccione</option>
+                                        <option value=1>Hombre</option>
+                                        <option value=0>Mujer</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-2 control-label">Estado civil</label>
+                                <div class="col-sm-4">
+                                    <select id="estadoCivil">
+                                        <option>Seleccione</option>
+                                        <option value=0>Soltero/a</option>
+                                        <option value=1>Casado/a</option>
+                                        <option value=2>Divorciado/a</option>
+                                        <option value=3>Viudo/a</option>
+                                        <option value=4>En una relación</option>
+                                        <option value=5>Acompañado/a</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Escolaridad</label>
+                                <div class="col-sm-2">
+                                    <select id="escolaridadId" required>
+                                        <option value="">Seleccione la escolaridad</option>
+                                        <%
+                                            DtPaciente dtpp = new DtPaciente();
+                                            ResultSet res = dtpp.cargarEscolaridades();
+                                            res.beforeFirst();
+
+                                            while (res.next()) {
+                                        %>
+
+                                        <option value="<%=res.getInt("EscolaridadID")%>"><%=res.getString("Nombre")%></option>
+
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+                                    <div class="checkbox">
+                                    <label>Estudiante UCA
+                                    <input type="checkbox" id="estudianteUCA">
+                                    <i class="fa fa-square-o small"></i>
+                                    </label>
+                                    </div>
+
+                                </div>
+                                
+                                <div class="col-sm-2">
+                                    <select id="escolaridaddetalle" required>
+                                        <option>Seleccione</option>
+                                        <option value="1">1er</option>
+					   					<option value="2">2do</option>
+                                        <option value="3">3er</option>
+                                        <option value="4">4to</option>
+                                        <option value="5">5to</option>
+                                        <option value="6">6to</option>
+                                        <option value="7">7mo</option>
+                                        <option value="8">8vo</option>
+                                        <option value="9">9no</option>
+                                        <option value="10">10mo</option>
+                                        <option value="11">11vo</option>
+                                         <option value="12">Concluida</option>  
+                                        <option value="13">Otro</option>
+                                    </select>
+                                </div>
+
+<!--                                 <div class="col-sm-2"> -->
+<!--                                     <input type="text" class="form-control" -->
+<!--                                            placeholder="Escolaridad" data-toggle="tooltip" -->
+<!--                                            data-placement="bottom" id="escolaridad" name="escolaridad" -->
+<!--                                            title="La escolaridad es requerida" required /> -->
+<!--                                 </div> -->
+
+                                <label class="col-sm-2 control-label">Dirección</label>
+                                <div class="col-sm-4">
+                                    <textarea maxlength="500" class="form-control" rows="4" id="direccion" lang="es" spellcheck="true"></textarea>
+                                    <small id="expectativasrev_char_count"></small>
+                                </div>
+
+                                <label class="col-sm-2 control-label">Con quién vive</label>
+                                <div class="col-sm-4">
+                                    <select id="conQuienVive">
+                                        <option>Seleccione</option>
+                                        <option value="Solo/a">Solo/a</option>
+					<option value="Madre">Madre</option>
+                                        <option value="Padre">Padre</option>
+                                        <option value="AbuelaMaterna">Abuela Materna</option>
+                                        <option value="AbueloMaterno">Abuelo Materno</option>
+                                        <option value="Abuela Paterna">Abuela Paterna</option>
+                                        <option value="AbueloPaterno">Abuelo Paterno</option>
+                                        <option value="Padres">Padres</option>
+                                        <option value="Cónyuge">Cónyuge</option>
+                                        <option value="Familia Nuclear">Familia Nuclear</option>
+                                        <option value="Familia Externa">Familia Externa</option> 
+                                        <option value="Otros">Otros</option>
+                                    </select>
+                                </div>
+
+                                <label class="col-sm-2 control-label">Empleo</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control"
+                                           placeholder="Empleo/trabajo desempeñado"
+                                           data-toggle="tooltip" data-placement="bottom" id="empleo"
+                                           name="empleo" title="El empleo no es requerido" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Salario / Otros Ingresos CS</label>
+                                <div class="col-sm-4">
+                                    <input type="number" class="form-control"
+                                           placeholder="Cantidad ganada en el trabajo desempeñado"
+                                           data-toggle="tooltip" data-placement="bottom" id="salario"
+                                           name="salario" title="El salario no es requerido" />
+                                </div>
+                                <label class="col-sm-2 control-label">Lugar de trabajo</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control"
+                                           placeholder="Lugar donde trabaja" data-toggle="tooltip"
+                                           data-placement="bottom" id="lugarTrabajo" name="lugarTrabajo"
+                                           title="El lugar de trabajo no es requerido" />
+                                </div>
+                                <label class="col-sm-2 control-label">¿Ha estado en
+                                    terapia o recibido asistencia profesional para
+                                    sus problemas?</label>
+                                <div class="col-sm-4">
+                                    <select id="terapia" required>
+                                        <option>Seleccione</option>
+                                        <option value=1>Sí</option>
+                                        <option value=0>No</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-2 control-label">¿Ha estado internado por problemas psicológicos/psiquiátricos?</label>
+                                <div class="col-sm-4">
+                                    <select id="internado" required>
+                                        <option>Seleccione</option>
+                                        <option value=1>Sí</option>
+                                        <option value=0>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" id="internadoGroup">
+                                <label class="col-sm-2 control-label">En caso
+                                    afirmativo:</label>
+                                <div class="col-sm-4">
+										<textarea class="form-control"
+                                                  placeholder="¿Cuándo? ¿Dónde? ¿Por qué?"
+                                                  data-toggle="tooltip" data-placement="bottom"
+                                                  id="internadoAfirmativo" name="internadoAfirmativo"
+                                                  title="No es requerido" lang="es" spellcheck="true" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+<!--                             LOs nuevos -->
+                            <div class="form-group">
+                             <div class="form-group">
+                            <label class="col-sm-2 control-label">Religion</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control"
+                                           placeholder="Religion" data-toggle="tooltip"
+                                           data-placement="bottom" id="religion" name="religion" size="50" maxlength="50"
+                                           title="No es requerida"  />
+                                </div> </div>
+                            
+                            <div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Motivo de Consulta</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5" 
+									id="motivoconsulta" placeholder="¿Que le sucede?¿Que le preocupa? ¿Cuantas veces se presenta al dia? Nare y escriba todo"></textarea>
+									<small id="motivoconsultarev_char_count"></small>
+							</div>
+							</div>
+							
+							<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">¿Quien se encargo de su crianza y en cuanto tiempo?</label>
+							<div class="col-sm-8">
+								<textarea maxlength="500" class="form-control" rows="5" 
+									id="crianzaAnios" placeholder="Si no fue criado por sus progenitores ¿Quien se encargo de su crianza y en cuanto tiempo?"></textarea>
+									<small id="crianzaAniosrev_char_count"></small>
+							</div>
+							</div>
+							
+							<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Describa una impresion de la atmosfera del hogar en ue crecio</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5" 
+									id="relacionProgenitores" placeholder="Describa una impresion de la atmosfera del hogar en ue crecio. Describa la relacion enre sus progenitores, hermanos oculuier otro integrante de la familia"></textarea>
+									<small id="relacionProgenitoresrev_char_count"></small>
+							</div>
+							</div>
+                            
+                            
+                     </div>
+                            <div class="form-group">
+                                <div id="cancelar_nuevo" class="col-sm-offset-2 col-sm-2">
+                                    <button class="ajax-link action btn btn-default btn-label-left"
+                                            type="reset" title="Cancelar">
+                                        <span><i class="fa fa-minus-circle txt-danger"></i></span> Cancelar
+                                    </button>
+                                </div>
+                                <div class="col-sm-2">
+                                    <button class="ajax-link action btn btn-primary btn-label-left"
+                                            onClick="" title="Guardar">
+                                        <span><i class="fa fa-check-circle txt-success"></i></span>Guardar
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Inicio de formulario para editar paciente -->
+         <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <div id="frm-edita" class="box">
+                    <div class="box-header">
+                        <div class="box-name">
+                            <i class="fa fa-file-text-o"></i> <span>Editar Paciente</span>
+                        </div>
+                        <div class="box-icons">
+                            <a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+                            </a> <a class="expand-link"> <i class="fa fa-expand"></i>
+                        </a> <a class="close-link"> <i class="fa fa-times"></i>
+                        </a>
+                        </div>
+                        <div class="no-move"></div>
+                    </div>
+                <div class="box-content">
+            <h4 class="page-header">Formulario de registro</h4>
+            <form id="edit" class="form-horizontal" role ="form" action="javascript:void(0);" onsubmit="actualizar($('#btnEditar').val());">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Primer nombre</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control"
+                               placeholder="Primer nombre" data-toggle="tooltip"
+                               data-placement="bottom" id="nombre1Edit" name="nombre1"
+                               title="El primer nombre es requerido" required />
+                    </div>
+                    <label class="col-sm-2 control-label">Segundo nombre</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control"
+                               placeholder="Segundo nombre" data-toggle="tooltip"
+                               data-placement="bottom" id="nombre2Edit" name="nombre2"
+                               title="El segundo nombre no es requerido"  />
+                    </div>
+                    <label class="col-sm-2 control-label">Primer apellido</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control"
+                               placeholder="Primer nombre" data-toggle="tooltip"
+                               data-placement="bottom" id="apellido1Edit" name="apellido1"
+                               title="El primer apellido es requerido" required />
+                    </div>
+                    <label class="col-sm-2 control-label">Segundo apellido</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control"
+                               placeholder="Segundo apellido" data-toggle="tooltip"
+                               data-placement="bottom" id="apellido2Edit" name="apellido2"
+                               title="El segundo apellido no es requerido" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Celular</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control"
+                               placeholder="Número de celular" data-toggle="tooltip"
+                               data-placement="bottom" id="celularEdit" name="celular"
+                               title="El número de celular no es requerido" />
+
+                    </div>
+
+                    <input type="hidden" class="form-control"
+                           placeholder="Edad" data-toggle="tooltip"
+                           data-placement="bottom" id="edadEdit" name="edad"
+                           title="La edad es requerida" />
+
+
+                    <label class="col-sm-2 control-label">Fecha de
+                        nacimiento</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control"
+                               placeholder="Fecha de nacimiento" data-toggle="tooltip"
+                               data-placement="bottom" id="fechaNacEdit" name="fechaNac"
+                               title="La fecha de nacimiento es requerida" required />
+                    </div>
+                    <label class="col-sm-2 control-label">Sexo</label>
+                    <div class="col-sm-4">
+                        <select id="sexoEdit">
+                            <option>Seleccione</option>
+                            <option value=1>Hombre</option>
+                            <option value=0>Mujer</option>
+                        </select>
+                    </div>
+                    <label class="col-sm-2 control-label">Estado civil</label>
+                    <div class="col-sm-4">
+                        <select id="estadoCivilEdit">
+                            <option>Seleccione</option>
+                            <option value=0>Soltero/a</option>
+                            <option value=1>Casado/a</option>
+                            <option value=2>Divorciado/a</option>
+                            <option value=3>Viudo/a</option>
+                            <option value=4>En una relación</option>
+                            <option value=5>Acompañado/a</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Escolaridad</label>
+                    <div class="col-sm-2">
+                        <select id="escolaridadIdEdit" required>
+                            <option value="">Seleccione la escolaridad</option>
+                            <%
+
+                                res.beforeFirst();
+
+                                while (res.next()) {
+                            %>
+
+                            <option value="<%=res.getInt("EscolaridadID")%>"><%=res.getString("Nombre")%></option>
+
+                            <%
+                                }
+                            %>
+                        </select>
+                        <div class="checkbox">
+                            <label>Estudiante UCA
+                                <input type="checkbox" id="estudianteUCAEdit">
+                                <i class="fa fa-square-o small"></i>
+                            </label>
+                        </div>
+                    </div>
+					 <div class="col-sm-2">
+                                    <select id="escolaridaddetalleedit">
+                                        <option>Seleccione</option>
+                                        <option value="1">1er</option>
+					   					<option value="2">2do</option>
+                                        <option value="3">3er</option>
+                                        <option value="4">4to</option>
+                                        <option value="5">5to</option>
+                                        <option value="6">6to</option>
+                                        <option value="7">7mo</option>
+                                        <option value="8">8vo</option>
+                                        <option value="9">9no</option>
+                                        <option value="10">10mo</option>
+                                        <option value="11">11vo</option> 
+                                         <option value="12">Concluida</option> 
+                                        <option value="13">Otro</option>
+                                    </select>
+                                </div>
+<!--                     <div class="col-sm-2"> -->
+<!--                         <input type="text" class="form-control" -->
+<!--                                placeholder="Escolaridad" data-toggle="tooltip" -->
+<!--                                data-placement="bottom" id="escolaridadEdit" name="escolaridad" -->
+<!--                                title="La escolarida es requerida" required /> -->
+<!--                     </div> -->
+
+                    <label class="col-sm-2 control-label">Dirección</label>
+                    <div class="col-sm-4">
+                        <textarea maxlength="500" class="form-control" rows="5" id="direccionEdit" lang="es" spellcheck="true"></textarea>
+                        <small id="expectativasrev_char_count"></small>
+                    </div>
+
+                    <label class="col-sm-2 control-label">Con quién vive</label>
+                    <div class="col-sm-4">
+                        <select id="conQuienViveEdit">
+                            <option>Seleccione</option>
+                            <option value="Solo/a">Solo/a</option>
+				<option value="Madre">Madre</option>
+                            <option value="Padre">Padre</option>
+                            <option value="AbuelaMaterna">Abuela Materna</option>
+                            <option value="AbueloMaterno">Abuelo Materno</option>
+                            <option value="Abuela Paterna">Abuela Paterna</option>
+                            <option value="AbueloPaterno">Abuelo Paterno</option>
+                            <option value="Padres">Padres</option>
+                            <option value="Cónyuge">Cónyuge</option>
+                            <option value="Familia Nuclear">Familia Nuclear</option>
+                            <option value="Familia Nuclear">Familia Externa</option>
+                            <option value="Otros">Otros</option>
+                        </select>
+                    </div>
+                    <label class="col-sm-2 control-label">Empleo</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control"
+                               placeholder="Empleo/trabajo desempeñado"
+                               data-toggle="tooltip" data-placement="bottom" id="empleoEdit"
+                               name="empleo" title="El empleo no es requerido" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Salario</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control"
+                               placeholder="Cantidad ganada en el trabajo desempeñado"
+                               data-toggle="tooltip" data-placement="bottom" id="salarioEdit"
+                               name="salario" title="El salario no es requerido" />
+                    </div>
+                    <label class="col-sm-2 control-label">Lugar de trabajo</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control"
+                               placeholder="Lugar donde trabaja" data-toggle="tooltip"
+                               data-placement="bottom" id="lugarTrabajoEdit" name="lugarTrabajo"
+                               title="El lugar de trabajo no es requerido" />
+                    </div>
+                    <label class="col-sm-2 control-label">¿Ha estado en
+                        terapia o recibido asistencia profesional para
+                        sus problemas?</label>
+                    <div class="col-sm-4">
+                        <select id="terapiaEdit" required>
+                            <option>Seleccione</option>
+                            <option value=1>Sí</option>
+                            <option value=0>No</option>
+                        </select>
+                    </div>
+                    <label class="col-sm-2 control-label">¿Ha estado internado por problemas psicológicos/psiquiátricos?</label>
+                    <div class="col-sm-4">
+                        <select id="internadoEdit" required>
+                            <option>Seleccione</option>
+                            <option value=1>Sí</option>
+                            <option value=0>No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" id="internadoGroupEdit">
+                    <label class="col-sm-2 control-label">En caso
+                        afirmativo:</label>
+                    <div class="col-sm-4">
+										<textarea class="form-control"
+                                                  placeholder="¿Cuándo? ¿Dónde? ¿Por qué?"
+                                                  data-toggle="tooltip" data-placement="bottom"
+                                                  id="internadoAfirmativoEdit" name="internadoAfirmativo"
+                                                  title="No es requerido" lang="es" spellcheck="true" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+<!--                      LOs nuevos --> 
+                            <div class="form-group">
+                             <div class="form-group">
+                            <label class="col-sm-2 control-label">Religion</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control"
+                                           placeholder="Religion" data-toggle="tooltip"
+                                           data-placement="bottom" id="religionedit" name="religionedit" size="50" maxlength="50"
+                                           title="No es requerida"  />
+                                </div>
+                             </div>
+                            <div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Motivo de Consulta</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5" 
+									id="motivoconsultaedit" placeholder="¿Que le sucede?¿Que le preocupa? ¿Cuantas veces se presenta al dia? Nare y escriba todo"></textarea>
+									<small id="motivoconsultaeditrev_char_count"></small>
+							</div>
+							</div>
+							
+							<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">¿Quien se encargo de su crianza y en cuanto tiempo?</label>
+							<div class="col-sm-8">
+								<textarea maxlength="500" class="form-control" rows="5" 
+									id="crianzaAniosedit" placeholder="Si no fue criado por sus progenitores ¿Quien se encargo de su crianza y en cuanto tiempo?"></textarea>
+									<small id="crianzaAnioseditrev_char_count"></small>
+							</div>
+							</div>
+							
+							<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Describa una impresion de la atmosfera del hogar en ue crecio</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5" 
+									id="relacionProgenitoresedit" placeholder="Describa una impresion de la atmosfera del hogar en ue crecio. Describa la relacion enre sus progenitores, hermanos oculuier otro integrante de la familia"></textarea>
+									<small id="relacionProgenitoreseditrev_char_count"></small>
+							</div>
+							</div>
+                            
+                            
+                     </div>
+                
+                <div class="form-group">
+                    <div id="cancelar_nuevo_edit" class="col-sm-offset-2 col-sm-2">
+                        <button
+                                class="ajax-link action btn btn-default btn-label-left"
+                                type="reset" title="Cancelar">
+                            <span><i class="fa fa-minus-circle txt-danger"></i></span>
+                            Cancelar
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button
+                                id="btnEditar"
+                                class="ajax-link action btn btn-primary btn-label-left"
+                                onClick="" title="Editar">
+                            <span><i class="fa fa-check-circle txt-success"></i></span>Editar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+            </div>
+        </div>
 
 <div class="row">
 	<div class="col-xs-12 col-sm-12">
@@ -187,15 +768,15 @@ if(r.getRolId() == 3){
                                         <option value="">Seleccione la escolaridad</option>
                                         <%
 
-                                        DtPaciente dtpp = new DtPaciente();
-                                        ResultSet res = dtpp.cargarEscolaridades();
+                                        DtPaciente dtpp1 = new DtPaciente();
+                                        ResultSet res1 = dtpp1.cargarEscolaridades();
                             
-                                        res.beforeFirst();
+                                        res1.beforeFirst();
 
-                                            while (res.next()) {
+                                            while (res1.next()) {
                                         %>
 
-                                        <option value="<%=res.getInt("EscolaridadID")%>"><%=res.getString("Nombre")%></option>
+                                        <option value="<%=res1.getInt("EscolaridadID")%>"><%=res1.getString("Nombre")%></option>
 
                                         <%
                                             }
@@ -442,6 +1023,8 @@ if(r.getRolId() == 3){
 
 					</div>
 				</div>
+						</div>
+				</div>
 				<table class="table table-hover table-heading table-datatable"
 					id="datatable-2">
 					<thead>
@@ -474,6 +1057,7 @@ if(r.getRolId() == 3){
 							 <td>
 								<% Date fecha = formatter.parse(rs.getString("Fechanac")); %>
 								
+								
 								<button id='btnIdVisualizar'
 									class="btn btn-default btn-label-left"
 									OnClick="cargarDatosVisualizar(this.value, '<%=rs.getString("Nombre1")%>',
@@ -500,7 +1084,42 @@ if(r.getRolId() == 3){
 									<span><i class="fa fa-eye"></i></span> Ver paciente
 								</button>
 								
+								<button id='btnIdActualizar'
+									class="btn btn-primary btn-label-left"
+									OnClick="cargarDatos(this.value, '<%=rs.getString("Nombre1")%>',
+										'<%=rs.getString("Nombre2")%>',
+										'<%=rs.getString("Apellido1")%>',
+										'<%=rs.getString("Apellido2")%>',
+										'<%=rs.getInt("Celular")%>',
+										'<%=rs.getString("Edad")%>',
+										'<%=fechaM.format(fecha)%>',
+										'<%=rs.getInt("Sexo")%>',
+										'<%=rs.getInt("Estadocivil")%>',
+										'<%=rs.getString("Escolaridad")%>', 
+										'<%=rs.getString("Direccion")%>',
+										'<%=rs.getString("Conquienvive")%>',
+										'<%=rs.getString("Lugartrabajo")%>',
+										'<%=rs.getString("Empleo")%>',
+										'<%=rs.getString("Salario")%>',
+										'<%=rs.getInt("Terapia")%>',
+										'<%=rs.getInt("Internado")%>',
+										'<%=rs.getString("Internadoafirmativo")%>',
+										'<%=rs.getString("EscolaridadID")%>',
+										'<%=rs.getString("religion")%>',
+										'<%=rs.getString("motivoconsulta")%>',
+										'<%=rs.getString("crianzaAnios")%>',
+										'<%=rs.getString("relacionProgenitores")%>',
+                                            '<%=rs.getString("Uca")%>');"
+									value=<%=rs.getInt("PacienteID")%> class="btn btn-info">
+									<span><i class="fa fa-edit"></i></span> Actualizar
+								</button>
 								<input id="validacionPaciente" name="validacionPaciente" type="hidden" value=<%=dtres.validarPaciente(rs.getInt("PacienteID"))%>  checked>
+								<button id="btnRespuesta"  onClick="redirect(this.value);"
+									class="ajax-link action btn btn-default btn-label-left"
+									value=<%=rs.getInt("PacienteID")%>>
+									<span> <i class="fa fa-edit"></i>
+									</span> Ficha
+								</button>
 								
 								<button id="btnRespuestaVista"  onClick="redirectII(this.value);"
 									class="ajax-link action btn btn-default btn-label-left"
@@ -788,6 +1407,46 @@ if(r.getRolId() == 3){
                                 </div>
                             </div>
                             <div class="clearfix"></div>
+<!--                                  LOs nuevos  -->
+                            <div class="form-group">
+                              <div class="form-group">
+                            <label class="col-sm-2 control-label">Religion</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control"
+                                           placeholder="Religion" data-toggle="tooltip"
+                                           data-placement="bottom" id="religion" name="religion" size="50" maxlength="50"
+                                           title="No es requerida"  />
+                                </div>
+                            </div>
+                            <div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Motivo de Consulta</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5" 
+									id="motivoconsulta" placeholder="¿Que le sucede?¿Que le preocupa? ¿Cuantas veces se presenta al dia? Nare y escriba todo"></textarea>
+									<small id="motivoconsultarev_char_count"></small>
+							</div>
+							</div>
+							
+							<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">¿Quien se encargo de su crianza y en cuanto tiempo?</label>
+							<div class="col-sm-8">
+								<textarea maxlength="500" class="form-control" rows="5" 
+									id="crianzaAnios" placeholder="Si no fue criado por sus progenitores ¿Quien se encargo de su crianza y en cuanto tiempo?"></textarea>
+									<small id="crianzaAniosrev_char_count"></small>
+							</div>
+							</div>
+							
+							<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Describa una impresion de la atmosfera del hogar en ue crecio</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5" 
+									id="relacionProgenitores" placeholder="Describa una impresion de la atmosfera del hogar en ue crecio. Describa la relacion enre sus progenitores, hermanos oculuier otro integrante de la familia"></textarea>
+									<small id="relacionProgenitoresrev_char_count"></small>
+							</div>
+							</div>
+                            
+                            
+                     </div>
                             <div class="form-group">
                                 <div id="cancelar_nuevo" class="col-sm-offset-2 col-sm-2">
                                     <button class="ajax-link action btn btn-default btn-label-left"
@@ -987,7 +1646,7 @@ if(r.getRolId() == 3){
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Salario</label>
+                    <label class="col-sm-2 control-label">Salario / Otros ingresos (CS)</label>
                     <div class="col-sm-4">
                         <input type="number" class="form-control"
                                placeholder="Cantidad ganada en el trabajo desempeñado"
@@ -1032,7 +1691,48 @@ if(r.getRolId() == 3){
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                <h5 class="page-header">Acciones</h5>
+<!--                      LOs nuevos --> 
+                            <div class="form-group">
+                            
+                             <div class="form-group">
+                            <label class="col-sm-2 control-label">Religion</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control"
+                                           placeholder="Religion" data-toggle="tooltip"
+                                           data-placement="bottom" id="religionedit" name="religionedit" size="50" maxlength="50"
+                                           title="No es requerida"  />
+                                </div> </div>
+                            
+                            <div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Motivo de Consulta</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5" 
+									id="motivoconsultaedit" placeholder="¿Que le sucede?¿Que le preocupa? ¿Cuantas veces se presenta al dia? Nare y escriba todo"></textarea>
+									<small id="motivoconsultaeditrev_char_count"></small>
+							</div>
+							</div>
+							
+							<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">¿Quien se encargo de su crianza y en cuanto tiempo?</label>
+							<div class="col-sm-8">
+								<textarea maxlength="500" class="form-control" rows="5" 
+									id="crianzaAniosedit" placeholder="Si no fue criado por sus progenitores ¿Quien se encargo de su crianza y en cuanto tiempo?"></textarea>
+									<small id="crianzaAnioseditrev_char_count"></small>
+							</div>
+							</div>
+							
+							<div class="form-group">
+							<label class="col-sm-2 control-label" for="form-styles">Describa una impresion de la atmosfera del hogar en ue crecio</label>
+							<div class="col-sm-8">
+								<textarea maxlength="1000" class="form-control" rows="5" 
+									id="relacionProgenitoresedit" placeholder="Describa una impresion de la atmosfera del hogar en ue crecio. Describa la relacion enre sus progenitores, hermanos oculuier otro integrante de la familia"></textarea>
+									<small id="relacionProgenitoreseditrev_char_count"></small>
+							</div>
+							</div>
+                            
+                            
+                     </div>
+                
                 <div class="form-group">
                     <div id="cancelar_nuevo_edit" class="col-sm-offset-2 col-sm-2">
                         <button
@@ -1499,6 +2199,10 @@ if(r.getRolId() == 3){
 										'<%=rs.getInt("Internado")%>',
 										'<%=rs.getString("Internadoafirmativo")%>',
 										'<%=rs.getString("EscolaridadID")%>',
+										'<%=rs.getString("religion")%>',
+										'<%=rs.getString("motivoconsulta")%>',
+										'<%=rs.getString("crianzaAnios")%>',
+										'<%=rs.getString("relacionProgenitores")%>',
                                             '<%=rs.getString("Uca")%>');"
 									value=<%=rs.getInt("PacienteID")%> class="btn btn-info">
 									<span><i class="fa fa-edit"></i></span> Actualizar
@@ -1590,6 +2294,10 @@ if(r.getRolId() == 3){
 										'<%=rs.getInt("Internado")%>',
 										'<%=rs.getString("Internadoafirmativo")%>',
 										'<%=rs.getString("EscolaridadID")%>',
+										'<%=rs.getString("religion")%>',
+										'<%=rs.getString("motivoconsulta")%>',
+										'<%=rs.getString("crianzaAnios")%>',
+										'<%=rs.getString("relacionProgenitores")%>',
                                             '<%=rs.getString("Uca")%>');"
 									value=<%=rs.getInt("PacienteID")%> class="btn btn-info">
 									<span><i class="fa fa-edit"></i></span> Actualizar
@@ -1681,6 +2389,10 @@ if(r.getRolId() == 3){
 										'<%=rs.getInt("Internado")%>',
 										'<%=rs.getString("Internadoafirmativo")%>',
 										'<%=rs.getString("EscolaridadID")%>',
+										'<%=rs.getString("religion")%>',
+										'<%=rs.getString("motivoconsulta")%>',
+										'<%=rs.getString("crianzaAnios")%>',
+										'<%=rs.getString("relacionProgenitores")%>',
                                             '<%=rs.getString("Uca")%>');"
 									value=<%=rs.getInt("PacienteID")%> class="btn btn-info">
 									<span><i class="fa fa-edit"></i></span> Actualizar
@@ -1772,6 +2484,10 @@ if(r.getRolId() == 3){
 										'<%=rs.getInt("Internado")%>',
 										'<%=rs.getString("Internadoafirmativo")%>',
 										'<%=rs.getString("EscolaridadID")%>',
+										'<%=rs.getString("religion")%>',
+										'<%=rs.getString("motivoconsulta")%>',
+										'<%=rs.getString("crianzaAnios")%>',
+										'<%=rs.getString("relacionProgenitores")%>',
                                             '<%=rs.getString("Uca")%>');"
 									value=<%=rs.getInt("PacienteID")%> class="btn btn-info">
 									<span><i class="fa fa-edit"></i></span> Actualizar
@@ -2206,7 +2922,16 @@ if(r.getRolId() == 3){
 		var fescolaridadId = 0;
 		var opcion = "";
 		var festudianteUCA = 0;
-
+		
+		var freligion = "";
+		var fmotivoconsulta = "";
+		var fcrianzaAnios = "";
+		var frelacionProgenitores = "";
+		
+        var fusuarioID = 0;
+		
+		fusuarioID = $('#usuarioID').val();
+		
 		opcion = "guardar";
 		fnombre1 = $("#nombre1").val();
 		fnombre2 = $("#nombre2").val();
@@ -2250,7 +2975,10 @@ if(r.getRolId() == 3){
 		$('#edad').val(realAge);
 		fedad = $('#edad').val();
 		
-		
+		freligion = $('#religion').val();
+		fmotivoconsulta = $('#motivoconsulta').val();
+		fcrianzaAnios = $('#crianzaAnios').val();
+		frelacionProgenitores = $('#relacionProgenitores').val();
 		
 		//alert(fexpediente);
 
@@ -2280,6 +3008,11 @@ if(r.getRolId() == 3){
 				'finternadoAfirmativo' : finternadoAfirmativo,
 				'fescolaridadId' : fescolaridadId,
                 'festudianteUCA' : festudianteUCA,
+                'freligion' : freligion,
+        		'fmotivoconsulta' : fmotivoconsulta,
+        		'fcrianzaAnios' : fcrianzaAnios,
+        		'frelacionProgenitores' : frelacionProgenitores,
+        		 'fusuarioID' : fusuarioID,
 				'opcion' : opcion
 			},
 			success : function(data) {
@@ -2426,6 +3159,11 @@ if(r.getRolId() == 3){
 		var finternadoAfirmativo;
 		var fescolaridadId;
 		var festudianteUCA = 0;
+		
+		var freligion = "";
+		var fmotivoconsulta = "";
+		var fcrianzaAnios = "";
+		var frelacionProgenitores = "";
 
 		opcion = "actualizar";
 		fnombre1 = $("#nombre1Edit").val();
@@ -2448,6 +3186,11 @@ if(r.getRolId() == 3){
 		finternado = $('#internadoEdit').val();
 		finternadoAfirmativo = $('#internadoAfirmativoEdit').val();
 		fescolaridadId = $('#escolaridadIdEdit').val();
+		
+		freligion = $('#religionedit').val();
+		fmotivoconsulta = $('#motivoconsultaedit').val();
+		fcrianzaAnios = $('#crianzaAniosedit').val();
+		frelacionProgenitores = $('#relacionProgenitoresedit').val();
 
         if($('#estudianteUCAEdit').is(":checked")) {
             festudianteUCA = 1;
@@ -2488,13 +3231,17 @@ if(r.getRolId() == 3){
 				'finternadoAfirmativo' : finternadoAfirmativo,
 				'fescolaridadId' : fescolaridadId,
                 'festudianteUCA' : festudianteUCA,
+                'freligion' : freligion,
+                'fmotivoconsulta' : fmotivoconsulta,
+                'fcrianzaAnios' : fcrianzaAnios,
+                'frelacionProgenitores' : frelacionProgenitores,
 				'opcion' : opcion
 			},
 			success : function(data) {
 				$("#edit")[0].reset();
 				$('#frm-edita').fadeOut();
 				refrescar();
-				//websocket.send("Modificar");
+		//		//websocket.send("Modificar");
 				successAlert('Listo', 'Actualizado exitosamente');
 			}
 
@@ -2624,7 +3371,7 @@ if(r.getRolId() == 3){
 	function transferirPaciente(){
 		var TipoRol = "";
 		TipoRol = $("#TipoRol").val();
-		if(TipoRol != 3){
+		if(TipoRol != 3 && TipoRol != 5){
 		var opcion = "";
 		var fpsicologoId = $('#psicologoId').val();
 		var fpacienteId = $('#btnIdTransferir').val();
@@ -2704,6 +3451,48 @@ if(r.getRolId() == 3){
 	$(document).ready(function() {
 		
 		//Contadores de caracteres
+		$('#motivoconsulta').on('input propertychange', function() {
+			var max_len = 1000;
+			var len = $(this).val().trim().length; 
+			    len = max_len -len;
+			    $('#motivoconsultarev_char_count').text(len > 0 ? (len + ' caracter' + (len == 1 ? '' : 'es')  + ' restantes.') : '');	
+		});	
+		
+		$('#motivoconsultaedit').on('input propertychange', function() {
+			var max_len = 1000;
+			var len = $(this).val().trim().length; 
+			    len = max_len -len;
+			    $('#motivoconsultaeditrev_char_count').text(len > 0 ? (len + ' caracter' + (len == 1 ? '' : 'es')  + ' restantes.') : '');	
+		});	
+		
+		$('#crianzaAnios').on('input propertychange', function() {
+			var max_len = 500;
+			var len = $(this).val().trim().length; 
+			    len = max_len -len;
+			    $('#crianzaAniosrev_char_count').text(len > 0 ? (len + ' caracter' + (len == 1 ? '' : 'es')  + ' restantes.') : '');	
+		});	
+		
+		$('#crianzaAniosedit').on('input propertychange', function() {
+			var max_len = 500;
+			var len = $(this).val().trim().length; 
+			    len = max_len -len;
+			    $('#crianzaAnioseditrev_char_count').text(len > 0 ? (len + ' caracter' + (len == 1 ? '' : 'es')  + ' restantes.') : '');	
+		});	
+		
+		$('#relacionProgenitores').on('input propertychange', function() {
+			var max_len = 1000;
+			var len = $(this).val().trim().length; 
+			    len = max_len -len;
+			    $('#relacionProgenitoresrev_char_count').text(len > 0 ? (len + ' caracter' + (len == 1 ? '' : 'es')  + ' restantes.') : '');	
+		});	
+		
+		$('#relacionProgenitoresedit').on('input propertychange', function() {
+			var max_len = 1000;
+			var len = $(this).val().trim().length; 
+			    len = max_len -len;
+			    $('#relacionProgenitoreseditrev_char_count').text(len > 0 ? (len + ' caracter' + (len == 1 ? '' : 'es')  + ' restantes.') : '');	
+		});	
+		
 		$('#direccion').on('input propertychange', function() {
 			var max_len = 500;
 			var len = $(this).val().trim().length; 
@@ -2758,13 +3547,11 @@ if(r.getRolId() == 3){
 		$('.form-control').tooltip();
 		/////////////////////////////CONTROLAR EL FORMULARIO AGREGAR Y CERRAR FORMULARIO EDITAR/////////////////////////////
 		$('#btn-agrega-abrir').click(function() {
-			var TipoRol = "";
-			TipoRol = $("#TipoRol").val();
-			if(TipoRol != 3){
+			
 				$('#frm-agrega').fadeIn();
 				$('#frm-edita').fadeOut();
 				
-			}
+			
 			
 		});
 		$('#cancelar_nuevo').click(function() {

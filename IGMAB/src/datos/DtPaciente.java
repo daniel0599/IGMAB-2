@@ -167,8 +167,17 @@ public class DtPaciente {
 			rs.updateString("Lugartrabajo", pac.getLugarTrabajo());
 			rs.updateString("Empleo", pac.getEmpleo());
 			rs.updateString("Salario", pac.getSalario());
-			rs.updateInt("Usuariocreacion", 1);
+			rs.updateInt("Usuariocreacion", pac.getUsuarioCreacion());
 			rs.updateInt("EscolaridadID", pac.getEscolaridadID());
+			
+			rs.updateString("religion", pac.getReligion());
+			rs.updateString("motivoconsulta", pac.getMotivoconsulta());
+			rs.updateString("crianzaAnios", pac.getCrianzaAnios());
+			rs.updateString("relacionProenitores", pac.getRelacionProgenitores());
+			
+			
+			
+			
 			if(pac.getEstudianteUCA()==1) {
 				rs.updateInt("Uca", pac.getEstudianteUCA());
 			}
@@ -270,6 +279,10 @@ public class DtPaciente {
 					rs.updateInt("Usuariomodificacion", 1);
 					rs.updateInt("EscolaridadID", pac.getEscolaridadID());
 					rs.updateInt("Uca", pac.getEstudianteUCA());
+					rs.updateString("religion", pac.getReligion());
+					rs.updateString("motivoconsulta", pac.getMotivoconsulta());
+					rs.updateString("crianzaAnios", pac.getCrianzaAnios());
+					rs.updateString("relacionProenitores", pac.getRelacionProgenitores());
 					rs.updateRow();
 					rs.close();
 					rs = null;

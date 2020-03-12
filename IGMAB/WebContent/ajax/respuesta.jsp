@@ -189,6 +189,8 @@ input[type=checkbox] {
 		Integer c = 3;  //Respuesta cerrada con descripcion
 		Integer d = 4;  //Respuesta con Grado. 
 		Integer e = 5;  //Sellecion Multiple con Descripcion
+		Integer f = 6;	//Descripcion	
+		Integer g = 7;	//Pregunta Comun
 		
 		System.out.println("ANTES DEL WHILE QUE CARGA TODAS LOS TITULOS DE PREGUNTA");
 		rsa.beforeFirst();
@@ -254,9 +256,11 @@ input[type=checkbox] {
 				</label>
 			</div>
 			<label class="col-sm-2 ">¿Por qué? </label>
-			<div class="col-sm-4">
-				<input name ="respcatdesc<%=rsre.getInt(4)%><%=rsre.getInt(5)%><%=rsre.getInt(3)%>" type="text" class="form-control" size="80" maxlength="100">
-			</div>
+	<div class="col-sm-4">
+                                    <textarea maxlength="500" class="form-control" rows="4" name ="respcatdesc<%=rsre.getInt(4)%><%=rsre.getInt(5)%><%=rsre.getInt(3)%>" lang="es" spellcheck="true"></textarea>
+                                    <small id="expectativasrev_char_count"></small>
+                                </div>
+			
 		</div>
 	</div>
 	<%
@@ -312,6 +316,33 @@ input[type=checkbox] {
 					rows="2" cols="40"></textarea>
 		</label></li>
 	</ol>
+	<%
+		}else if(Integer.parseInt(String.valueOf(rsre.getInt("ClasificacionID"))) == (f)){
+	%>
+	<h4><%=rsre.getString("Descripcion")%></h4>
+	<div class="row form-group">
+		
+	<div class="col-sm-4">
+         <textarea maxlength="500" class="form-control" rows="4" name ="respcatdesc<%=rsre.getInt(4)%><%=rsre.getInt(5)%><%=rsre.getInt(3)%>" lang="es" spellcheck="true"></textarea>
+           <small id="expectativasrev_char_count"></small>
+    </div>
+			
+		
+	</div>
+	
+	<%
+		}else if(Integer.parseInt(String.valueOf(rsre.getInt("ClasificacionID"))) == (g)){
+	%>
+	<h4><%=rsre.getString("Descripcion")%></h4>
+	<div class="row form-group">
+		
+	<div class="col-sm-4">
+         <textarea maxlength="500" class="form-control" rows="4" name ="respcatdesc<%=rsre.getInt(4)%><%=rsre.getInt(5)%><%=rsre.getInt(3)%>" lang="es" spellcheck="true"></textarea>
+           <small id="expectativasrev_char_count"></small>
+    </div>
+			
+		
+	</div>
 	<%}%>
 	<%}%>
 	<%}%>

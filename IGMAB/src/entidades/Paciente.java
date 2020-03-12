@@ -114,6 +114,11 @@ public class Paciente {
 	 * El tipo de empleo que desarrolla en el momento.
 	 */
 	private String tipoEmpleo;
+	
+	private String religion;
+	private String motivoconsulta;
+	private String crianzaAnios;
+	private String relacionProgenitores;
 	/**
 	 * Id del usuario que crea el registro.
 	 */
@@ -549,6 +554,46 @@ public class Paciente {
 
 	public void finalize() throws Throwable {
 
+	}
+
+
+	public String getRelacionProgenitores() {
+		return relacionProgenitores;
+	}
+
+
+	public void setRelacionProgenitores(String relacionProgenitores) {
+		this.relacionProgenitores = relacionProgenitores;
+	}
+
+
+	public String getCrianzaAnios() {
+		return crianzaAnios;
+	}
+
+
+	public void setCrianzaAnios(String crianzaAnios) {
+		this.crianzaAnios = crianzaAnios;
+	}
+
+
+	public String getMotivoconsulta() {
+		return motivoconsulta;
+	}
+
+
+	public void setMotivoconsulta(String motivoconsulta) {
+		this.motivoconsulta = motivoconsulta;
+	}
+
+
+	public String getReligion() {
+		return religion;
+	}
+
+
+	public void setReligion(String religion) {
+		this.religion = religion;
 	}
 
 }
