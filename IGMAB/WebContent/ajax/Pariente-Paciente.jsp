@@ -44,9 +44,10 @@
 		response.sendRedirect("error.jsp");
 	}
 %>
+<input id="usuarioID" name="usuarioID" type="hidden" value=<%=us.getUsuarioID()%> checked>
 <input id="TipoRol" name="TipoROl" type="hidden" value=<%=r.getRolId()%>  checked>
 <%
-if(r.getRolId() == 3){
+if(r.getRolId() == 3 || r.getRolId() == 5 ){
 %>	
 <div class="row">
 	<div id="breadcrumb" class="col-md-12">
@@ -57,6 +58,189 @@ if(r.getRolId() == 3){
 		</ol>
 	</div>
 </div>
+
+<div class="row">
+	<div class="col-xs-12 col-sm-12">
+
+		<!--  INCICIO DE FORMULARIO PARA AGREGAR UN PSICOLOGO -->
+
+		<div id="frm-agrega" class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-address-card-o"></i> <span>Agregar Pariente
+						a paciente</span>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+					</a> <a class="expand-link"> <i class="fa fa-expand"></i>
+					</a> <a class="close-link"> <i class="fa fa-times"></i>
+					</a>
+				</div>
+				<div class="no-move"></div>
+			</div>
+			<div class="box-content">
+				<div class="row">
+					<h4 class="page-header">Registrar pariente a paciente</h4>
+                      <form id="agregar" class="form-horizontal" role="form" action="javascript:void(0);" onsubmit="guardar();">
+					<div class="col-sm-6">
+						<h5 class="page-header">Datos</h5>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Pariente</label>
+							<div class="col-sm-5">
+								<select name="pariente" id="pariente" required>
+									<option value="">Seleccione</option>
+									<%
+										rs.close();
+									rs = null;
+									    DtPariente dtpar = new DtPariente();
+										rs = dtpar.cargarDatos();
+										rs.beforeFirst();
+										while (rs.next()) {
+									%>
+									<option value="<%=rs.getInt("ParienteID")%>"><%=rs.getString("Nombre1")%>
+										<%=rs.getString("Apellido1")%></option>
+									<%
+										}
+									%>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Paciente</label>
+							<div class="col-sm-5">
+								<select name="paciente" id="paciente" required>
+									<option value="">Seleccione</option>
+									<%
+										
+									DtPaciente dtpac = new DtPaciente();
+										ResultSet rsp = dtpac.cargarDatos();
+										rsp.beforeFirst();
+										while (rsp.next()) {
+									%>
+									<option value="<%=rsp.getInt("PacienteID")%>"><%=rsp.getString("Nombre1")%>
+										<%=rsp.getString("Apellido1")%></option>
+									<%
+										}
+									%>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<h5 class="page-header">Acciones</h5>
+						<div class="form-group">
+							<div id="cancelar_nuevo" class="col-sm-6 text-center">
+								<button class="ajax-link action btn btn-default btn-label-left"
+									type="reset" title="Cancelar">
+									<span><i class="fa fa-minus-circle txt-danger"></i></span>
+									Cancelar
+								</button>
+							</div>
+							<div class="col-sm-6 text-center">
+								<button class="ajax-link action btn btn-primary btn-label-left"
+									 onClick="" title="Guardar">
+									<span><i class="fa fa-check-circle txt-success"></i></span>Guardar
+								</button>
+							</div>
+						</div>
+					</div>
+    				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- FIN DE FORMULARIO PARA GUARDAR UN PSICOLGO-->
+<div class="row">
+	<div class="col-xs-12 col-sm-12">
+	
+<!--INICIO DE FORMULARIO PARA EDITAR  UN PSICOLOGO -->
+<div id="frm-edita" class="box">
+	<div class="box-header">
+		<div class="box-name">
+			<i class="fa fa-exchange"></i> <span>Editar Pariente a
+				Paciente</span>
+		</div>
+		<div class="box-icons">
+			<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+			</a> <a class="expand-link"> <i class="fa fa-expand"></i>
+			</a> <a class="close-link"> <i class="fa fa-times"></i>
+			</a>
+		</div>
+		<div class="no-move"></div>
+	</div>
+	<div class="box-content">
+		<div class="row">
+			  <h4 class="page-header">Editar Pariente a Paciente</h4>
+			 <form id="edit" class="form-horizontal" role= "form" method="post" action="javascript:void(0);" onsubmit="actualizar($('#btnEditar').val());">
+			<div class="col-sm-6">
+				<h5 class="page-header">Datos</h5>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Pariente</label>
+					<div class="col-sm-5">
+						<select name="ParienteEditar" id="ParienteEditar" required>
+							<option value="">Seleccione</option>
+							<%
+								DtPariente dtpare = new DtPariente();
+								ResultSet rse = dtpare.cargarDatos();
+								rse.beforeFirst();
+								while (rse.next()) {
+							%>
+							<option value="<%=rse.getInt("ParienteID")%>"><%=rse.getString("Nombre1")%><%=rse.getString("Apellido1")%></option>
+							<%
+								}
+							%>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Paciente</label>
+					<div class="col-sm-5">
+						<select name="PacienteEditar" id="PacienteEditar" required>
+							<option value="">Seleccione</option>
+							<%
+								DtPaciente dtpace = new DtPaciente();
+								ResultSet rspe = dtpace.cargarDatos();
+								rspe.beforeFirst();
+								while (rspe.next()) {
+							%>
+							<option value="<%=rspe.getInt("PacienteID")%>"><%=rspe.getString("Nombre1")%><%=rspe.getString("Apellido1")%></option>
+							<%
+								}
+							%>
+						</select>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-sm-6">
+				<h5 class="page-header">Acciones</h5>
+				<div class="form-group">
+					<div id="cancelar_nuevo_editar" class="col-sm-6 text-center">
+						<button class="ajax-link action btn btn-default btn-label-left"
+							type="reset" title="Cancelar">
+							<span><i class="fa fa-minus-circle txt-danger"></i></span>
+							Cancelar
+						</button>
+					</div>
+					<div class="col-sm-6 text-center">
+		                 <button id="btnEditar"
+							class="ajax-link btn btn-primary btn-label-left"
+							onCLick="" title="Editar">
+							<span><i class="fa fa-check-circle txt-success"></i></span>
+							Editar
+						</button>
+					</div>
+				</div>
+			 </div>
+          </form>   
+		</div>
+	</div>
+</div>
+</div>
+</div>
+
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">
@@ -99,7 +283,7 @@ if(r.getRolId() == 3){
 						DtConsulta dtcon = new DtConsulta();
 							
 						DTVParientePaciente dtvpp = new DTVParientePaciente();
-							ResultSet rsvv = dtvpp.cargarVistaApsicologo(dtcon.obtenerPsicologoID(us.getUsuarioID()));
+							ResultSet rsvv = dtvpp.cargarVistaApsicologo(us.getUsuarioID());
 							rsvv.beforeFirst();
 							while (rsvv.next()) {
 						%>
@@ -108,19 +292,15 @@ if(r.getRolId() == 3){
 						+ rsvv.getString("Apellido1par") + " " + rsvv.getString("Apellido2par")%></td>
 							<td><%=rsvv.getString("Nombre1pac") + " "
 						+ rsvv.getString("Apellido1pac") + " " + rsvv.getString("Apellido2pac")%></td>
-							<%
-							if(r.getRolId() == 3){
-							%>
-							<td><button id='btnIdActualizar' disabled
+							
+							<td><button id='btnIdActualizar' 
 									onClick="cargarDatos('<%=rsvv.getInt("ParPacID")%>', '<%=rsvv.getInt("PacienteIDpac")%>', '<%=rsvv.getInt("ParienteIDpar")%>');"
 									value=<%=rsvv.getInt("ParPacID")%>
 									class="btn btn-primary btn-label-left">
 									<span><i class="fa fa-edit"></i></span> Actualizar
 								</button>	
 							</td>
-							<% 	
-							}
-							%>
+						
 						</tr>
 						<%
 							}
@@ -517,6 +697,10 @@ if(r.getRolId() == 3){
 		var fParienteID;
 		var fPacienteID;
 		
+    var fusuarioID = 0;
+		
+		fusuarioID = $('#usuarioID').val();
+		
 		opcion = "guardar";
 		fParienteID = $("#pariente").val();
 		fPacienteID = $("#paciente").val();
@@ -527,6 +711,7 @@ if(r.getRolId() == 3){
 			data : {
 				'fParienteID' : fParienteID,
 				'fPacienteID' : fPacienteID,
+				'fusuarioID' : fusuarioID,
 				'opcion' : opcion
 			},
 			success : function(data) {
@@ -637,13 +822,11 @@ function actualizarParientePaciente(idClicked) {
 		$('.form-control').tooltip();
 		/////////////////////////////CONTROLAR EL FORMULARIO AGREGAR Y CERRAR FORMULARIO EDITAR/////////////////////////////
 		$('#btn-agrega-abrir').click(function() {
-			var TipoRol = "";
-			TipoRol = $("#TipoRol").val();
-			if(TipoRol != 3){
+			
 				$('#frm-agrega').fadeIn();
 				$('#frm-edita').fadeOut()
 				
-			}
+			
 		});
 		$('#cancelar_nuevo').click(function() {
 			$('#frm-agrega').fadeOut();

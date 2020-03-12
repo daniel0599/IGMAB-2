@@ -1040,7 +1040,7 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 						<%
 						DtConsulta dtcon = new DtConsulta();
 							DtPaciente dtp = new DtPaciente();
-							rs = dtp.cargarPacientesAPsicologos(dtcon.obtenerPsicologoID(us.getUsuarioID()));
+							rs = dtp.cargarPacientesAPsicologos(us.getUsuarioID());
 							rs.beforeFirst();
 							
 							SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -3249,7 +3249,7 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 	}
 
 	//MÉTODO PARA CARGAR DATOS EN EL FORMULARIO PARA ACTUALIZAR
-	function cargarDatos(pacienteId, nombre1, nombre2, apellido1, apellido2, celular, edad, fechaNac, sexo, estadoCivil, escolaridad, direccion, conQuienVive, lugarTrabajo, empleo, salario, terapia, internado, internadoAfirmativo, escolaridadId, estudianteUCA) {
+	function cargarDatos(pacienteId, nombre1, nombre2, apellido1, apellido2, celular, edad, fechaNac, sexo, estadoCivil, escolaridad, direccion, conQuienVive, lugarTrabajo, empleo, salario, terapia, internado, internadoAfirmativo, escolaridadId, religion, motivoconsulta, crianzaAnios, relacionProgenitores, estudianteUCA) {
 		var fpacienteId = pacienteId;
 		var fnombre1 = nombre1;
 		var fnombre2 = nombre2;
@@ -3271,6 +3271,11 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 		var finternadoAfirmativo = internadoAfirmativo;
 		var fescolaridadId = escolaridadId;
 		var festudianteUCA = estudianteUCA;
+		
+		var freligion = religion;
+		var fmotivoconsulta = motivoconsulta;
+		var fcrianzaAnios = crianzaAnios;
+		var frelacionProgenitores = relacionProgenitores;
 
 		$('#btnEditar').val(fpacienteId);
 		
@@ -3298,6 +3303,11 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
         } else {
             $('#estudianteUCAEdit').prop('checked', false).change();
         }
+		
+		$('#religion').val(freligion);
+		$('#motivoconsulta').val(fmotivoconsulta);
+		$('#crianzaAnios').val(fcrianzaAnios);
+		$('#relacionProgenitores').val(frelacionProgenitores);
 		
 		$('#frm-edita').fadeIn();
 		$('#frm-agrega').fadeOut();

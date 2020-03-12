@@ -33,7 +33,7 @@ public class DTVParientePaciente {
 		PreparedStatement s;
 		
 		try {
-			s = con.prepareStatement("SELECT parpac.Nombre1par, parpac.Nombre2par, parpac.Apellido1par, parpac.Apellido2par, parpac.ParienteID As ParienteIDpar, parpac.Nombre1 As Nombre1pac, parpac.Nombre2 As Nombre2pac, parpac.Apellido1 As Apellido1pac, parpac.Apellido2 As Apellido2pac, parpac.PacienteID As PacienteIDpac, parpac.ParPacID FROM igmab.pariente_paciente parpac inner Join pariente_parentesco par on parpac.ParienteID=par.ParienteID Inner Join Paciente pac On parpac.PacienteID=pac.PacienteID INNER JOIN Consulta con ON con.PacienteID=pac.PacienteID INNER JOIN Psicologo psi ON psi.PsicologoID=con.PsicologoID WHERE psi.PsicologoID = ? AND pac.Eliminado = 0 ");
+			s = con.prepareStatement("SELECT parpac.Nombre1par, parpac.Nombre2par, parpac.Apellido1par, parpac.Apellido2par, parpac.ParienteID As ParienteIDpar, parpac.Nombre1 As Nombre1pac, parpac.Nombre2 As Nombre2pac,parpac.Apellido1 As Apellido1pac, parpac.Apellido2 As Apellido2pac, parpac.PacienteID As PacienteIDpac, parpac.ParPacID FROM igmab.pariente_paciente parpac inner Join paciente_pariente par on parpac.ParienteID=par.ParienteID Inner Join Paciente pac On parpac.PacienteID=pac.PacienteID WHERE par.Usuariocreacion = ? AND pac.Eliminado = 0;");
 			s.setInt(1, psicologoID);
 			rsn = s.executeQuery();
 			}
@@ -70,6 +70,7 @@ public class DTVParientePaciente {
 	        System.out.println("los datos estan llegando a su destino");
 			rs.updateInt("ParienteID", vpapa.getParienteID());
 			rs.updateInt("PacienteID", vpapa.getPacienteID());
+			rs.updateInt("Usuariocreacion", vpapa.getUsuariocreacion());
 
 		//	System.out.println("LOS DATOS: "+p.getNombre1()+" "+p.getNombre2()+" "+p.getApellido1()+" "+p.getApellido2()+".."+"LA FECHA"+p.getFechaCreacion()+"...CARNET: "+p.getCarnet());
 			rs.insertRow();

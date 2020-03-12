@@ -41,6 +41,24 @@ public class DtConsulta {
 			}
 			return psicologoId;
 		}
+		
+		public int obtenerUsuarioID(int psicologoID) {
+			int usuarioId = 0;
+			PreparedStatement s;
+			try {
+				s = con.prepareStatement("SELECT Psicologo.UsuarioID FROM Psicologo  WHERE Psicologo.PsicologoID = ?;");
+				s.setInt(1, psicologoID);
+				rs = s.executeQuery();
+				rs.beforeFirst();
+				rs.next();
+				usuarioId = rs.getInt("UsuarioID");
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Error en obtenerPsicologoID() de DtConsulta: " + e.getMessage());
+			}
+			return usuarioId;
+		}
 	
 	
 		public ResultSet cargarDatos(){

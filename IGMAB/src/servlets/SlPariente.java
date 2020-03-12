@@ -95,6 +95,11 @@ public class SlPariente extends HttpServlet {
 					tutor = Integer.parseInt(request.getParameter("ftutor"));
 				else
 					tutor = 0;
+				
+				int usuarioID =0;
+        		
+        		//tiporol = Integer.parseInt(request.getParameter("fTipoRol"));
+        		usuarioID = Integer.parseInt(request.getParameter("fusuarioID"));
 
              //   SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             //    Date fecha = formatter.parse(fechaNac);
@@ -115,6 +120,7 @@ public class SlPariente extends HttpServlet {
 				par.setSalarioMensual(salarioMensual);
       			par.setTutor(tutor);
 				par.setParentescoId(parentescoId);
+				par.setUsuarioCreacion(usuarioID);
 				
 				if (dtp.guardarPariente(par)){
 					System.out.println("Guardado exitosamente");

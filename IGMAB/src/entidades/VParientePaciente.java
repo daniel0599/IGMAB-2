@@ -6,6 +6,7 @@ public class VParientePaciente {
 	private int pacienteID;
 	private int parienteID;
 	private int paciente_parienteID;
+	private int Usuariocreacion;
 	
 
 	
@@ -102,6 +103,12 @@ public class VParientePaciente {
 	}
 	public void setApellido2par(String apellido2par) {
 		this.apellido2par = apellido2par;
+	}
+	public int getUsuariocreacion() {
+		return Usuariocreacion;
+	}
+	public void setUsuariocreacion(int usuariocreacion) {
+		Usuariocreacion = usuariocreacion;
 	}
 
 }

@@ -65,7 +65,7 @@ response.setDateHeader("Expires", -1);
 <input id="usuarioID" name="usuarioID" type="hidden" value=<%=us.getUsuarioID()%> checked>
 <input id="TipoRol" name="TipoROl" type="hidden" value=<%=r.getRolId()%>  checked>
 <%
-if(r.getRolId() == 3){
+if(r.getRolId() == 3 || r.getRolId() == 5){
 %>
 <div class="row">
 	<div id="breadcrumb" class="col-md-12">
@@ -81,6 +81,367 @@ if(r.getRolId() == 3){
 
 <div class="row">
 	<div class="col-xs-12 col-sm-12">
+
+		<div id="frm-agrega" class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-address-card-o"></i> <span>Registro Pariente</span>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+					</a> <a class="expand-link"> <i class="fa fa-expand"></i>
+					</a> <a class="close-link"> <i class="fa fa-times"></i>
+					</a>
+				</div>
+				<div class="no-move"></div>
+			</div>
+			
+			
+			<div class="box-content">
+				<h4 class="page-header">Formulario de registro</h4>
+				<form id="agregar" class="form-horizontal" role ="form" action="javascript:void(0);" onsubmit="guardar();">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Primer nombre</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Primer nombre"data-toggle="tooltip" data-placement="bottom" title="Primer nombre" id="primerNombre" name="primerNombre" required>
+						</div>
+						<label class="col-sm-2 control-label">Segundo nombre</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Segundo nombre"data-toggle="tooltip" data-placement="bottom" title="Segundo nombre" id="segundoNombre" name="segundoNombre">
+						</div>
+						<label class="col-sm-2 control-label">Primer apellido</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Primer apellido"data-toggle="tooltip" data-placement="bottom" title="Primer apellido" id="primerApellido"
+									name="primerApellido" required>
+						</div>
+						<label class="col-sm-2 control-label">Segundo apellido</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Segundo apellido"data-toggle="tooltip" data-placement="bottom" title="Segundo apellido" id="segundoApellido"
+									name="segundoApellido">
+						</div>
+					</div>
+
+                    <div class="form-group">
+					<label class="col-sm-2 control-label">Ocupacion</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Ocupacion" id="ocupacion" name="ocupacion">
+						</div>
+						<label class="col-sm-2 control-label">Lugar de trabajo</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Lugar de trabajo" id="lugarTrabajo"
+									name="lugarTrabajo">
+						</div>
+						<label class="col-sm-2 control-label">Cargo</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Cargo" id="cargo" name="cargo">
+<!-- 							<span class="fa fa-check-square-o txt-success form-control-feedback"></span> -->
+						</div>
+						<label class="col-sm-2 control-label">Salario</label>
+						<div class="col-sm-4">
+							<input type="number" class="form-control" placeholder="Salario" id="salario" name="salario">
+						</div>
+					</div>
+
+                    <div class="form-group">
+						<label class="col-sm-2 control-label">Edad</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Edad"
+									id="edad" name="edad" required>
+							<span class="fa fa-calendar txt-danger form-control-feedback"></span>
+						</div>
+						<label class="col-sm-2 control-label">Escolaridad</label>
+                        <div class="col-sm-2">
+                            <select id="escolaridadId" required>
+                                <option value="">Escolaridad</option>
+                                <%
+                                    DtPaciente dtpp = new DtPaciente();
+                                    ResultSet res1 = dtpp.cargarEscolaridades();
+                                    res1.beforeFirst();
+
+                                    while (res1.next()) {
+                                %>
+
+                                <option value="<%=res1.getInt("EscolaridadID")%>"><%=res1.getString("Nombre")%></option>
+
+                                <%
+                                    }
+                                %>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                                    <select id="escolaridaddetalle" required>
+                                        <option>Seleccione</option>
+                                        <option value="1">1er</option>
+					   					<option value="2">2do</option>
+                                        <option value="3">3er</option>
+                                        <option value="4">4to</option>
+                                        <option value="5">5to</option>
+                                        <option value="6">6to</option>
+                                        <option value="7">7mo</option>
+                                        <option value="8">8vo</option>
+                                        <option value="9">9no</option>
+                                        <option value="10">10mo</option>
+                                        <option value="11">11vo</option>
+                                         <option value="12">Concluida</option>  
+                                        <option value="13">Otro</option>
+                                    </select>
+                                </div>		
+					</div>
+
+                    <div class="form-group">
+						<label class="col-sm-2 control-label">Estado de vida</label>
+						<div class="col-sm-4">
+							<select id="estadoVida">
+									<option value=2>Seleccione</option>
+									<option value=1>Vivo(a)</option>
+									<option value=0>Fallecido(a)</option>
+								</select>
+						</div>
+                        <div id="causaMuerteDiv">
+						<label class="col-sm-2 control-label">Causa de muerte</label>
+						<div class="col-sm-4" >
+							<input type="text" class="form-control"
+									placeholder="Causa de muerte" data-toggle="tooltip"
+									data-placement="bottom" title="Causa de muerte"
+									id="causaMuerte" name="causaMuerte">
+                        </div>
+					    </div>
+                    </div>
+
+                    <div class="form-group">
+							<label class="col-sm-2 control-label">Parentesco</label>
+							<div class="col-sm-4">
+								<select name="parentesco" id="parentesco">
+									<option>Seleccione</option>
+									
+									<%
+										rs.close();
+										rs = null;
+										DtParentesco dtpar = new DtParentesco();
+										rs = dtpar.cargarDatos();
+										rs.beforeFirst();
+
+										while (rs.next()) {
+									%>
+									<option value="<%=rs.getInt("ParentescoID")%>"><%=rs.getString("Parentesco")%></option>
+
+									<%
+										}
+									%>
+								</select>
+							</div>
+							<label class="col-sm-2 control-label">¿Este pariente es
+								tutor?</label>
+							<div class="col-sm-4">
+								<select id="tutor">
+                                    <option>Seleccione</option>
+									<option value=1>Sí</option>
+									<option value=0>No</option>
+								</select>
+							</div>
+					</div>
+
+                    <div class="clearfix"></div>
+					<div class="form-group">
+						<div id="cancelar_nuevo" class="col-sm-offset-2 col-sm-2">
+							<button class="ajax-link action btn btn-default btn-label-left"
+										type="reset" title="Cancelar">
+										<span><i class="fa fa-minus-circle txt-danger"></i></span> Cancelar
+									</button>
+						</div>
+						<div class="col-sm-2">
+							<button class="ajax-link action btn btn-primary btn-label-left"
+									onClick="" title="Guardar">
+									<span><i class="fa fa-check-circle txt-success"></i></span>Guardar
+								</button>
+						</div>
+					</div>
+				</form>
+            </div>
+		</div>
+	</div>
+</div>
+
+<!-- inicio de formulario para editar un pariente -->
+
+<div class="row">
+	<div class="col-xs-12 col-sm-12">
+		<!-- Inicio de formulario -->
+		<div id="frm-edita" class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-file-text-o"></i> <span>Formulario de
+						Actualización Pariente</span>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+					</a> <a class="expand-link"> <i class="fa fa-expand"></i>
+					</a> <a class="close-link"> <i class="fa fa-times"></i>
+					</a>
+				</div>
+				<div class="no-move"></div>
+			</div>
+			<div class="box-content">
+				<h4 class="page-header">Formulario de registro</h4>
+ 				<form id="editar" class="form-horizontal" role ="form" action="javascript:void(0);" onsubmit="actualizar($('#btnEditar').val());">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Primer nombre</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Primer nombre"data-toggle="tooltip" data-placement="bottom" title="Primer nombre"  id="primerNombreEditar"
+										name="primerNombre">
+						</div>
+						<label class="col-sm-2 control-label">Segundo nombre</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Segundo nombre"data-toggle="tooltip" data-placement="bottom" title="Segundo nombre" id="segundoNombreEditar"
+										name="segundoNombre">
+						</div>
+						<label class="col-sm-2 control-label">Primer apellido</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Primer apellido"data-toggle="tooltip" data-placement="bottom" title="Primer apellido" id="primerApellidoEditar"
+										name="primerApellido">
+						</div>
+						<label class="col-sm-2 control-label">Segundo apellido</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Segundo apellido"data-toggle="tooltip" data-placement="bottom" title="Segundo apellido" id="segundoApellidoEditar"
+										name="segundoApellido">
+						</div>
+					</div>
+
+                    <div class="form-group has-success has-feedback">
+					<label class="col-sm-2 control-label">Ocupacion</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Ocupacion" id="ocupacionEditar" name="ocupacion">
+						</div>
+						<label class="col-sm-2 control-label">Lugar de trabajo</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Lugar de trabajo" id="lugarTrabajoEditar"
+									name="lugarTrabajo">
+						</div>
+						<label class="col-sm-2 control-label">Cargo</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Cargo" id="cargoEditar" name="cargo">
+<!-- 							<span class="fa fa-check-square-o txt-success form-control-feedback"></span> -->
+						</div>
+						<label class="col-sm-2 control-label">Salario</label>
+						<div class="col-sm-4">
+							<input type="number" class="form-control" placeholder="Salario" id="salarioEditar" name="salario">
+						</div>
+					</div>
+
+                    <div class="form-group has-warning has-feedback">
+						<label class="col-sm-2 control-label">Edad</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" placeholder="Edad"
+									id="edadEditar" name="edad">
+							<span class="fa fa-calendar txt-danger form-control-feedback"></span>
+						</div>
+					<label class="col-sm-2 control-label">Escolaridad</label>
+                        <div class="col-sm-2">
+                            <select id="escolaridadIdEditar" required>
+                                <option value="">Escolaridad</option>
+                                <%
+
+                                    res1.beforeFirst();
+
+                                    while (res1.next()) {
+                                %>
+
+                                <option value="<%=res1.getInt("EscolaridadID")%>"><%=res1.getString("Nombre")%></option>
+
+                                <%
+                                    }
+                                %>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                                    <select id="escolaridaddetalleedit">
+                                        <option>Seleccione</option>
+                                        <option value="1">1er</option>
+					   					<option value="2">2do</option>
+                                        <option value="3">3er</option>
+                                        <option value="4">4to</option>
+                                        <option value="5">5to</option>
+                                        <option value="6">6to</option>
+                                        <option value="7">7mo</option>
+                                        <option value="8">8vo</option>
+                                        <option value="9">9no</option>
+                                        <option value="10">10mo</option>
+                                        <option value="11">11vo</option> 
+                                         <option value="12">Concluida</option> 
+                                        <option value="13">Otro</option>
+                                    </select>
+                                </div>
+					</div>
+
+                    <div class="form-group has-error has-feedback">
+						<label class="col-sm-2 control-label">Estado de vida</label>
+						<div class="col-sm-4">
+							<select id="estadoVidaEditar">
+									
+									<option value=1>Vivo(a)</option>
+									<option value=0>Fallecido(a)</option>
+								</select>
+						</div>
+						<label class="col-sm-2 control-label">Causa de muerte</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control"
+									placeholder="Causa de muerte" data-toggle="tooltip"
+									data-placement="bottom" title="Causa de muerte"
+									id="causaMuerteEditar" name="causaMuerte">
+						
+					    </div>
+                    </div>
+
+                    <div class="form-group">
+							<label class="col-sm-2 control-label">Parentesco</label>
+							<div class="col-sm-4">
+								<select name="parentesco" id="parentescoidEditar"
+										>
+										
+										<%
+											rs.beforeFirst();
+
+											while (rs.next()) {
+										%>
+										<option value="<%=rs.getInt("ParentescoID")%>"><%=rs.getString("Parentesco")%></option>
+
+										<%
+											}
+										%>
+									</select>
+							</div>
+							<label class="col-sm-2 control-label">¿Este pariente es
+								tutor?</label>
+							<div class="col-sm-4">
+								<select id="tutorEditar" >
+									
+									<option value=1>Si</option>
+									<option value=0>No</option>
+								</select>
+							</div>
+					</div>
+
+                    <div class="clearfix"></div>
+					<div class="form-group">
+						<div id="cancelar_nuevo_editar" class="col-sm-offset-2 col-sm-2">
+							<button class="ajax-link action btn btn-default btn-label-left"
+								type="reset" title="Cancelar">
+								<span><i class="fa fa-minus-circle txt-danger"></i></span> Cancelar
+							</button>
+						</div>
+						<div class="col-sm-2">
+							<button id="btnEditar"
+								class="ajax-link btn btn-primary btn-label-left"
+								onClick="" title="Editar">
+								<span><i class="fa fa-check-circle txt-success"></i></span> Editar
+							</button>
+						</div>
+					</div>
+ 				</form> 
+            </div>
+		</div>
+	</div>
+</div>
 
 <!-- Formulario visualizar -->
 <div class="row">
@@ -159,15 +520,15 @@ if(r.getRolId() == 3){
                             <select disabled id="escolaridadIdVi" required>
                                 <option value="">Escolaridad</option>
                                 <%
-                                DtPaciente dtpp = new DtPaciente();
-                                ResultSet res1 = dtpp.cargarEscolaridades();
+                               // DtPaciente dtpp = new DtPaciente();
+                                ResultSet res11 = dtpp.cargarEscolaridades();
                                 
-                                    res1.beforeFirst();
+                                    res11.beforeFirst();
 
-                                    while (res1.next()) {
+                                    while (res11.next()) {
                                 %>
 
-                                <option value="<%=res1.getInt("EscolaridadID")%>"><%=res1.getString("Nombre")%></option>
+                                <option value="<%=res11.getInt("EscolaridadID")%>"><%=res11.getString("Nombre")%></option>
 
                                 <%
                                     }
@@ -223,7 +584,7 @@ if(r.getRolId() == 3){
                                 <%
                                 rs.close();
 								rs = null;
-								DtParentesco dtpar = new DtParentesco();
+							//	DtParentesco dtpar = new DtParentesco();
 								rs = dtpar.cargarDatos();
                                     rs.beforeFirst();
 
@@ -261,8 +622,7 @@ if(r.getRolId() == 3){
         </div>
     </div>
 </div>
-</div>
-</div>
+
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">
@@ -307,7 +667,7 @@ if(r.getRolId() == 3){
 						<%
 						DtConsulta dtcon = new DtConsulta();
 							DtPariente dtpari = new DtPariente();
-							ResultSet rp = dtpari.cargarDatosApsicologo(dtcon.obtenerPsicologoID(us.getUsuarioID()));
+							ResultSet rp = dtpari.cargarDatosApsicologo(us.getUsuarioID());
                           //  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                             //SimpleDateFormat fechaM = new SimpleDateFormat("dd/MM/yyyy");
 							rp.beforeFirst();
@@ -1375,6 +1735,10 @@ if(r.getRolId() == 3){
 		var ftutor = 0;
 		var fparentescoid = 0;
 
+		
+        var fusuarioID = 0;
+		
+		fusuarioID = $('#usuarioID').val();
 		var opcion = "";
 
 		opcion = "guardar";
@@ -1423,7 +1787,8 @@ if(r.getRolId() == 3){
 				'fcargo' : fcargo,
 				'fsalarioMensual' : fsalarioMensual,
 				'ftutor' : ftutor,
-				'fparentescoid' : fparentescoid
+				'fparentescoid' : fparentescoid,
+				'fusuarioID' : fusuarioID
 
 			},
 			success : function(data) {
@@ -1714,13 +2079,11 @@ if(r.getRolId() == 3){
 
 		/////////////////////////////CONTROLAR EL FORMULARIO AGREGAR Y CERRAR FORMULARIO EDITAR/////////////////////////////
 		$('#btn-agrega-abrir').click(function() {
-			var TipoRol = "";
-			TipoRol = $("#TipoRol").val();
-			if(TipoRol != 3){
+			
 			$('#frm-agrega').fadeIn();
 			$('#frm-edita').fadeOut();
             $('#frm-visualizar').fadeOut();
-			}
+			
 		});
 		$('#cancelar_nuevo').click(function() {
 			$('#frm-agrega').fadeOut();

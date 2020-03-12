@@ -62,8 +62,14 @@ public class SLParientePaciente extends HttpServlet {
 				pacienteID = Integer.parseInt(request.getParameter("fParienteID"));
 				parienteID = Integer.parseInt(request.getParameter("fPacienteID"));
 				
+				int usuarioID =0;
+        		
+        		//tiporol = Integer.parseInt(request.getParameter("fTipoRol"));
+        		usuarioID = Integer.parseInt(request.getParameter("fusuarioID"));
+				
 				vpp.setPacienteID(pacienteID);
 				vpp.setParienteID(parienteID);
+				vpp.setUsuariocreacion(usuarioID);
 				//psil.setUsuarioCreacion(1);
 	
 				System.out.println("Antes de ejcutar el metodo guardar");

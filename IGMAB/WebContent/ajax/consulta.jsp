@@ -97,7 +97,7 @@
 									DtConsulta dtcon = new DtConsulta();
 									DtPaciente dtpa = new DtPaciente();
 								    if(r.getRolId() == 3 || r.getRolId() == 5){
-								    	rs = dtpa.cargarPacientesAPsicologosConsulta(dtcon.obtenerPsicologoID(us.getUsuarioID()));
+								    	rs = dtpa.cargarPacientesAPsicologosConsulta(us.getUsuarioID());
 								    }else{
 								    	rs.close();
 								    	rs = null;

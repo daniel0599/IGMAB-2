@@ -93,6 +93,12 @@ public class SlPaciente extends HttpServlet {
 				motivoconsulta= request.getParameter("fmotivoconsulta");;
 				crianzaAnios =request.getParameter("fcrianzaAnios"); ;
 				relacionProgenitores =request.getParameter("frelacionProgenitores"); 
+				
+				int usuarioID =0;
+        		
+        		//tiporol = Integer.parseInt(request.getParameter("fTipoRol"));
+        		usuarioID = Integer.parseInt(request.getParameter("fusuarioID"));
+				
 				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 				Date fecha = formatter.parse(fechaNac);
 				
@@ -123,6 +129,8 @@ public class SlPaciente extends HttpServlet {
 				pac.setMotivoconsulta(motivoconsulta);
 				pac.setCrianzaAnios(crianzaAnios);
 				pac.setRelacionProgenitores(relacionProgenitores);
+				
+				pac.setUsuarioCreacion(usuarioID);
 
 				if (dtp.guardarPaciente(pac)) {
 					System.out.println("Guardado exitosamente");
@@ -164,10 +172,6 @@ public class SlPaciente extends HttpServlet {
 				crianzaAnios =request.getParameter("fcrianzaAnios"); ;
 				relacionProgenitores =request.getParameter("frelacionProgenitores"); 
 				
-				int usuarioID =0;
-        		
-        		//tiporol = Integer.parseInt(request.getParameter("fTipoRol"));
-        		usuarioID = Integer.parseInt(request.getParameter("fusuarioID"));
 				
 				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 				Date fecha = formatter.parse(fechaNac);
@@ -199,7 +203,7 @@ public class SlPaciente extends HttpServlet {
 				pac.setCrianzaAnios(crianzaAnios);
 				pac.setRelacionProgenitores(relacionProgenitores);
 				
-				pac.setUsuarioCreacion(usuarioID);
+
 				
 				if (dtp.actualizarPaciente(pac)) {
 					System.out.println("Actualizado exitosamente");
@@ -418,6 +422,10 @@ public class SlPaciente extends HttpServlet {
 						+ "\""+rs.getString("Internado")+"\","
 						+ "\""+rs.getString("Internadoafirmativo")+"\","
 						+ "\""+rs.getInt("EscolaridadID")+"\", "
+						+ "\""+rs.getString("religion")+"\", "
+						+ "\""+rs.getString("motivoconsulta")+"\", "
+						+ "\""+rs.getString("crianzaAnios")+"\", "
+						+ "\""+rs.getString("relacionProgenitores")+"\", "
 						+ "\""+rs.getInt("Uca")+"\")'><span><i class='fa fa-edit'></i></span>Actualizar</button>";
 				
 				out +="<button id='btnRespuesta' value="+rs.getInt("PacienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='redirect(this.value);'><span><i class='fa fa-edit'></i></span>Ficha</button>";
@@ -464,11 +472,11 @@ public class SlPaciente extends HttpServlet {
 		int UsuarioID = usuarioID;
 		
 		try {
-			 DtConsulta dtcon = new DtConsulta();
+			// DtConsulta dtcon = new DtConsulta();
 			 DtPaciente dtp = new DtPaciente();
 			 DtRespuesta dtres = new DtRespuesta();
 				
-			ResultSet rs = dtp.cargarPacientesAPsicologos(dtcon.obtenerPsicologoID(UsuarioID));
+			ResultSet rs = dtp.cargarPacientesAPsicologos(UsuarioID);
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			SimpleDateFormat fechaM = new SimpleDateFormat("dd/MM/yyyy");
@@ -643,11 +651,11 @@ public class SlPaciente extends HttpServlet {
 		int UsuarioID = usuarioID;
 		
 		try {
-			DtConsulta dtcon = new DtConsulta();
+			//DtConsulta dtcon = new DtConsulta();
 			 DtPaciente dtp = new DtPaciente();
 			// DtRespuesta dtres = new DtRespuesta();
 				
-			ResultSet rs = dtp.cargarDatosInactivosAPsicologos(dtcon.obtenerPsicologoID(UsuarioID));
+			ResultSet rs = dtp.cargarDatosInactivosAPsicologos(UsuarioID);
 			
 
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -818,7 +826,7 @@ public class SlPaciente extends HttpServlet {
 			 DtPaciente dtp = new DtPaciente();
 			// DtRespuesta dtres = new DtRespuesta();
 				
-			ResultSet rs = dtp.cargarDatosAltaAPsicologos(dtcon.obtenerPsicologoID(UsuarioID));
+			ResultSet rs = dtp.cargarDatosAltaAPsicologos(UsuarioID);
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			SimpleDateFormat fechaM = new SimpleDateFormat("dd/MM/yyyy");

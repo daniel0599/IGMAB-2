@@ -42,7 +42,7 @@ public class DtPaciente {
 		ResultSet rsn = null;
 		PreparedStatement s;
 		try {
-			s = con.prepareStatement("SELECT * FROM igmab.Paciente pac INNER JOIN Consulta con ON con.PacienteID=pac.PacienteID INNER JOIN Psicologo psi ON psi.PsicologoID=con.PsicologoID WHERE psi.PsicologoID = ? AND pac.Eliminado = 0");
+			s = con.prepareStatement("SELECT * FROM igmab.Paciente pac WHERE pac.Usuariocreacion = ? AND pac.Eliminado = 0");
 			s.setInt(1, psicologoID);
 			rsn = s.executeQuery();
 		}
@@ -57,7 +57,7 @@ public class DtPaciente {
 		ResultSet rsn = null;
 		PreparedStatement s;
 		try {
-			s = con.prepareStatement("SELECT * FROM igmab.Paciente pac INNER JOIN Consulta con ON con.PacienteID=pac.PacienteID INNER JOIN Psicologo psi ON psi.PsicologoID=con.PsicologoID WHERE psi.PsicologoID = ? AND pac.Eliminado=1");
+			s = con.prepareStatement("SELECT * FROM igmab.Paciente pac WHERE pac.Usuariocreacion = ? AND pac.Eliminado=1");
 			s.setInt(1, psicologoID);
 			rsn = s.executeQuery();
 		}
@@ -98,7 +98,7 @@ public class DtPaciente {
 		ResultSet rsn = null;
 		PreparedStatement s;
 		try {
-			s = con.prepareStatement("SELECT * FROM igmab.Paciente pac INNER JOIN Consulta con ON con.PacienteID=pac.PacienteID INNER JOIN Psicologo psi ON psi.PsicologoID=con.PsicologoID WHERE psi.PsicologoID = ? AND pac.Eliminado=2");
+			s = con.prepareStatement("SELECT * FROM igmab.Paciente pac WHERE pac.Usuariocreacion = ? AND pac.Eliminado=2");
 			s.setInt(1, psicologoID);
 			rsn = s.executeQuery();
 		}
@@ -282,7 +282,7 @@ public class DtPaciente {
 					rs.updateString("religion", pac.getReligion());
 					rs.updateString("motivoconsulta", pac.getMotivoconsulta());
 					rs.updateString("crianzaAnios", pac.getCrianzaAnios());
-					rs.updateString("relacionProenitores", pac.getRelacionProgenitores());
+					rs.updateString("relacionProgenitores", pac.getRelacionProgenitores());
 					rs.updateRow();
 					rs.close();
 					rs = null;
@@ -354,12 +354,49 @@ public class DtPaciente {
 	
 	//Método para transferir un paciente a otro psicólogo //
 	public boolean transferirPaciente(int pacienteId, int psicologoId) {
+		DtConsulta cons = new DtConsulta();
+		int usuarioIDnuevo = cons.obtenerUsuarioID(psicologoId);
+		
 		PreparedStatement s;
+		PreparedStatement t;
+		PreparedStatement u;
+		PreparedStatement v;
+		PreparedStatement w;
+		PreparedStatement x;
 		try {
 			s = con.prepareStatement("UPDATE Consulta SET PsicologoID=? WHERE PacienteID=?;");
 			s.setInt(1, psicologoId);
 			s.setInt(2, pacienteId);
 			s.executeUpdate();
+			
+			t = con.prepareStatement("UPDATE Paciente SET UsuarioCreacion=? WHERE PacienteID=?;");
+			t.setInt(1, usuarioIDnuevo);
+			t.setInt(2, pacienteId);
+			t.executeUpdate();
+			
+			
+			
+			u = con.prepareStatement("Select * from pariente inner join paciente_pariente parO on parO.ParienteID=pariente.ParienteID inner join paciente pac on parO.ParienteID=pac.PacienteID WHERE pac.PacienteID=?;");
+			u.setInt(1, pacienteId);
+			ResultSet rsaux;
+			rsaux= u.executeQuery();
+			rs.beforeFirst();
+			while(rsaux.next()){
+			v = con.prepareStatement("UPDATE Pariente SET UsuarioCreacion=?;");
+			v.setInt(1, usuarioIDnuevo);
+			v.executeUpdate();
+			}
+			
+			w = con.prepareStatement("	Select * from paciente_pariente inner join paciente pacO on pacO.PacienteID=paciente_pariente.PacienteID WHERE pacO.PacienteID=?;");
+			w.setInt(1, pacienteId);
+			ResultSet rsaux1;
+			rsaux1= w.executeQuery();
+			rs.beforeFirst();
+			while(rsaux1.next()){
+			x = con.prepareStatement("UPDATE paciente_pariente SET UsuarioCreacion=?;");
+			x.setInt(1, usuarioIDnuevo);
+			x.executeUpdate();
+			}
 			return true;
 		} catch (Exception e) {
 			System.err.println("Datos: Error al transferir el paciente " + e.getMessage());
