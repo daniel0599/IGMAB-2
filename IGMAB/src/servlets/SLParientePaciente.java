@@ -192,10 +192,10 @@ public class SLParientePaciente extends HttpServlet {
 	
 	protected void refrescarApsicologo(HttpServletRequest request, HttpServletResponse response, int usuarioID)
 			throws ServletException, IOException {
-		
+		int UsuarioID = usuarioID; 
 		try {
 
-			int UsuarioID = usuarioID; 
+			
 			DTVParientePaciente dtvpp = new DTVParientePaciente();
 			ResultSet rs = dtvpp.cargarVistaApsicologo(UsuarioID);
 

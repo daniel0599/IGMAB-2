@@ -187,14 +187,112 @@ public class SlHistoriaClinica extends HttpServlet {
 		case "refrescar" :
 			refrescar(request,response);
 			break;
-		}
 		
+	case "refrescarApsicologo":{
+     	//  int tiporol = 0;
+ 		int usuarioID =0;
+ 		
+ 		//tiporol = Integer.parseInt(request.getParameter("fTipoRol"));
+ 		usuarioID = Integer.parseInt(request.getParameter("fusuarioID"));
+ 		
+     	refrescarApsicologo(request, response, usuarioID);
+     	break;
+	}
+		
+	}
 	}
 	
 	protected void refrescar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			DtVHistoriaClinicaPaciente dtc = new DtVHistoriaClinicaPaciente();
 			ResultSet rs = dtc.cargarVista();
+			
+			response.setContentType("text/html; charset=UTF-8");
+			String out = "";
+			
+			out+="<thead>";
+			out+="<tr>";
+			out+="<th>Paciente</th>";
+			out+="<th>Acciones</th>";
+			out+="</tr>";
+			out+="</thead>";
+			
+			out += "<tbody>";
+			while(rs.next()){
+				out += "<tr>";
+				out += "<td>" + rs.getString("Nombre1") + " " + rs.getString("Nombre2") + " " + rs.getString("Apellido1") + " " + rs.getString("Apellido2")+ "</td>";
+				out += "<td>";
+				out += "<button id='btnIdVisualizar' value="+rs.getInt("HistoriaclinicaID")+" class='ajax-link action btn btn-default btn-label-left' "
+						+"onclick ='visualizarDatos(this.value, \""+rs.getString("Motivoconsulta")+"\","
+						+ "\""+rs.getString("Padecimientoactual")+"\","
+						+ "\""+rs.getString("Expectativa")+"\","
+						+ "\""+rs.getString("Padecimientoh_f")+"\","
+						+ "\""+rs.getString("Antecedentespersonalesnp")+"\","
+						+ "\""+rs.getString("Antecedentespatologicosp")+"\","
+						+ "\""+rs.getString("Antecedentespatologicosf")+"\","
+						+ "\""+rs.getString("Relacionnucleof")+"\","
+						+ "\""+rs.getString("Areaescolar")+"\","
+					    + "\""+rs.getString("Desarrollosocial")+"\","
+					    + "\""+rs.getString("Desarrollolaboral")+"\","
+					    + "\""+rs.getString("Desarrollosexual")+"\","
+					    + "\""+rs.getString("Desarrolloconyugal")+"\","
+					    + "\""+rs.getString("Desarrolloespiritual")+"\","
+					    + "\""+rs.getString("Aspectoconductageneral")+"\","
+					    + "\""+rs.getString("Algomasagregar")+"\","
+					    + "\""+rs.getString("Impresiondiagnostica")+"\","
+					    + "\""+rs.getInt("PacienteID")+"\")'><span><i class='fa fa-eye'></i></span>Ver Historia Clinica</button>";
+				
+				out +="<button id='btnIdActualizar' value="+rs.getInt("HistoriaclinicaID")+" class='btn btn-primary btn-label-left' "
+						+"onclick = 'cargarDatos(this.value, \""+rs.getString("Motivoconsulta")+"\","
+						+ "\""+rs.getString("Padecimientoactual")+"\","
+						+ "\""+rs.getString("Expectativa")+"\","
+						+ "\""+rs.getString("Padecimientoh_f")+"\","
+						+ "\""+rs.getString("Antecedentespersonalesnp")+"\","
+						+ "\""+rs.getString("Antecedentespatologicosp")+"\","
+						+ "\""+rs.getString("Antecedentespatologicosf")+"\","
+						+ "\""+rs.getString("Relacionnucleof")+"\","
+						+ "\""+rs.getString("Areaescolar")+"\","
+					    + "\""+rs.getString("Desarrollosocial")+"\","
+					    + "\""+rs.getString("Desarrollolaboral")+"\","
+					    + "\""+rs.getString("Desarrollosexual")+"\","
+					    + "\""+rs.getString("Desarrolloconyugal")+"\","
+					    + "\""+rs.getString("Desarrolloespiritual")+"\","
+					    + "\""+rs.getString("Aspectoconductageneral")+"\","
+					    + "\""+rs.getString("Algomasagregar")+"\","
+					    + "\""+rs.getString("Impresiondiagnostica")+"\","
+					    + "\""+rs.getInt("PacienteID")+"\")'><span><i class='fa fa-edit'></i></span>Actualizar</button>";
+					   
+				
+			out +="</td>";
+			out += "</tr>";
+			}
+			out += "</tbody>";
+			
+			out += "<tfoot>";
+			out += "<tr>";
+			out+="<th>Paciente</th>";
+			out+="<th>Acciones</th>";
+			out+="</tr>";
+			out += "</tfoot>";
+			
+			PrintWriter pw = response.getWriter();
+			pw.write(out);
+			pw.flush();
+			boolean error = pw.checkError();
+			System.out.println("Error: " + error);
+		} catch (Exception e) {
+			System.out.println("SL: error en el servlet:" + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	protected void refrescarApsicologo(HttpServletRequest request, HttpServletResponse response, int usuarioID) throws ServletException, IOException {
+		int UsuarioID = usuarioID; 
+		try {
+			DtVHistoriaClinicaPaciente dtc = new DtVHistoriaClinicaPaciente();
+			ResultSet rs = dtc.cargarVistaApsicologo(UsuarioID);
 			
 			response.setContentType("text/html; charset=UTF-8");
 			String out = "";

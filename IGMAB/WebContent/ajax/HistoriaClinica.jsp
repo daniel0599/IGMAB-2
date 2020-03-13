@@ -66,7 +66,7 @@ response.setDateHeader("Expires", -1);
 	}
 
 %>
-<input id="TipoRol" name="TipoROl" type="hidden" value=<%=r.getRolId()%>  checked>
+<input id="TipoRol" name="TipoRol" type="hidden" value=<%=r.getRolId()%>  checked>
 
 <input id="usuarioID" name="usuarioID" type="hidden" value=<%=us.getUsuarioID()%> checked>
 
@@ -2244,9 +2244,37 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 		});
 
 	}
+	function refrescarApsicologo() {
+		var fusuarioID = "";
+		fusuarioID = $('#usuarioID').val();
+		var opcion = "";
+		opcion = "refrescarApsicologo";
+
+		$.ajax({
+			url : "SlHistoriaClinica",
+			type : "post",
+			datatype : 'html',
+			data : {
+				'fusuarioID' : fusuarioID,
+				'opcion' : opcion
+			},
+			success : function(data) {
+				$('#datatable-1').html(data);
+				$('#datatable-1').dataTable().fnDestroy();
+				AllTables();
+				$('#datatable-1').addClass(
+						"table table-bordered table-striped table-hover table-heading table-datatable");
+			}
+
+		});
+
+	}
+
 
 	//MÉTODO PARA GUARDAR EL REGISTRO A TRAVÉS DEL SERVLET
 	function guardarHistoriaClinica() {
+		 var tiporol =  0;
+			tiporol = $('#TipoRol').val();
 		var fpacienteId = 0;
 		var fmotivoConsulta = "";
 		var fhistoriaPadecimiento = "";
@@ -2319,29 +2347,58 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 						'impresionDiagnostica' : impresionDiagnostica
 					},
 					success : function(data) {
-						$("#pacienteId").val(null);
-						$("#motivoConsulta").val(null);
-						$("#historiaPadecimiento").val(null);
-						$("#expectativas").val(null);
-						$("#antecedentesHeredoFamiliares").val(null);
-						$("#antecedentesPersonalesNoPatologicos").val(null);
-						$("#antecedentesPatologicosPersonales").val(null);
-						$("#antecedentesPatologicosFamiliares").val(null);
-						$("#relacionConElNucleoFamilar").val(null);
-						$("#areaEscolar").val(null);
-						$("#desarrolloSocial").val(null);
-						$("#desarrolloLaboral").val(null);
-						$("#desarrolloSexual").val(null);
-						$("#desarrolloConyugal").val(null);
-						$("#desarrolloEspiritual").val(null);
-						$("#aspectoYConductaGeneral").val(null);
-						$("#algoMasAgregar").val(null);
-						$("#impresionDiagnostica").val(null);
-						$('#frm-agrega').fadeOut();
-						//websocket.send("Guardar");
-						refrescar();
-						successAlert('Listo', 'Guardado exitosamente');
+						if(tiporol == 3 || tiporol == 5){
+							$("#pacienteId").val(null);
+							$("#motivoConsulta").val(null);
+							$("#historiaPadecimiento").val(null);
+							$("#expectativas").val(null);
+							$("#antecedentesHeredoFamiliares").val(null);
+							$("#antecedentesPersonalesNoPatologicos").val(null);
+							$("#antecedentesPatologicosPersonales").val(null);
+							$("#antecedentesPatologicosFamiliares").val(null);
+							$("#relacionConElNucleoFamilar").val(null);
+							$("#areaEscolar").val(null);
+							$("#desarrolloSocial").val(null);
+							$("#desarrolloLaboral").val(null);
+							$("#desarrolloSexual").val(null);
+							$("#desarrolloConyugal").val(null);
+							$("#desarrolloEspiritual").val(null);
+							$("#aspectoYConductaGeneral").val(null);
+							$("#algoMasAgregar").val(null);
+							$("#impresionDiagnostica").val(null);
+							$('#frm-agrega').fadeOut();
+							//websocket.send("Guardar");
+							refrescarApsicologo();
+							successAlert('Listo', 'Guardado exitosamente');
 
+							
+						}else{
+							$("#pacienteId").val(null);
+							$("#motivoConsulta").val(null);
+							$("#historiaPadecimiento").val(null);
+							$("#expectativas").val(null);
+							$("#antecedentesHeredoFamiliares").val(null);
+							$("#antecedentesPersonalesNoPatologicos").val(null);
+							$("#antecedentesPatologicosPersonales").val(null);
+							$("#antecedentesPatologicosFamiliares").val(null);
+							$("#relacionConElNucleoFamilar").val(null);
+							$("#areaEscolar").val(null);
+							$("#desarrolloSocial").val(null);
+							$("#desarrolloLaboral").val(null);
+							$("#desarrolloSexual").val(null);
+							$("#desarrolloConyugal").val(null);
+							$("#desarrolloEspiritual").val(null);
+							$("#aspectoYConductaGeneral").val(null);
+							$("#algoMasAgregar").val(null);
+							$("#impresionDiagnostica").val(null);
+							$('#frm-agrega').fadeOut();
+							//websocket.send("Guardar");
+							refrescar();
+							successAlert('Listo', 'Guardado exitosamente');
+
+					
+						}
+						
 					}
 
 				});
@@ -2350,6 +2407,8 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 
 	//Metodo para actualizar
 	function actualizarHistoriaClinica(idClicked) {
+		var tiporol =  0;
+		tiporol = $('#TipoRol').val();
 		var fHistoriaClinicaId = idClicked;
 		var fmotivoConsultEditar = "";
 		var fhistoriaPadecimientoEditar = "";
@@ -2420,29 +2479,56 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 						'impresionDiagnosticaEditar' : impresionDiagnosticaEditar
 					},
 					success : function(data) {
-						$("#motivoConsultaEditar").val(null);
-						$("#historiaPadecimientoEditar").val(null);
-						$("#expectativasEditar").val(null);
-						$("#antecedentesHeredoFamiliaresEditar").val(null);
-						$("#antecedentesPersonalesNoPatologicosEditar").val(null);
-						$("#antecedentesPatologicosPersonalesEditar").val(null);
-						$("#antecedentesPatologicosFamiliaresEditar").val(null);
-						$("#relacionConElNucleoFamilarEditar").val(null);
-						$("#areaEscolarEditar").val(null);
-						$("#desarrolloSocialEditar").val(null);
-						$("#desarrolloLaboralEditar").val(null);
-						$("#desarrolloSexualEditar").val(null);
-						$("#desarrolloConyugalEditar").val(null);
-						$("#desarrolloEspiritualEditar").val(null);
-						$("#aspectoYConductaGeneralEditar").val(null);
-						$("#algoMasAgregarEditar").val(null);
-						$("#impresionDiagnosticaEditar").val(null);
+						if(tiporol == 3 || tiporol == 5){
+							$("#motivoConsultaEditar").val(null);
+							$("#historiaPadecimientoEditar").val(null);
+							$("#expectativasEditar").val(null);
+							$("#antecedentesHeredoFamiliaresEditar").val(null);
+							$("#antecedentesPersonalesNoPatologicosEditar").val(null);
+							$("#antecedentesPatologicosPersonalesEditar").val(null);
+							$("#antecedentesPatologicosFamiliaresEditar").val(null);
+							$("#relacionConElNucleoFamilarEditar").val(null);
+							$("#areaEscolarEditar").val(null);
+							$("#desarrolloSocialEditar").val(null);
+							$("#desarrolloLaboralEditar").val(null);
+							$("#desarrolloSexualEditar").val(null);
+							$("#desarrolloConyugalEditar").val(null);
+							$("#desarrolloEspiritualEditar").val(null);
+							$("#aspectoYConductaGeneralEditar").val(null);
+							$("#algoMasAgregarEditar").val(null);
+							$("#impresionDiagnosticaEditar").val(null);
 
-						//websocket.send("Modificar");
-						refrescar();
-						$('#frm-edita').fadeOut();
-						successAlert('Listo', 'Actualizado exitosamente');
+							//websocket.send("Modificar");
+							refrescarApsicologo();
+							$('#frm-edita').fadeOut();
+							successAlert('Listo', 'Actualizado exitosamente');
 
+						}else{
+							$("#motivoConsultaEditar").val(null);
+							$("#historiaPadecimientoEditar").val(null);
+							$("#expectativasEditar").val(null);
+							$("#antecedentesHeredoFamiliaresEditar").val(null);
+							$("#antecedentesPersonalesNoPatologicosEditar").val(null);
+							$("#antecedentesPatologicosPersonalesEditar").val(null);
+							$("#antecedentesPatologicosFamiliaresEditar").val(null);
+							$("#relacionConElNucleoFamilarEditar").val(null);
+							$("#areaEscolarEditar").val(null);
+							$("#desarrolloSocialEditar").val(null);
+							$("#desarrolloLaboralEditar").val(null);
+							$("#desarrolloSexualEditar").val(null);
+							$("#desarrolloConyugalEditar").val(null);
+							$("#desarrolloEspiritualEditar").val(null);
+							$("#aspectoYConductaGeneralEditar").val(null);
+							$("#algoMasAgregarEditar").val(null);
+							$("#impresionDiagnosticaEditar").val(null);
+
+							//websocket.send("Modificar");
+							refrescar();
+							$('#frm-edita').fadeOut();
+							successAlert('Listo', 'Actualizado exitosamente');
+
+						}
+						
 					}
 
 				});
