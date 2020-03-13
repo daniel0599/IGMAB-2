@@ -54,9 +54,9 @@ public class PoolConexion
         basicDataSource.setPassword(pass);
         basicDataSource.setUrl(url);
         basicDataSource.setInitialSize(20);
-        basicDataSource.setMaxActive(200);
-        basicDataSource.setMaxIdle(300);
-        basicDataSource.setMaxWait(60000);
+        basicDataSource.setMaxActive(600);
+        basicDataSource.setMaxIdle(400);
+        basicDataSource.setMaxWait(65000);
         basicDataSource.setRemoveAbandoned(true);
         basicDataSource.setRemoveAbandonedTimeout(20000); 
         dataSource = basicDataSource;

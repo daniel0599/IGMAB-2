@@ -857,7 +857,7 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 						<%
 						DtConsulta dtcon = new DtConsulta();
 							DtVHistoriaClinicaPaciente dtc = new DtVHistoriaClinicaPaciente();
-							rs = dtc.cargarVistaApsicologo(dtcon.obtenerPsicologoID(us.getUsuarioID())) ;
+							rs = dtc.cargarVistaApsicologo(us.getUsuarioID());
 							rs.beforeFirst();
 							while (rs.next()) {
 						%>

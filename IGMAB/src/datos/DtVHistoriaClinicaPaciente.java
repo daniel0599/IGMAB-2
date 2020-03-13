@@ -35,7 +35,7 @@ public class DtVHistoriaClinicaPaciente {
 		PreparedStatement s;
 		
 		try {
-			s = con.prepareStatement("SELECT * FROM igmab.historiaclinica_paciente pac INNER JOIN Consulta con ON con.PacienteID=pac.PacienteID INNER JOIN Psicologo psi ON psi.PsicologoID=con.PsicologoID where psi.PsicologoID=?");
+			s = con.prepareStatement("SELECT * FROM igmab.historiaclinica_paciente pac  where pac.Usuariocreacion=?");
 			s.setInt(1, psicologoID);
 			rsn= s.executeQuery();
 		} catch (Exception e) {
