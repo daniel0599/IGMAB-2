@@ -203,6 +203,17 @@ public class SlPariente extends HttpServlet {
 			case "refrescar" :
 				refrescar(request,response);
 				break;
+				
+			case "refrescarApsicologo" :{
+	         	//  int tiporol = 0;
+	     		int usuarioID =0;
+	     		
+	     		//tiporol = Integer.parseInt(request.getParameter("fTipoRol"));
+	     		usuarioID = Integer.parseInt(request.getParameter("fusuarioID"));
+	     		
+	         	refrescarApsicologo(request, response, usuarioID);
+	         	break;
+	         }
 		}
 
 		
@@ -287,6 +298,118 @@ public class SlPariente extends HttpServlet {
 						+"\""+rs.getInt("ParentescoID")+"\","
 						+ "\""+rs.getInt("Tutor")+"\")'><span><i class='fa fa-edit'></i></span>Actualizar</button>";
                 out +="<button id='btnIdEliminar' value="+rs.getInt("ParienteID")+" class='ajax-link action btn btn-default btn-label-left' onClick='eliminar(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Eliminar</button>";
+				out +="</td>";
+				out += "</tr>";
+			}
+			out += "</tbody>";
+			
+			out += "<tfoot>";
+			out+="<th>Nombre completo</th>";
+			out+="<th>Estado de vida</th>";
+			out+="<th>Edad</th>";
+			out+="<th>Tutor</th>";
+			out+="<th>Parentesco</th>";
+			out+="<th>Acciones</th>";
+			out+="</tr>";
+			out += "</tfoot>";
+			
+			PrintWriter pw = response.getWriter();
+			pw.write(out);
+			pw.flush();
+			boolean error = pw.checkError();
+			System.out.println("Error: " + error);
+			
+		} catch (Exception e) {
+			System.out.println("SL: error en el servlet:" + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	
+	protected void refrescarApsicologo(HttpServletRequest request, HttpServletResponse response, int usuarioID) 
+			throws ServletException, IOException {
+		
+		int UsuarioID = usuarioID;
+		
+		
+		try {
+           // SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+           // SimpleDateFormat fechaM = new SimpleDateFormat("dd/MM/yyyy");
+			
+			DtPariente dtpar = new DtPariente();
+			ResultSet rs = dtpar.cargarDatosApsicologo(UsuarioID);
+			response.setContentType("text/html; charset=UTF-8");
+			String out = "";
+			
+			out+="<thead>";
+			out+="<tr>";
+			out+="<th>Nombre completo</th>";
+			out+="<th>Estado de vida</th>";
+			out+="<th>Edad</th>";
+			out+="<th>Tutor</th>";
+			out+="<th>Parentesco</th>";
+			out+="<th>Acciones</th>";
+			out+="</tr>";
+			out+="</thead>";
+			
+			out += "<tbody>";
+			while(rs.next()){
+				
+				out += "<td>" + rs.getString("Nombre1par")+" "+rs.getString("Nombre2par")+" "+rs.getString("Apellido1par")+" "+rs.getString("Apellido2par") + "</td>";
+				
+				if(rs.getInt("Estadovidapar")==1){
+					out +="<td>"+"Vivo"+"</td>";
+				}
+				if(rs.getInt("Estadovidapar")==0){
+					out +="<td>"+"Fallecido"+"</td>";
+				}
+				out += "<td>" + rs.getString("Edadpar") + "</td>";
+				if(rs.getInt("Tutorpar")==1){
+					out +="<td>"+"Si"+"</td>";
+				}
+				if(rs.getInt("Tutorpar")==0){
+					out +="<td>"+"No"+"</td>";
+				}
+				out += "<td>" + rs.getString("Parentescopar") + "</td>";
+				out += "<td>";
+            //    Date fecha = formatter.parse(rs.getString("Fechanac"));
+
+                out += "<button id='btnIdVisualizar' value="+rs.getInt("ParienteIDpar")+" class='btn btn-info' "
+                        + "onclick ='visualizarDatos(this.value, \""+ rs.getString("Nombre1par") + "\", "
+                        + "\""+rs.getString("Nombre2par")+"\","
+                        + "\""+rs.getString("Apellido1par")+"\","
+                        + "\""+rs.getString("Apellido2par")+"\","
+                        + "\""+rs.getString("Ocupacionpar")+"\","
+                        + "\""+rs.getString("Lugartrabajopar")+"\","
+                        + "\""+rs.getString("Cargopar")+"\","
+                        + "\""+rs.getString("Salariomensualpar")+"\","
+                        + "\""+rs.getString("Edadpar")+"\","
+                      //  + "\""+fechaM.format(fecha)+"\","
+                        + "\""+rs.getInt("EscolaridadIDpar")+"\","
+                        + "\""+rs.getString("Escolaridadpar")+"\","
+                        + "\""+rs.getInt("Estadovidapar")+"\","
+                        + "\""+rs.getString("Causamuertepar")+"\","
+                        +"\""+rs.getInt("ParentescoIDpar")+"\","
+                        + "\""+rs.getInt("Tutorpar")+"\")'><span><i class='fa fa-eye'></i></span>Ver Pariente</button>";
+
+				out += "<button id='btnIdActualizar' value="+rs.getInt("ParienteIDpar")+" class='btn btn-primary btn-label-left' "
+						+ "onclick = 'cargarDatos(this.value, \""+ rs.getString("Nombre1par") + "\", "
+						+ "\""+rs.getString("Nombre2par")+"\","
+						+ "\""+rs.getString("Apellido1par")+"\","
+						+ "\""+rs.getString("Apellido2par")+"\","
+                        + "\""+rs.getString("Ocupacionpar")+"\","
+                        + "\""+rs.getString("Lugartrabajopar")+"\","
+                        + "\""+rs.getString("Cargopar")+"\","
+                        + "\""+rs.getString("Salariomensualpar")+"\","
+                        + "\""+rs.getString("Edadpar")+"\","
+                      //  + "\""+fechaM.format(fecha)+"\","
+                        + "\""+rs.getInt("EscolaridadIDpar")+"\","
+                        + "\""+rs.getString("Escolaridadpar")+"\","
+                        + "\""+rs.getInt("Estadovidapar")+"\","
+						+ "\""+rs.getString("Causamuertepar")+"\","
+						+"\""+rs.getInt("ParentescoIDpar")+"\","
+						+ "\""+rs.getInt("Tutorpar")+"\")'><span><i class='fa fa-edit'></i></span>Actualizar</button>";
+                out +="<button id='btnIdEliminar' value="+rs.getInt("ParienteIDpar")+" class='ajax-link action btn btn-default btn-label-left' onClick='eliminar(this.value);'><span><i class='fa fa-trash-o txt-danger'></i></span>Eliminar</button>";
 				out +="</td>";
 				out += "</tr>";
 			}

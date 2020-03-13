@@ -63,7 +63,7 @@ response.setDateHeader("Expires", -1);
 
 %>
 <input id="usuarioID" name="usuarioID" type="hidden" value=<%=us.getUsuarioID()%> checked>
-<input id="TipoRol" name="TipoROl" type="hidden" value=<%=r.getRolId()%>  checked>
+<input id="TipoRol" name="TipoRol" type="hidden" value=<%=r.getRolId()%>  checked>
 <%
 if(r.getRolId() == 3 || r.getRolId() == 5){
 %>
@@ -503,7 +503,7 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
                         </div>
                         <label class="col-sm-2 control-label">Salario</label>
                         <div class="col-sm-4">
-                            <input disabled type="number" class="form-control" placeholder="Salario" id="salarioVi" name="salario">
+                            <input disabled readonly type="number" class="form-control" placeholder="Salario" id="salarioVi" name="salario">
                         </div>
                     </div>
 
@@ -665,7 +665,7 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 
 					<tbody>
 						<%
-						DtConsulta dtcon = new DtConsulta();
+						//DtConsulta dtcon = new DtConsulta();
 							DtPariente dtpari = new DtPariente();
 							ResultSet rp = dtpari.cargarDatosApsicologo(us.getUsuarioID());
                           //  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -707,13 +707,10 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 								}
 							%>
 							<td><%=rp.getString("Parentescopar")%></td>
-							<%
-                            if(r.getRolId() == 3){
-                            %>
+							
                             <td> 
 <%--                                 <% Date fecha = formatter.parse(rp.getString("Fechanac")); %> --%>
-
-								<button id="btnIdVisualizar"
+                              <button id="btnIdVisualizar"
 								onClick="visualizarDatos(this.value, '<%=rp.getString("Nombre1par")%>',
 								'<%=rp.getString("Nombre2par")%>',
 								'<%=rp.getString("Apellido1par")%>',
@@ -735,13 +732,38 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 								Ver Pariente
 								</button>
 
+								<button id='btnIdActualizar'
+									class="btn btn-primary btn-label-left"
+									OnClick="cargarDatos(this.value, '<%=rp.getString("Nombre1par")%>',
+										'<%=rp.getString("Nombre2par")%>',
+										'<%=rp.getString("Apellido1par")%>',
+										'<%=rp.getString("Apellido2par")%>',
+                                            '<%=rp.getString("Ocupacionpar")%>',
+                                            '<%=rp.getString("Lugartrabajopar")%>',
+                                            '<%=rp.getString("Cargopar")%>',
+                                            '<%=rp.getString("Salariomensualpar")%>',
+                                            '<%=rp.getString("Edadpar")%>',
+<%--                                             '<%=fechaM.format(fecha)%>', --%>
+                                            '<%=rp.getInt("EscolaridadIDpar")%>',
+                                            '<%=rp.getString("Escolaridadpar")%>',
+										'<%=rp.getInt("Estadovidapar")%>',
+										'<%=rp.getString("Causamuertepar")%>',
+                                            '<%=rp.getInt("ParentescoIDpar")%>',
+										'<%=rp.getInt("Tutorpar")%>');"
+									value=<%=rp.getInt("ParienteIDpar")%> class="btn btn-info">
+									<span><i class="fa fa-edit"></i></span> Actualizar
+								</button>
+
+								<button id="btnIdEliminar" value=<%=rp.getInt("ParienteIDpar")%>
+										class='ajax-link action btn btn-default btn-label-left'
+								onClick='eliminar(this.value);'>
+								<span><i class="fa fa-trash-o txt-danger"></i></span> Eliminar
+								</button>
 								
 								
 
 							</td>
-							<%
-							}
-							%>
+
 							
 						</tr>
 						<%
@@ -1402,9 +1424,7 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 								}
 							%>
 							<td><%=rp.getString("Parentesco")%></td>
-                            <%
-                            if(r.getRolId() == 1){
-                            %>
+                           
                             <td> 
 <%--                                 <% Date fecha = formatter.parse(rp.getString("Fechanac")); %> --%>
 
@@ -1460,166 +1480,7 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 
 
 							</td>
-							<%
-							}
-							%>
-							<%
-                            if(r.getRolId() == 2){
-                            %>
-                            <td> 
-<%--                                 <% Date fecha = formatter.parse(rp.getString("Fechanac")); %> --%>
-
-								<button id="btnIdVisualizar"
-								onClick="visualizarDatos(this.value, '<%=rp.getString("Nombre1")%>',
-								'<%=rp.getString("Nombre2")%>',
-								'<%=rp.getString("Apellido1")%>',
-								'<%=rp.getString("Apellido2")%>',
-								'<%=rp.getString("Ocupacion")%>',
-								'<%=rp.getString("Lugartrabajo")%>',
-								'<%=rp.getString("Cargo")%>',
-								'<%=rp.getString("Salariomensual")%>',
-								'<%=rp.getString("Edad")%>',
-<%-- 								'<%=fechaM.format(fecha)%>', --%>
-								'<%=rp.getInt("EscolaridadID")%>',
-								'<%=rp.getString("Escolaridad")%>',
-								'<%=rp.getInt("Estadovida")%>',
-								'<%=rp.getString("Causamuerte")%>',
-								'<%=rp.getInt("ParentescoID")%>',
-								'<%=rp.getInt("Tutor")%>');"
-								value=<%=rp.getInt("ParienteID")%> class="btn btn-info">
-								<span><i class="fa fa-eye"></i></span>
-								Ver Pariente
-								</button>
-
-								<button id='btnIdActualizar'
-									class="btn btn-primary btn-label-left"
-									OnClick="cargarDatos(this.value, '<%=rp.getString("Nombre1")%>',
-										'<%=rp.getString("Nombre2")%>',
-										'<%=rp.getString("Apellido1")%>',
-										'<%=rp.getString("Apellido2")%>',
-                                            '<%=rp.getString("Ocupacion")%>',
-                                            '<%=rp.getString("Lugartrabajo")%>',
-                                            '<%=rp.getString("Cargo")%>',
-                                            '<%=rp.getString("Salariomensual")%>',
-                                            '<%=rp.getString("Edad")%>',
-<%--                                             '<%=fechaM.format(fecha)%>', --%>
-                                            '<%=rp.getInt("EscolaridadID")%>',
-                                            '<%=rp.getString("Escolaridad")%>',
-										'<%=rp.getInt("Estadovida")%>',
-										'<%=rp.getString("Causamuerte")%>',
-                                            '<%=rp.getInt("ParentescoID")%>',
-										'<%=rp.getInt("Tutor")%>');"
-									value=<%=rp.getInt("ParienteID")%> class="btn btn-info">
-									<span><i class="fa fa-edit"></i></span> Actualizar
-								</button>
-
-								<button id="btnIdEliminar" value=<%=rp.getInt("ParienteID")%>
-										class='ajax-link action btn btn-default btn-label-left'
-								onClick='eliminar(this.value);'>
-								<span><i class="fa fa-trash-o txt-danger"></i></span> Eliminar
-								</button>
-
-
-							</td>
-							<%
-							}
-							%>
-							<%
-                            if(r.getRolId() == 3){
-                            %>
-                            <td> 
-<%--                                 <% Date fecha = formatter.parse(rp.getString("Fechanac")); %> --%>
-
-								<button id="btnIdVisualizar"
-								onClick="visualizarDatos(this.value, '<%=rp.getString("Nombre1")%>',
-								'<%=rp.getString("Nombre2")%>',
-								'<%=rp.getString("Apellido1")%>',
-								'<%=rp.getString("Apellido2")%>',
-								'<%=rp.getString("Ocupacion")%>',
-								'<%=rp.getString("Lugartrabajo")%>',
-								'<%=rp.getString("Cargo")%>',
-								'<%=rp.getString("Salariomensual")%>',
-								'<%=rp.getString("Edad")%>',
-<%-- 								'<%=fechaM.format(fecha)%>', --%>
-								'<%=rp.getInt("EscolaridadID")%>',
-								'<%=rp.getString("Escolaridad")%>',
-								'<%=rp.getInt("Estadovida")%>',
-								'<%=rp.getString("Causamuerte")%>',
-								'<%=rp.getInt("ParentescoID")%>',
-								'<%=rp.getInt("Tutor")%>');"
-								value=<%=rp.getInt("ParienteID")%> class="btn btn-info">
-								<span><i class="fa fa-eye"></i></span>
-								Ver Pariente
-								</button>
-
-								
-								
-
-							</td>
-							<%
-							}
-							%>
-							<%
-                            if(r.getRolId() == 4){
-                            %>
-                            <td> 
-<%--                                 <% Date fecha = formatter.parse(rp.getString("Fechanac")); %> --%>
-
-								<button id="btnIdVisualizar"
-								onClick="visualizarDatos(this.value, '<%=rp.getString("Nombre1")%>',
-								'<%=rp.getString("Nombre2")%>',
-								'<%=rp.getString("Apellido1")%>',
-								'<%=rp.getString("Apellido2")%>',
-								'<%=rp.getString("Ocupacion")%>',
-								'<%=rp.getString("Lugartrabajo")%>',
-								'<%=rp.getString("Cargo")%>',
-								'<%=rp.getString("Salariomensual")%>',
-								'<%=rp.getString("Edad")%>',
-<%-- 								'<%=fechaM.format(fecha)%>', --%>
-								'<%=rp.getInt("EscolaridadID")%>',
-								'<%=rp.getString("Escolaridad")%>',
-								'<%=rp.getInt("Estadovida")%>',
-								'<%=rp.getString("Causamuerte")%>',
-								'<%=rp.getInt("ParentescoID")%>',
-								'<%=rp.getInt("Tutor")%>');"
-								value=<%=rp.getInt("ParienteID")%> class="btn btn-info">
-								<span><i class="fa fa-eye"></i></span>
-								Ver Pariente
-								</button>
-
-								<button id='btnIdActualizar'
-									class="btn btn-primary btn-label-left"
-									OnClick="cargarDatos(this.value, '<%=rp.getString("Nombre1")%>',
-										'<%=rp.getString("Nombre2")%>',
-										'<%=rp.getString("Apellido1")%>',
-										'<%=rp.getString("Apellido2")%>',
-                                            '<%=rp.getString("Ocupacion")%>',
-                                            '<%=rp.getString("Lugartrabajo")%>',
-                                            '<%=rp.getString("Cargo")%>',
-                                            '<%=rp.getString("Salariomensual")%>',
-                                            '<%=rp.getString("Edad")%>',
-<%--                                             '<%=fechaM.format(fecha)%>', --%>
-                                            '<%=rp.getInt("EscolaridadID")%>',
-                                            '<%=rp.getString("Escolaridad")%>',
-										'<%=rp.getInt("Estadovida")%>',
-										'<%=rp.getString("Causamuerte")%>',
-                                            '<%=rp.getInt("ParentescoID")%>',
-										'<%=rp.getInt("Tutor")%>');"
-									value=<%=rp.getInt("ParienteID")%> class="btn btn-info">
-									<span><i class="fa fa-edit"></i></span> Actualizar
-								</button>
-
-								<button id="btnIdEliminar" value=<%=rp.getInt("ParienteID")%>
-										class='ajax-link action btn btn-default btn-label-left'
-								onClick='eliminar(this.value);'>
-								<span><i class="fa fa-trash-o txt-danger"></i></span> Eliminar
-								</button>
-
-
-							</td>
-							<%
-							}
-							%>
+							
 						</tr>
 						<%
 							}
@@ -1648,6 +1509,8 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 %>
 
 <script type="text/javascript">
+
+
 // 	var wsUri = "ws://localhost:8080/IGMAB/serverendpointigmab";
 // 	var websocket = new WebSocket(wsUri); //creamos el socket
 
@@ -1669,14 +1532,14 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 	//MÉTODO PARA EJECUTAR EL WEBSOCKET.ONMESSAGE Y GUARDAR
 	function guardar() {
 		guardarPariente();
-		refrescar();
+		//refrescar();
 		//websocket.send("Guardar");
 
 	}
 
 	//MÉTODO PARA EJECUTAR EL WEBSOCKET.ONMESSAGE Y ACTUALIZAR
 	function actualizar(idClicked) {
-		refrescar();
+		//refrescar();
 		actualizarPariente(idClicked);
 		//websocket.send("Modificar");
 	}
@@ -1702,6 +1565,33 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 			type : "post",
 			datatype : 'html',
 			data : {
+				'opcion' : opcion
+			},
+			success : function(data) {
+				$('#datatable-1').html(data);
+				$('#datatable-1').DataTable().fnDestroy();
+				AllTables();
+				$('#datatable-1').addClass("dataTables_wrapper form-inline");
+				
+			}
+
+		});
+
+	}
+	
+	function refrescarApsicologo() {
+		var fusuarioID = "";
+		fusuarioID = $('#usuarioID').val();
+		
+		var opcion = "";
+		opcion = "refrescarApsicologo";
+
+		$.ajax({
+			url : "SlPariente",
+			type : "post",
+			datatype : 'html',
+			data : {
+				'fusuarioID' : fusuarioID,
 				'opcion' : opcion
 			},
 			success : function(data) {
@@ -1757,15 +1647,10 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 		fsalarioMensual = $("#salario").val();
 		ftutor = $("#tutor").val();
 		fparentescoid = $("#parentesco").val();
+		var tiporol =  0;
+		tiporol = $('#TipoRol').val();
+		console.log('tipo rol'+tiporol);
 
-        //Calcular edad
-//         var fecha = new Date();
-//         var year = fecha.getFullYear();
-//         var age = parseInt(ffechaNac.substring(6, 10));
-//         var realAge = year - age;
-//         console.log("realAge is: "+realAge);
-//         $('#edad').val(realAge);
-//         fedad = $('#edad').val();
 
 		$.ajax({
 			url : "SlPariente",
@@ -1792,12 +1677,23 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 
 			},
 			success : function(data) {
-				//websocket.send("Guardar");
-				refrescar();
-				successAlert('Listo', 'Guardado exitosamente');
-                $("#agregar")[0].reset();
-                $('#frm-agrega').fadeOut();
+				if(tiporol == 3 || tiporol == 5){
+					
+					successAlert('Listo', 'Guardado exitosamente');
+	                $("#agregar")[0].reset();
+	                $('#frm-agrega').fadeOut();	
+	                refrescarApsicologo();
+					
+				}else{
+					
+					successAlert('Listo', 'Guardado exitosamente');
+	                $("#agregar")[0].reset();
+	                $('#frm-agrega').fadeOut();	
+	                refrescar();
+			
+				}
 			}
+			
 
 		});
 
@@ -1807,6 +1703,8 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 	function eliminarPariente(idClicked) {
 		var opcion = "";
 		var fparienteID = idClicked;
+		var tiporol =  0;
+		tiporol = $('#TipoRol').val();
 		opcion = "eliminar";
 
 		$.ajax({
@@ -1819,9 +1717,20 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 			},
 			success : function(data) {
 				//websocket.send("Eliminar");
-				refrescar();
-				successAlert('Listo', 'Eliminado exitosamente');
-
+				
+			
+				if(tiporol == 3 || tiporol == 5){
+					
+					successAlert('Listo', 'Eliminado exitosamente');
+					refrescarApsicologo();
+					
+				}else{
+					
+					successAlert('Listo', 'Eliminado exitosamente');
+					refrescar();
+			
+				}
+				
 			}
 
 		});
@@ -1848,6 +1757,9 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 		var fsalarioMensualEditar;
 		var ftutorEditar;
 		var fparentescoidEditar;
+
+		var tiporol =  0;
+		tiporol = $('#TipoRol').val();
 
 		opcion = "actualizar";
 		fprimerNombreEditar = $("#primerNombreEditar").val();
@@ -1902,10 +1814,23 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 			},
 			success : function(data) {
 				//websocket.send("Modificar");
-				refrescar();
-				successAlert('Listo', 'Actualizado exitosamente');
-                $("#editar")[0].reset();
-				$('#frm-edita').fadeOut();
+				
+				
+				if(tiporol == 3 || tiporol == 5){
+					
+					successAlert('Listo', 'Actualizado exitosamente');
+	                $("#editar")[0].reset();
+					$('#frm-edita').fadeOut();
+					refrescarApsicologo();
+					
+				}else{
+					
+					successAlert('Listo', 'Actualizado exitosamente');
+	                $("#editar")[0].reset();
+					$('#frm-edita').fadeOut();
+					refrescar();
+			
+				}
 			}
 
 		});

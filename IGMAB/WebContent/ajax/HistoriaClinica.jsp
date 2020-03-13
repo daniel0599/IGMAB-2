@@ -71,7 +71,7 @@ response.setDateHeader("Expires", -1);
 <input id="usuarioID" name="usuarioID" type="hidden" value=<%=us.getUsuarioID()%> checked>
 
 <%
-if(r.getRolId() == 3){
+if(r.getRolId() == 3 || r.getRolId() == 5){
 %>	
 
 <div class="row">
@@ -110,15 +110,17 @@ if(r.getRolId() == 3){
 							<select name="country" id="pacienteId">
 								<option value="">-- Selecciona el paciente --</option>
 								<%
-									DtVHistoriaClinicaUnica dtpu = new DtVHistoriaClinicaUnica();
-									ResultSet rpu = dtpu.cargarVista();
+									//DtVHistoriaClinicaUnica dtpu = new DtVHistoriaClinicaUnica();
+								DtPaciente dtpac = new DtPaciente();
+								//rspso = dtpac.cargarPacientesAPsicologos(us.getUsuarioID());
+									ResultSet rpu = dtpac.cargarPacientesAPsicologos(us.getUsuarioID());
 									rpu.beforeFirst();
 
 									while (rpu.next()) {
 								%>
 
-								<option value="<%=rpu.getInt("pacienteID")%>"><%=rpu.getString("nombre1") + " " + rpu.getString("nombre2") + " " + rpu.getString("apellido1")
-						+ " " + rpu.getString("apellido2")%></option>
+								<option value="<%=rpu.getInt("PacienteID")%>"><%=rpu.getString("Nombre1") + " " + rpu.getString("Nombre2") + " " + rpu.getString("Apellido1")
+						+ " " + rpu.getString("Apellido2")%></option>
 
 								<%
 									}
@@ -1005,6 +1007,30 @@ if(r.getRolId() == 3){
 									<span><i class="fa fa-eye"></i></span>
 									Ver Historia Clinica
 								</button>
+								
+									<button id='btnIdActualizar'
+									class="btn btn-primary btn-label-left"
+									onclick="cargarDatos(this.value, '<%=rs.getString("Motivoconsulta")%>',
+										'<%=rs.getString("Padecimientoactual")%>',
+										'<%=rs.getString("Expectativa")%>',
+										'<%=rs.getString("Padecimientoh_f")%>',
+										'<%=rs.getString("Antecedentespersonalesnp")%>',
+										'<%=rs.getString("Antecedentespatologicosp")%>',
+										'<%=rs.getString("Antecedentespatologicosf")%>',
+										'<%=rs.getString("Relacionnucleof")%>',
+										'<%=rs.getString("Areaescolar")%>',
+										'<%=rs.getString("Desarrollosocial")%>',
+										'<%=rs.getString("Desarrollolaboral")%>',
+										'<%=rs.getString("Desarrollosexual")%>',
+										'<%=rs.getString("Desarrolloconyugal")%>',
+										'<%=rs.getString("Desarrolloespiritual")%>',
+										'<%=rs.getString("Aspectoconductageneral")%>',
+										'<%=rs.getString("Algomasagregar")%>',
+										'<%=rs.getString("Impresiondiagnostica")%>',
+										'<%=rs.getInt("PacienteID")%>');"
+									value=<%=rs.getInt("HistoriaclinicaID")%> class="btn btn-info">
+									<span><i class="fa fa-edit"></i></span> Actualizar
+								</button>
 
 								
 							</td>
@@ -1013,6 +1039,63 @@ if(r.getRolId() == 3){
 							%>
 							<% 
 							if(r.getRolId() == 4){
+							%>
+							<td>
+								<button id="btnIdVisualizar"
+									value=<%=rs.getInt("HistoriaclinicaID")%>
+									class='ajax-link action btn btn-default btn-label-left'
+									onClick="visualizarDatos(this.value, '<%=rs.getString("Motivoconsulta")%>',
+									'<%=rs.getString("Padecimientoactual")%>',
+									'<%=rs.getString("Expectativa")%>',
+									'<%=rs.getString("Padecimientoh_f")%>',
+									'<%=rs.getString("Antecedentespersonalesnp")%>',
+									'<%=rs.getString("Antecedentespatologicosp")%>',
+									'<%=rs.getString("Antecedentespatologicosf")%>',
+									'<%=rs.getString("Relacionnucleof")%>',
+									'<%=rs.getString("Areaescolar")%>',
+									'<%=rs.getString("Desarrollosocial")%>',
+									'<%=rs.getString("Desarrollolaboral")%>',
+									'<%=rs.getString("Desarrollosexual")%>',
+									'<%=rs.getString("Desarrolloconyugal")%>',
+									'<%=rs.getString("Desarrolloespiritual")%>',
+									'<%=rs.getString("Aspectoconductageneral")%>',
+									'<%=rs.getString("Algomasagregar")%>',
+									'<%=rs.getString("Impresiondiagnostica")%>',
+									'<%=rs.getInt("PacienteID")%>');"
+									value=<%=rs.getInt("HistoriaclinicaID")%> class="btn btn-info">
+									<span><i class="fa fa-eye"></i></span>
+									Ver Historia Clinica
+								</button>
+
+								<button id='btnIdActualizar'
+									class="btn btn-primary btn-label-left"
+									onclick="cargarDatos(this.value, '<%=rs.getString("Motivoconsulta")%>',
+										'<%=rs.getString("Padecimientoactual")%>',
+										'<%=rs.getString("Expectativa")%>',
+										'<%=rs.getString("Padecimientoh_f")%>',
+										'<%=rs.getString("Antecedentespersonalesnp")%>',
+										'<%=rs.getString("Antecedentespatologicosp")%>',
+										'<%=rs.getString("Antecedentespatologicosf")%>',
+										'<%=rs.getString("Relacionnucleof")%>',
+										'<%=rs.getString("Areaescolar")%>',
+										'<%=rs.getString("Desarrollosocial")%>',
+										'<%=rs.getString("Desarrollolaboral")%>',
+										'<%=rs.getString("Desarrollosexual")%>',
+										'<%=rs.getString("Desarrolloconyugal")%>',
+										'<%=rs.getString("Desarrolloespiritual")%>',
+										'<%=rs.getString("Aspectoconductageneral")%>',
+										'<%=rs.getString("Algomasagregar")%>',
+										'<%=rs.getString("Impresiondiagnostica")%>',
+										'<%=rs.getInt("PacienteID")%>');"
+									value=<%=rs.getInt("HistoriaclinicaID")%> class="btn btn-info">
+									<span><i class="fa fa-edit"></i></span> Actualizar
+								</button>
+							</td>
+							<%
+							}
+							%>
+							<% 
+							if(r.getRolId() == 5){
 							%>
 							<td>
 								<button id="btnIdVisualizar"

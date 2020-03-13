@@ -67,7 +67,7 @@ response.setDateHeader("Expires", -1);
 
 %>
 <input id="usuarioID" name="usuarioID" type="hidden" value=<%=us.getUsuarioID()%> checked>
-<input id="TipoRol" name="TipoROl" type="hidden" value=<%=r.getRolId()%>  checked>
+<input id="TipoRol" name="TipoRol" type="hidden" value=<%=r.getRolId()%>  checked>
 
 <%
 if(r.getRolId() == 3 || r.getRolId() == 5){
@@ -2975,6 +2975,10 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 		$('#edad').val(realAge);
 		fedad = $('#edad').val();
 		
+		var tiporol =  0;
+		tiporol = $('#TipoRol').val();
+		console.log('tipo rol'+tiporol);
+		
 		freligion = $('#religion').val();
 		fmotivoconsulta = $('#motivoconsulta').val();
 		fcrianzaAnios = $('#crianzaAnios').val();
@@ -3016,11 +3020,20 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 				'opcion' : opcion
 			},
 			success : function(data) {
-				refrescar();
-				// websocket.send("Guardar");
-                successAlert('Listo', 'Guardado exitosamente');
-                $("#agregar")[0].reset();
-                $('#frm-agrega').fadeOut();
+                
+				if(tiporol == 3 || tiporol == 5){
+			
+					successAlert('Listo', 'Guardado exitosamente');
+	                $("#agregar")[0].reset();
+	                $('#frm-agrega').fadeOut();
+	                refrescarApsicologo();
+					
+				}else{
+					successAlert('Listo', 'Guardado exitosamente');
+	                $("#agregar")[0].reset();
+	                $('#frm-agrega').fadeOut();
+					refrescar();
+				}
 
 
 			}
@@ -3034,6 +3047,9 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 	function eliminarPaciente(idClicked) {
 		var opcion = "";
 		var fpacienteId = idClicked;
+		 var tiporol =  0;
+		tiporol = $('#TipoRol').val();
+		console.log('tipo rol'+tiporol);
 		opcion = "eliminar";
 
 		$.ajax({
@@ -3045,10 +3061,20 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 				'fpacienteId' : fpacienteId
 			},
 			success : function(data) {
-				refrescar();
-				//websocket.send("Eliminar");
-				successAlert('Listo', 'Eliminado exitosamente');
+				
+					if(tiporol == 3 || tiporol == 5){
+						refrescarApsicologo();
+						//websocket.send("Eliminar");
+						successAlert('Listo', 'Eliminado exitosamente');
+						
+					}else{
+						refrescar();
+						//websocket.send("Eliminar");
+						successAlert('Listo', 'Eliminado exitosamente');
+		                
+					}
                // $("#edit")[0].reset();
+				 
 
 			}
 
@@ -3195,6 +3221,9 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
         if($('#estudianteUCAEdit').is(":checked")) {
             festudianteUCA = 1;
         }
+        var tiporol =  0;
+		tiporol = $('#TipoRol').val();
+		console.log("tipo rol"+tiporol);
 		
 		//Calcular edad
 		var fecha = new Date();
@@ -3238,11 +3267,24 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 				'opcion' : opcion
 			},
 			success : function(data) {
-				$("#edit")[0].reset();
-				$('#frm-edita').fadeOut();
-				refrescar();
-		//		//websocket.send("Modificar");
-				successAlert('Listo', 'Actualizado exitosamente');
+			
+
+				if(tiporol == 3 || tiporol == 5){
+					$("#edit")[0].reset();
+					$('#frm-edita').fadeOut();
+					refrescarApsicologo();
+			//		//websocket.send("Modificar");
+					successAlert('Listo', 'Actualizado exitosamente');
+					
+				}else{
+					$("#edit")[0].reset();
+					$('#frm-edita').fadeOut();
+					refrescar();
+			//		//websocket.send("Modificar");
+					successAlert('Listo', 'Actualizado exitosamente');
+	                
+				}
+				
 			}
 
 		});

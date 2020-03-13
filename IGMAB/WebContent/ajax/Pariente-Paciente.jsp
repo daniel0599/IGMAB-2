@@ -170,7 +170,7 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 			<div class="box-content">
 				<div class="row">
 					<h4 class="page-header">Modificar pariente a paciente</h4>
-                      <form id="agregar" class="form-horizontal" role="form" action="javascript:void(0);" onsubmit="actualizar($('#btnEditar').val());">
+                      <form id="edit" class="form-horizontal" role="form" action="javascript:void(0);" onsubmit="actualizar($('#btnEditar').val());">
 					<div class="col-sm-6">
 						<h5 class="page-header">Datos</h5>
 						<div class="form-group">
@@ -627,7 +627,7 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 	function refrescarApsicologo(){
 		console.log("adentro del refrescar de psicologo");
 		var fusuarioID = "";
-		fusuarioID = $('usuarioID').val();
+		fusuarioID = $('#usuarioID').val();
 		var opcion = "";
 		opcion = "refrescarApsicologo";
 		//var table = $('#datatable-1').DataTable();
@@ -645,15 +645,10 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 				$('#datatable-1').dataTable().fnDestroy();
 				AllTables();
 				$('#datatable-1').addClass(
-						"table table-hover table-heading table-datatable");
+						"dataTables_wrapper form-inline");
 			}
 		});
-		
 		console.log("Saliendo del refrescar de psicologo");
-		
-		
-		
-		
 	}
 	//METODO PARA REFRESCAR EL DATATABLE A TRAVËS DEL SERVLET
 	function refrescar() {
@@ -693,7 +688,8 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 		var fPacienteID;
 		
     var fusuarioID = 0;
-		
+    var tiporol =  0;
+	tiporol = $('#TipoRol').val();
 		fusuarioID = $('#usuarioID').val();
 		
 		opcion = "guardar";
@@ -711,35 +707,25 @@ if(r.getRolId() == 3 || r.getRolId() == 5){
 			},
 			success : function(data) {
 				//websocket.send("Guardar");
-				var tiporol =  0;
-				tiporol = $('TipoRol').val();
-				switch(tiporol){
-				case 3 : {
-					refrescarAPsicologo();
+				
+				
+				if(tiporol == 3 || tiporol == 5){
+					refrescarApsicologo();
 					successAlert('Listo', 'Guardado exitosamente');
 					$('#pariente').val(null);
 					$('#paciente').val(null);
 					$("#agregar")[0].reset();
 					$('#frm-agrega').fadeOut();
-					break;
-				}
-				case 5 : {
-					refrescarAPsicologo();
-					successAlert('Listo', 'Guardado exitosamente');
-					$('#pariente').val(null);
-					$('#paciente').val(null);
-					$("#agregar")[0].reset();
-					$('#frm-agrega').fadeOut();
-					break;
-				}
-				default :{
+					
+				}else{
 					successAlert('Listo', 'Guardado exitosamente');
 					$('#pariente').val(null);
 					$('#paciente').val(null);
 					$("#agregar")[0].reset();
 					$('#frm-agrega').fadeOut();
 					refrescar();
-				}}
+			
+				}
 				
 			}
 		});
@@ -752,6 +738,8 @@ function actualizarParientePaciente(idClicked) {
 	    var fParientePacienteID = idClicked;
 	    var fparienteEditar = 0;
 		var fpacienteEditar = 0;
+		var tiporol =  0;
+		tiporol = $('#TipoRol').val();
 		
 		opcion = "actualizar";
 		fparienteEditar = $("#ParienteEditar").val();
@@ -768,29 +756,21 @@ function actualizarParientePaciente(idClicked) {
 				'opcion' : opcion
 			},
 			success : function(data) {
-				var tiporol =  0;
-				tiporol = $('TipoRol').val();
-				switch(tiporol){
-				case 3 : {
-					refrescarAPsicologo();
+				
+				
+				if(tiporol == 3 || tiporol == 5){
+					refrescarApsicologo();
 					$("#edit")[0].reset();
 					$('#frm-edita').fadeOut();
 					successAlert('Listo', 'Actualizado exitosamente');
-					break;
-				}
-				case 5 : {
-					refrescarAPsicologo();
-					$("#edit")[0].reset();
-					$('#frm-edita').fadeOut();
-					successAlert('Listo', 'Actualizado exitosamente');
-					break;
-				}
-				default :{
+					
+				}else{
 					refrescar();
 					$("#edit")[0].reset();
 					$('#frm-edita').fadeOut();
 					successAlert('Listo', 'Actualizado exitosamente');
-				}}
+			
+				}
 			
 
 			},
